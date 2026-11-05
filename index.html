@@ -91,6 +91,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---------- blocos ---------- */
 main { padding-block: 32px 64px; }
 .block + .block { margin-top: 48px; }
+.page-top { margin-bottom: 24px; }
+.page-top .lead { color: var(--muted); margin-top: 4px; }
+.more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+.more a { display: grid; gap: 2px; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--r); text-decoration: none; transition: border-color .15s, background .15s; }
+.more a:hover { border-color: var(--brand); background: var(--brand-tint); }
+.more b { color: var(--fg); font-weight: 600; font-size: 15px; }
+.more span { color: var(--muted); font-size: 13.5px; }
+@media (max-width: 760px) { .more { grid-template-columns: minmax(0, 1fr); } }
 .block-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
 .block-head h2 { font-size: 17px; font-weight: 600; }
 .block-head p { color: var(--muted); font-size: 13.5px; }
@@ -418,10 +426,11 @@ button.btn { border: 0; }
     </a>
     <nav class="menu" aria-label="Seções">
       <a href="#inicio" data-route="inicio">Início</a>
+      <a href="#apps" data-route="apps">Apps</a>
       <a href="#como-fazer" data-route="como-fazer">Como fazer</a>
-      <a href="#planilha-metas" data-route="planilha-metas">Planilha de metas</a>
       <a href="#metricas" data-route="metricas">Métricas</a>
       <a href="#atualizacao" data-route="atualizacao">Atualização</a>
+      <a href="#plano" data-route="plano">Plano</a>
     </nav>
     <label class="search" for="q">
       <span style="position:absolute;left:-9999px">Buscar</span>
@@ -780,7 +789,7 @@ window.__CENA__ = {"app": "Faturamento", "nos": [{"id": "fato", "nome": "Itens d
     const names = ['Todos', ...new Set(MET.map((m) => m.app))];
     const list = metFilter === 'Todos' ? MET : MET.filter((m) => m.app === metFilter);
     return `<section class="block" id="metricas" aria-labelledby="met-t">
-      <div class="block-head"><div><h2 id="met-t">Métricas</h2><p>Como cada número é calculado e onde ele aparece.</p></div></div>
+      <div class="page-top"><h1 class="page-h" id="met-t">Métricas</h1><p class="lead">Como cada número é calculado e onde ele aparece.</p></div>
       <div class="filters" role="group" aria-label="Filtrar por app">${names.map((n) => `<button class="pill" data-met="${esc(n)}" aria-pressed="${n === metFilter}">${esc(n)}</button>`).join('')}</div>
       <div id="mt">${metTable(list)}</div>
     </section>`;
@@ -808,7 +817,7 @@ window.__CENA__ = {"app": "Faturamento", "nos": [{"id": "fato", "nome": "Itens d
   function syncSection() {
     const cores = { nf: 'var(--brand)', integridade: 'var(--brand-strong)', diaria: 'var(--link)', mensal: 'var(--muted)' };
     return `<section class="block" id="atualizacao" aria-labelledby="sync-t">
-      <div class="block-head"><div><h2 id="sync-t">Atualização</h2><p>Cargas agendadas a partir do ERP, no horário de Brasília.</p></div></div>
+      <div class="page-top"><h1 class="page-h" id="sync-t">Atualização</h1><p class="lead">Cargas agendadas a partir do ERP, no horário de Brasília.</p></div>
       <div class="day" style="border-top:1px solid var(--line-2)"><div class="day-scroll">${daySvg()}</div></div>
       <div class="loads">${SYNC.cargas.map((c) => `<div class="load"><h3><i style="background:${cores[c.id]}" aria-hidden="true"></i>${esc(c.nome)}</h3><span class="when">${esc(c.quando)}</span><p>${esc(c.o_que)}</p><p>Duração: ${esc(c.duracao)}.</p></div>`).join('')}</div>
       <div class="note">${ic('info')}<span><b>Na prática:</b> um lançamento feito no ERP entre 07:00 e 19:00 aparece no painel em até 40 minutos. Exclusões e alterações de notas antigas são corrigidas na conferência seguinte, em até 2 horas. ${esc(SYNC.metas)}</span></div>
@@ -816,7 +825,7 @@ window.__CENA__ = {"app": "Faturamento", "nos": [{"id": "fato", "nome": "Itens d
   }
   function planSection() {
     return `<section class="block" id="plano" aria-labelledby="plan-t">
-      <div class="block-head"><div><h2 id="plan-t">Seu plano</h2><p>Cada plano inclui tudo do anterior.</p></div></div>
+      <div class="page-top"><h1 class="page-h" id="plan-t">Seu plano</h1><p class="lead">Cada plano inclui tudo do anterior.</p></div>
       <div class="tiers">
         <div class="tier"><span class="label">Pro</span><h3>BI</h3><ul><li>Painéis interativos ligados ao ERP</li><li>Relatórios prontos por área</li><li>3 usuários e 2 GB de dados</li></ul></div>
         <div class="tier"><span class="label">Plus</span><h3>BI + IA</h3><ul><li>Chatbot Lumia no BI e no WhatsApp</li><li>Montagem de dashboards com IA</li><li>10.000 tokens de IA</li></ul></div>
@@ -857,7 +866,7 @@ window.__CENA__ = {"app": "Faturamento", "nos": [{"id": "fato", "nome": "Itens d
   }
   function hubView() {
     return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 12)}<span aria-current="page">Como fazer</span></nav>
-      <h1 class="page-h" style="margin-bottom:20px">Como fazer</h1>${tutCards()}`;
+      <div class="page-top"><h1 class="page-h">Como fazer</h1><p class="lead">Passo a passo com vídeo das tarefas do dia a dia.</p></div>${tutCards()}`;
   }
   function bloco(b) {
     if (b.tipo === 'comparar') {
@@ -895,11 +904,22 @@ window.__CENA__ = {"app": "Faturamento", "nos": [{"id": "fato", "nome": "Itens d
   function home() {
     return `${pulse()}
     <div class="duo">
-      <section aria-labelledby="cf-t"><div class="block-head"><h2 id="cf-t">Como fazer</h2></div>${tutCards()}</section>
-      <section id="apps" aria-labelledby="apps-t"><div class="block-head"><h2 id="apps-t">Apps</h2><p class="tab">${total} gráficos</p></div>${appRows()}</section>
+      <section aria-labelledby="cf-t"><div class="block-head"><h2 id="cf-t">Como fazer</h2><a href="#como-fazer" data-route="como-fazer">Ver tudo</a></div>${tutCards()}</section>
+      <section aria-labelledby="apps-t"><div class="block-head"><h2 id="apps-t">Apps</h2><a href="#apps" data-route="apps">${total} gráficos</a></div>${appRows()}</section>
     </div>
-    <div style="margin-top:48px"></div>${metSection()}${syncSection()}${planSection()}`;
+    <nav class="more" aria-label="Outras páginas">
+      <a href="#metricas" data-route="metricas"><b>Métricas</b><span>Como cada número é calculado</span></a>
+      <a href="#atualizacao" data-route="atualizacao"><b>Atualização</b><span>Quando os dados do ERP chegam</span></a>
+      <a href="#plano" data-route="plano"><b>Seu plano</b><span>O que está incluso</span></a>
+    </nav>`;
   }
+  const migalha = (nome) => `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 12)}<span aria-current="page">${nome}</span></nav>`;
+  const PAGINAS = {
+    apps: () => `${migalha('Apps')}<div class="page-top"><h1 class="page-h">Apps</h1><p class="lead">${apps.length} painéis, ${total} gráficos. Abra um para ver o que cada gráfico mostra.</p></div>${appRows()}`,
+    metricas: () => migalha('Métricas') + metSection(),
+    atualizacao: () => migalha('Atualização') + syncSection(),
+    plano: () => migalha('Seu plano') + planSection()
+  };
 
   function item(w, id) {
     const k = kind(w.tipo), pg = (w.perguntas || []).filter(Boolean);
@@ -917,7 +937,7 @@ window.__CENA__ = {"app": "Faturamento", "nos": [{"id": "fato", "nome": "Itens d
     const mets = MET.filter((m) => m.app === a.app);
     const g = (a.glossario || []).filter((x) => x && x.termo);
     const toc = [...a.dashboards.map((d, i) => [`d${i}`, d.nome, d.widgets.length]), mets.length && ['met', 'Métricas e cálculos', mets.length], (a.roteiros || []).length && ['rot', 'Roteiros de análise', a.roteiros.length], g.length && ['glo', 'Glossário', g.length]].filter(Boolean);
-    return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 14)}<span>Apps</span>${ic('right', 14)}<span aria-current="page">${esc(a.app)}</span></nav>
+    return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 14)}<a href="#apps" data-route="apps">Apps</a>${ic('right', 14)}<span aria-current="page">${esc(a.app)}</span></nav>
     <div class="app-title"><div><h1>${esc(a.app)}</h1><p class="lead">${esc(a.resumo)}</p></div>
       ${(a.regras || []).length ? `<aside class="rules"><h2>Regras que valem no app todo</h2><ul>${a.regras.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></aside>` : ''}</div>
     <div class="layout">
@@ -1285,16 +1305,15 @@ window.__CENA__ = {"app": "Faturamento", "nos": [{"id": "fato", "nome": "Itens d
     const q = $('#q').value.trim();
     const a = apps.find((x) => x.slug === atual);
     const t = atual.startsWith('tut-') ? TUT.find((x) => 'tut-' + x.id === atual) : null;
-    const hub = atual === 'como-fazer', pm = atual === PM_ROTA;
+    const hub = atual === 'como-fazer', pm = atual === PM_ROTA, pg = !q && PAGINAS[atual];
     document.querySelectorAll('.menu a').forEach((el) => {
       const r = el.dataset.route;
-      const on = !q && (r === atual || (r === 'apps' && a) || (r === 'como-fazer' && t) || (r === 'inicio' && !a && !t && !hub && !pm && !['metricas', 'atualizacao', 'plano'].includes(atual)));
+      const on = !q && (r === atual || (r === 'apps' && a) || (r === 'como-fazer' && (t || pm)));
       on ? el.setAttribute('aria-current', 'page') : el.removeAttribute('aria-current');
     });
-    document.body.dataset.rota = !q && !a && !t && !hub && !pm && ['inicio', 'metricas', 'atualizacao', 'plano', 'apps'].includes(atual) ? 'home' : 'pagina';
-    $('#view').innerHTML = q ? searchView(q) : a ? appView(a) : t ? tutView(t) : hub ? hubView() : pm ? pmView() : home();
+    document.body.dataset.rota = !q && !a && !t && !hub && !pm && !pg ? 'home' : 'pagina';
+    $('#view').innerHTML = q ? searchView(q) : a ? appView(a) : t ? tutView(t) : hub ? hubView() : pm ? pmView() : pg ? pg() : home();
     iniciarMotions();
-    if (!q && !a && !pm && atual !== 'inicio') { const el = document.getElementById(atual); if (el) el.scrollIntoView({ block: 'start' }); }
     if (focar) $('#view').focus({ preventScroll: true });
   }
   function ir(s) {
