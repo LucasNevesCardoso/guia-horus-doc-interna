@@ -1,0 +1,247 @@
+{
+  "appId": 41139,
+  "app": "Compras",
+  "resumo": "Acompanha o que a empresa compra: valor comprado, fornecedores, produtos e operações, e como as compras se comparam ao faturamento e às vendas. Serve ao time de compras e ao financeiro para negociar, controlar a meta de compras e cobrar prazo de entrega.",
+  "regras": [
+    "O período padrão é o mês atual completo; mude no filtro de data do topo e todos os painéis acompanham.",
+    "O app já traz alguns filtros fixos de configuração aplicados a todos os painéis do topo. Eles não aparecem como escolha para o usuário.",
+    "Compras em reais usam o valor líquido dos itens das notas fiscais de entrada, salvo onde o título diz Bruto.",
+    "Faturamento e vendas contam só notas de saída finalizadas e de operações que participam de venda.",
+    "O custo das vendas (CMV) vem da movimentação de estoque das saídas de venda.",
+    "Quando o painel compara com o mês anterior ou com o ano anterior, ele usa o mesmo período do filtro, deslocado para trás."
+  ],
+  "glossario": [
+    {"termo": "Compra líquida", "significado": "Valor dos itens comprados nas notas de entrada, já descontados os descontos da nota."},
+    {"termo": "Compra bruta", "significado": "Valor dos itens comprados antes dos descontos."},
+    {"termo": "% Participação (Compras ÷ Faturamento)", "significado": "Quanto as compras representam do faturamento. Quanto menor, mais folga de margem; a meta usada no painel Análise Mensal é 70%."},
+    {"termo": "CMV", "significado": "Custo das mercadorias vendidas: o custo, registrado no estoque, dos produtos que saíram em vendas."},
+    {"termo": "Lucro bruto", "significado": "Vendas líquidas menos o CMV."},
+    {"termo": "Markup", "significado": "Lucro bruto dividido pelo CMV. Mostra quanto se ganha por real de custo."},
+    {"termo": "Giro / Cobertura", "significado": "Quantidade vendida dividida pela quantidade comprada no período. Perto de 100% significa que quase tudo que entrou já saiu."},
+    {"termo": "Curva ABC", "significado": "Classificação dos produtos pelo valor vendido: A são os que somam os primeiros 70% das vendas, B os próximos 20%, C o restante."},
+    {"termo": "Custo médio", "significado": "Custo das entradas dividido pela quantidade das entradas de um produto, acumulado desde o início do histórico."},
+    {"termo": "Ordem de compra", "significado": "Pedido feito ao fornecedor, com situação: Aberta, Finalizada, Recebida, Recebida parcial ou Cancelada."}
+  ],
+  "dashboards": [
+    {
+      "nome": "Nota Fiscal de Entrada",
+      "objetivo": "Painel principal de compras: quanto foi comprado, de quem, de quais produtos e em que tipo de operação, com comparação ao faturamento e ao mês anterior, e acompanhamento do custo médio e da frequência de cada fornecedor.",
+      "widgets": [
+        {
+          "titulo": "Cartões de compras: Compra (Líq), Fornecedores Ativos e Total NF Entrada",
+          "tipo": "KPI",
+          "mostra": "Três números do período: o valor líquido comprado, a quantidade de fornecedores com situação Ativo e a quantidade de notas fiscais de entrada.",
+          "como_ler": "O valor comprado dividido pelas notas dá uma ideia do tamanho médio de cada compra. Mais notas com o mesmo valor indicam compras mais fracionadas.",
+          "perguntas": [
+            "Quanto comprei no período?",
+            "Em quantas notas essa compra foi dividida?",
+            "Quantos fornecedores ativos eu tenho?"
+          ],
+          "dica": "Clique no cartão de Compra (Líq) para abrir o detalhe por data de entrada."
+        },
+        {
+          "titulo": "Cartões de vendas: Faturamento (Líquido), Fornecedores Inativos e Total NF Saída",
+          "tipo": "KPI",
+          "mostra": "O faturamento líquido do período (só notas finalizadas e operações de venda), a quantidade de fornecedores com situação Inativo e a quantidade de notas de saída.",
+          "como_ler": "Compare o faturamento com a compra líquida do primeiro grupo de cartões para sentir o equilíbrio entre comprar e vender. Fornecedores inativos que ainda aparecem no cadastro podem indicar limpeza a fazer.",
+          "perguntas": [
+            "Quanto faturei no mesmo período em que comprei?",
+            "Quantos fornecedores estão inativos?",
+            "Quantas notas de venda emiti?"
+          ],
+          "dica": "Olhe junto com o cartão de variação ao lado para ver se o faturamento acompanha as compras."
+        },
+        {
+          "titulo": "Variação compras",
+          "tipo": "KPI",
+          "mostra": "A compra líquida do período, com a variação em relação ao mês anterior (em %) e o percentual das compras sobre o faturamento.",
+          "como_ler": "A variação usa seta e cor: verde para cima e vermelho para baixo, sem julgar se é bom para o negócio. Compra subindo mais que o faturamento faz a participação subir; confira com a meta de 70% da Análise Mensal.",
+          "perguntas": [
+            "As compras subiram ou caíram em relação ao mês anterior?",
+            "Quanto as compras pesam sobre o faturamento?"
+          ],
+          "dica": "Se a participação subiu, vá para a Análise Mensal e veja em qual mês o desvio começou."
+        },
+        {
+          "titulo": "Nf Entrada Fornecedor",
+          "tipo": "Barras",
+          "mostra": "Valor bruto comprado por fornecedor no período, do maior para o menor, em barras deitadas. O gráfico tem opção de trocar o valor mostrado para a compra líquida.",
+          "como_ler": "Barras longas indicam fornecedores que concentram suas compras. Poucos fornecedores dominando o gráfico significam dependência.",
+          "perguntas": [
+            "Quais fornecedores concentram mais compras?",
+            "Estou dependente de poucos fornecedores?",
+            "Com quem vale renegociar preço ou prazo?"
+          ],
+          "dica": "Clique em um fornecedor para filtrar o painel inteiro e ver os produtos e operações dele nos outros gráficos."
+        },
+        {
+          "titulo": "Item Nota Fiscal",
+          "tipo": "Barras",
+          "mostra": "Valor bruto comprado por produto (código e descrição) no período, em barras deitadas, do maior para o menor. Dá para trocar para a compra líquida ou para agrupar por grupo de produto.",
+          "como_ler": "Os produtos do topo são os que mais pesam no caixa de compras. Compare a posição deles com a das vendas no painel Compras x Vendas.",
+          "perguntas": [
+            "Quais produtos mais compro em valor?",
+            "Qual grupo de produto pesa mais nas compras?"
+          ],
+          "dica": "Clique em um produto para ver, no gráfico de fornecedores, de quem ele é comprado."
+        },
+        {
+          "titulo": "Valor por Tipo Operação Entrada",
+          "tipo": "Barras",
+          "mostra": "Valor bruto das notas de entrada por tipo de operação (compra, devolução, bonificação etc., conforme o cadastro), em barras deitadas. Também pode mostrar o líquido.",
+          "como_ler": "Mostra de que natureza são as entradas. Se uma operação que não é compra pesa demais, o total de entradas pode estar inflado.",
+          "perguntas": [
+            "Que parte das entradas é compra de fato?",
+            "Quais tipos de operação mais movimentam valor?"
+          ],
+          "dica": "Clique em um tipo de operação para ver quais fornecedores e produtos estão nele."
+        },
+        {
+          "titulo": "Análise Mensal",
+          "tipo": "Barras+Linha",
+          "mostra": "Para cada mês, duas colunas (Faturamento bruto e Compras líquidas) e uma linha com a % Participação (compras divididas pelo faturamento), com uma linha tracejada na meta de 70%. Quatro cartões acima resumem faturamento, compras, participação e a meta, com a diferença em pontos percentuais e o valor de compras que ficaria na meta.",
+          "como_ler": "Linha abaixo da meta tracejada: compras controladas. Linha acima: as compras estão pesando mais do que o planejado sobre as vendas. O cartão da meta mostra quantos pontos você está acima ou abaixo. Passe o mouse no mês para ver os valores completos.",
+          "perguntas": [
+            "Estou comprando mais do que o faturamento sustenta?",
+            "Em quais meses a participação passou da meta?",
+            "Quanto eu poderia ter comprado para ficar na meta?"
+          ],
+          "dica": "Quando um mês passa da meta, use os gráficos de fornecedor e produto, com o filtro de data naquele mês, para achar quem puxou a compra."
+        },
+        {
+          "titulo": "Frequência e Histórico de Compras por Fornecedor",
+          "tipo": "Tabela",
+          "mostra": "Uma linha por fornecedor: data da última compra, valor da última compra, volume total no período e a frequência média, calculada como o intervalo médio, em dias, entre uma compra e a seguinte.",
+          "como_ler": "Frequência de poucos dias indica fornecedor recorrente. Sem Recorrência significa que houve compra em um só dia no período. A lista vai do maior para o menor volume.",
+          "perguntas": [
+            "Com que frequência compro de cada fornecedor?",
+            "Quando foi a última compra de cada um?",
+            "Quais fornecedores só compram de forma esporádica?"
+          ],
+          "dica": "Use a frequência para planejar pedidos: se um fornecedor vende a cada 15 dias e passou muito disso, confira se falta reposição."
+        },
+        {
+          "titulo": "Auditoria Histórica de Custo",
+          "tipo": "Painel interativo",
+          "mostra": "Busca por produto e, ao escolher um, um gráfico de linha da evolução do custo médio a cada dia de entrada, mais uma tabela com a data, o custo médio, a oscilação em reais e a oscilação em %. O primeiro ponto é o custo vigente no início do período.",
+          "como_ler": "Linha subindo: o produto está entrando mais caro. Oscilações em % mostram o tamanho de cada reajuste. Só entram produtos que tiveram entrada de estoque (compra, inventário, ajuste ou produção).",
+          "perguntas": [
+            "O custo de um produto subiu quanto desde a última compra?",
+            "Quando o fornecedor reajustou o preço?",
+            "O custo médio é coerente com o preço que eu negociei?"
+          ],
+          "dica": "Pesquise o produto, veja a variação e leve o número para a negociação com o fornecedor. Use o botão de voltar para pesquisar outro."
+        }
+      ]
+    },
+    {
+      "nome": "Ordem Compra",
+      "objetivo": "Acompanha os pedidos feitos aos fornecedores por situação e lista o prazo de entrega de cada ordem.",
+      "widgets": [
+        {
+          "titulo": "Situação das ordens de compra: Em Aberto, Finalizado, Recebido, Recebido Parcial e Cancelado",
+          "tipo": "KPI",
+          "mostra": "Cinco cartões com a quantidade de ordens de compra em cada situação: Aberta, Finalizada, Recebida, Recebida Parcial e Cancelada.",
+          "como_ler": "Muitas ordens em aberto ou parcialmente recebidas indicam entrega pendente. Cancelamentos altos pedem uma conversa sobre falha de pedido ou de fornecedor.",
+          "perguntas": [
+            "Quantas ordens ainda estão em aberto?",
+            "Quantas foram recebidas só em parte?",
+            "Quantas foram canceladas?"
+          ],
+          "dica": "Use junto com a tabela abaixo para ver quais fornecedores concentram as ordens pendentes."
+        },
+        {
+          "titulo": "Resumo Nota Fiscal",
+          "tipo": "Tabela",
+          "mostra": "Lista as ordens de compra com o fornecedor, a data de entrada, o código da ordem e o prazo de entrega em dias. A tabela tem total e contagem de linhas.",
+          "como_ler": "Dias de entrega maiores indicam fornecedor mais lento. Compare fornecedores para ver quem entrega no prazo combinado.",
+          "perguntas": [
+            "Quais fornecedores demoram mais para entregar?",
+            "Qual o prazo de uma ordem específica?",
+            "Quantas ordens estão no período?"
+          ],
+          "dica": "Cruze com os cartões de situação: ordens abertas de fornecedores com prazo longo merecem cobrança primeiro."
+        }
+      ]
+    },
+    {
+      "nome": "Compras x Vendas",
+      "objetivo": "Compara o que entrou com o que saiu para saber se as compras estão alinhadas às vendas: margem, giro e risco de ruptura ou de estoque parado por produto.",
+      "widgets": [
+        {
+          "titulo": "Cartões do topo: Total Compras, Total Vendas (Líquido), Lucro Bruto, Markup Médio e Giro Cobertura",
+          "tipo": "KPI",
+          "mostra": "Total Compras: compra líquida do período. Total Vendas (Líquido): vendas finalizadas de operações de venda. Lucro Bruto: vendas líquidas menos o custo das mercadorias vendidas. Markup Médio: lucro bruto dividido pelo custo das vendas. Giro Cobertura: quantidade vendida dividida pela quantidade comprada.",
+          "como_ler": "Compras bem abaixo das vendas e Giro Cobertura acima de 100% indicam que se vende mais do que se compra no período, usando estoque anterior. Giro baixo indica que se compra mais do que se vende. Markup positivo significa venda acima do custo.",
+          "perguntas": [
+            "Estou ganhando em cima do que compro?",
+            "Compro mais do que vendo, ou o contrário?",
+            "Qual o lucro bruto do período?"
+          ],
+          "dica": "Se o giro estiver baixo ou o markup caindo, desça para a tabela de produtos e ache onde está o problema."
+        },
+        {
+          "titulo": "Performance por Produto & Risco: aba Produtos",
+          "tipo": "Tabela",
+          "mostra": "Até 20 produtos, ordenados pelo valor vendido: curva ABC, quantidade comprada, quantidade vendida, valor vendido, markup, giro (vendido ÷ comprado, com barrinha) e status de risco. Há busca por nome de produto.",
+          "como_ler": "Curva A (verde): produtos que somam os primeiros 70% das vendas; B (azul): até 90%; C (cinza): o restante. Giro acima de 90% (barra vermelha) é Risco de Ruptura: quase tudo que comprou já vendeu. Giro abaixo de 30% (barra laranja) é Estoque Parado: comprou muito e vendeu pouco. Entre os dois, Ok. Markup verde é positivo; vermelho é prejuízo; traço significa sem custo no período.",
+          "perguntas": [
+            "Quais produtos podem faltar por vender mais do que compro?",
+            "Quais produtos comprei demais e não vendi?",
+            "Meus produtos curva A estão com bom markup?",
+            "Quais produtos têm markup negativo?"
+          ],
+          "dica": "Pesquise o produto pelo nome e depois confira, no painel Nota Fiscal de Entrada, de qual fornecedor e a que custo ele foi comprado."
+        },
+        {
+          "titulo": "Performance por Produto & Risco: aba Gráfico de Fluxo",
+          "tipo": "Barras+Linha",
+          "mostra": "Para os 10 produtos que mais venderam em valor: colunas com o Valor de Compra e o Valor de Venda e uma linha com o Giro/Cobertura em %.",
+          "como_ler": "Venda maior que compra com giro alto sinaliza reposição necessária. Compra bem maior que venda com giro baixo mostra capital parado. Veja a linha para perceber onde o giro foge do padrão.",
+          "perguntas": [
+            "Nos meus principais produtos, compra e venda estão equilibradas?",
+            "Em quais deles o giro está muito alto ou muito baixo?"
+          ],
+          "dica": "Alterne entre as duas abas: o gráfico dá a visão geral e a tabela mostra o detalhe de cada produto."
+        }
+      ]
+    }
+  ],
+  "roteiros": [
+    {
+      "titulo": "Estou comprando acima da meta de 70% do faturamento?",
+      "passos": [
+        "No painel Nota Fiscal de Entrada, abra a Análise Mensal e veja se a linha da % Participação está acima da meta tracejada.",
+        "Veja no cartão da meta quantos pontos percentuais você está acima e quanto de compras ficaria na meta.",
+        "Ajuste o filtro de data para o mês em que o desvio começou.",
+        "Confira os gráficos de Nf Entrada Fornecedor e Item Nota Fiscal para achar quem e o quê puxou o valor."
+      ]
+    },
+    {
+      "titulo": "Quais compras estão paradas ou vão faltar?",
+      "passos": [
+        "No painel Compras x Vendas, veja o cartão Giro Cobertura para ter o quadro geral.",
+        "Na aba Produtos, procure status Parado (giro abaixo de 30%) e Ruptura (giro acima de 90%).",
+        "Para os parados, evite novos pedidos; para os de ruptura, programe reposição.",
+        "Confira no painel Ordem Compra se já existe pedido em aberto desses produtos."
+      ]
+    },
+    {
+      "titulo": "O fornecedor reajustou o preço?",
+      "passos": [
+        "Na Auditoria Histórica de Custo, pesquise o produto.",
+        "Leia a tabela de oscilação para ver quando e quanto o custo médio mudou.",
+        "No gráfico Nf Entrada Fornecedor, confira o peso do fornecedor nas suas compras.",
+        "Use a Frequência de Compras por Fornecedor para saber quando é o próximo pedido e negociar antes."
+      ]
+    },
+    {
+      "titulo": "Quem entrega no prazo?",
+      "passos": [
+        "No painel Ordem Compra, veja os cartões para saber quantas ordens estão em aberto, recebidas em parte ou canceladas.",
+        "Na tabela Resumo Nota Fiscal, compare os dias de entrega entre fornecedores.",
+        "Cruze com a Frequência e Histórico de Compras por Fornecedor para ver se atrasos afetam a recompra."
+      ]
+    }
+  ]
+}

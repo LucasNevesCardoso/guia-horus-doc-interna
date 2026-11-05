@@ -1,0 +1,108 @@
+{
+  "appId": 41138,
+  "app": "Estoque",
+  "resumo": "Mostra o que você tem em estoque, produto a produto e lote a lote, com o custo parado, o que está vencido ou perto de vencer e quanto saiu no período. Serve ao time de estoque, compras e financeiro para achar risco de perda e decidir o que comprar, vender ou ajustar.",
+  "regras": [
+    "O período padrão é o mês atual completo. Ele vale para as saídas e para a lista de movimentações; ajuste no filtro de data do topo.",
+    "O custo de cada lote é o saldo do lote multiplicado pelo custo médio do produto. O custo médio é o custo total das entradas dividido pela quantidade das entradas, somando todo o histórico até o fim do período escolhido. Saídas não alteram esse custo médio.",
+    "A saída de um produto é a soma das movimentações de saída dele dentro do período do filtro.",
+    "Produto sem saldo e sem saída no período não aparece na visão geral, mas aparece se você pesquisar o nome ou o código.",
+    "Lote com saldo menor que zero é tratado como saldo negativo; lote com saldo zero é tratado como zerado, mesmo que a validade esteja ok."
+  ],
+  "glossario": [
+    {"termo": "Lote", "significado": "Um grupo de unidades de um mesmo produto que entrou junto no estoque, com sua própria data de entrada e validade."},
+    {"termo": "Saldo físico", "significado": "Quantidade que existe em estoque agora, na unidade do produto (UN, KG etc.)."},
+    {"termo": "Custo alocado", "significado": "Dinheiro parado em estoque: saldo do lote vezes o custo médio do produto."},
+    {"termo": "Custo médio", "significado": "Custo das entradas dividido pela quantidade das entradas, acumulado desde o início do histórico. As saídas não mudam esse valor."},
+    {"termo": "Perda/Risco consolidado", "significado": "Soma do custo dos lotes vencidos, a vencer em menos de 30 dias ou com saldo negativo."},
+    {"termo": "Dias parado", "significado": "Dias desde a última movimentação do lote."},
+    {"termo": "Saída no período", "significado": "Quantidade que saiu do produto nas movimentações de estoque dentro do período do filtro."},
+    {"termo": "Indicadores do app", "significado": "O app também tem números prontos para usar em alertas e relatórios: custo das saídas de venda (CMV), entradas e saídas no período, saldo em estoque, quantidade de lotes em estoque, itens com saldo negativo e itens parados há mais de 90 dias."}
+  ],
+  "dashboards": [
+    {
+      "nome": "Estoque/Lote",
+      "objetivo": "Visão única de todos os produtos e lotes: quanto há em estoque, quanto isso custa, o que está vencendo ou negativo e como cada produto girou no período. Clicando em um produto, você abre o detalhe dos lotes e o histórico de entradas e saídas.",
+      "widgets": [
+        {
+          "titulo": "Estoque/Rotatividade Consolidado: cartões do topo (Custo Visível e Perda/Risco Consolidado)",
+          "tipo": "KPI",
+          "mostra": "Dois valores em reais no cabeçalho. Custo Visível é o custo alocado de tudo que está listado na tela agora (respeita a busca e o filtro de status). Perda/Risco Consolidado é o custo dos lotes vencidos, com menos de 30 dias para vencer ou com saldo negativo, entre os produtos listados.",
+          "como_ler": "O Custo Visível mostra o tamanho do dinheiro parado. O Risco, em vermelho, mostra quanto desse dinheiro está ameaçado. Quanto maior a fatia do risco sobre o custo, mais urgente é agir.",
+          "perguntas": [
+            "Quanto dinheiro tenho parado em estoque?",
+            "Quanto desse valor está vencido, a vencer ou com saldo negativo?",
+            "Quanto vale o estoque de um produto ou grupo específico que pesquisei?"
+          ],
+          "dica": "Pesquise um produto ou troque para Com Risco ou Vencidos: os dois cartões recalculam para o que está na tela."
+        },
+        {
+          "titulo": "Estoque/Rotatividade Consolidado: lista de produtos",
+          "tipo": "Tabela",
+          "mostra": "Uma linha por produto, ordenada do maior para o menor custo alocado. Cada linha traz o nome com um selo de situação, a saída no período, o saldo físico com uma barra comparando com o maior saldo da lista, e o custo alocado.",
+          "como_ler": "Selo verde: estoque saudável. Amarelo: algum lote vence em menos de 30 dias. Vermelho: há lote vencido. Roxo: há saldo negativo (saldo e custo aparecem em roxo). Cinza: estoque zerado. Saída em laranja indica que o produto vendeu ou saiu no período; em cinza claro, não saiu nada. Produto com saldo alto e saída zero é candidato a estoque parado.",
+          "perguntas": [
+            "Quais produtos concentram mais dinheiro em estoque?",
+            "Quais produtos têm estoque alto e saída baixa ou nenhuma?",
+            "Quais produtos têm lote vencido ou saldo negativo?",
+            "Quanto saiu de cada produto no mês?"
+          ],
+          "dica": "Use os botões Todos Status, Com Risco e Vencidos para focar no problema. Com Risco mostra lotes a vencer em menos de 30 dias ou negativos; Vencidos mostra só os vencidos, e o saldo e o custo passam a contar só esses lotes. O botão Excel exporta a lista como está na tela."
+        },
+        {
+          "titulo": "Detalhe do produto: aba Controle de Lote",
+          "tipo": "Painel interativo",
+          "mostra": "Janela que abre ao clicar em um produto. Lista cada lote com data de entrada, dias parado, vencimento, saldo físico, custo e situação, e soma o custo dos lotes exibidos no rodapé.",
+          "como_ler": "A situação de cada lote usa as mesmas cores da lista: verde saudável, amarelo atenção, vermelho vencido, roxo negativo, cinza zerado. Muitos dias parado com vencimento próximo é sinal de perda em formação.",
+          "perguntas": [
+            "Quais lotes de um produto estão vencidos ou perto de vencer?",
+            "Há quanto tempo cada lote está parado?",
+            "Quanto custa o estoque de cada lote?"
+          ],
+          "dica": "Marque ou desmarque Saldos Positivos, Zerados e Negativos para limpar a lista. Clicar em um lote leva direto às movimentações dele."
+        },
+        {
+          "titulo": "Detalhe do produto: aba Movimentações",
+          "tipo": "Tabela",
+          "mostra": "Histórico de entradas e saídas do produto dentro do período do filtro de data: data e hora, tipo, código e descrição da origem do movimento, lote e quantidade, com o total de entradas e de saídas no rodapé.",
+          "como_ler": "Entradas aparecem em verde com sinal de mais; saídas em laranja com sinal de menos. Compare o total de entradas com o de saídas para ver se o estoque está crescendo ou diminuindo.",
+          "perguntas": [
+            "De onde veio e para onde foi cada movimento deste produto?",
+            "Um saldo negativo ou estranho vem de qual movimento?",
+            "Quanto entrou e quanto saiu de um lote específico?"
+          ],
+          "dica": "Filtre por Entradas ou Saídas e por lote, e use Excel para exportar. Se vier vazio, amplie o filtro de data no topo, pois só aparecem movimentos do período."
+        }
+      ]
+    }
+  ],
+  "roteiros": [
+    {
+      "titulo": "Onde está o dinheiro parado e em risco no estoque?",
+      "passos": [
+        "Veja os cartões do topo: compare o Custo Visível com a Perda/Risco Consolidado para dimensionar o problema.",
+        "Clique em Com Risco na lista de produtos; os produtos já vêm ordenados pelo maior custo.",
+        "Abra os três primeiros produtos e confira os lotes: data de entrada, dias parado e vencimento.",
+        "Decida a ação por lote: promoção, devolução ao fornecedor, transferência ou baixa."
+      ]
+    },
+    {
+      "titulo": "Quais produtos estão encalhados?",
+      "passos": [
+        "Na lista com Todos Status, ordene o olhar por custo alocado alto.",
+        "Procure produtos com saída zerada (cinza) ou muito menor que o saldo.",
+        "Abra o produto e veja a aba Controle de Lote para saber há quantos dias cada lote está parado.",
+        "Na aba Movimentações, confirme a última saída e as entradas recentes antes de comprar mais."
+      ]
+    },
+    {
+      "titulo": "Por que um produto está com saldo negativo?",
+      "passos": [
+        "Pesquise o produto na caixa de busca; o selo roxo indica saldo negativo.",
+        "Abra o detalhe e marque Saldos Negativos na aba Controle de Lote para ver quais lotes estão negativos.",
+        "Clique no lote para ir às Movimentações dele e procure saídas maiores que as entradas, ou entradas não lançadas.",
+        "Ajuste o filtro de data no topo se precisar enxergar movimentos mais antigos e peça a correção do lançamento."
+      ]
+    }
+  ]
+}

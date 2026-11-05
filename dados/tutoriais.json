@@ -1,0 +1,407 @@
+[
+ {
+  "id": "metas",
+  "titulo": "Cadastrar, editar ou excluir uma meta",
+  "resumo": "As metas ficam em Cadastros que você preenche na própria plataforma. Salvou, o painel de metas mostra o valor novo em segundos.",
+  "icone": "target",
+  "aviso": {
+   "tipo": "acesso",
+   "titulo": "Não vê o menu Cadastros ou o botão de editar?",
+   "texto": "Peça acesso ao administrador do Horus BI da sua empresa. Ele libera, em HEC > Usuários ou Grupos, as permissões do Cadastro de metas: Ler (ver), Criar (nova meta), Atualizar (editar) e Excluir. Sem a permissão, o menu ou o botão simplesmente não aparecem."
+  },
+  "blocos": [
+   {
+    "titulo": "Onde ficam as metas do Bacco",
+    "tipo": "lista",
+    "itens": [
+     "Meta de Faturamento por Agrupamento: usada no app Faturamento, no gráfico Faturamento Mensal x Metas.",
+     "Meta de Vendas por Agrupamento: usada no app Vendas, nos gráficos Vendas Mensal x Metas e Vendas Faturadas x Meta (painel Apresentação).",
+     "As duas ficam no menu Cadastros do DataViz, agrupadas pela mesa em que foram publicadas."
+    ]
+   },
+   {
+    "titulo": "Cadastrar uma meta",
+    "tipo": "passos",
+    "itens": [
+     "Abra o menu Cadastros e clique em Meta de Faturamento por Agrupamento (ou Meta de Vendas por Agrupamento).",
+     "Crie um registro novo pela grade (funciona como planilha: Enter confirma, Esc cancela) ou pelo formulário, que abre num painel lateral com as seções Identificação e Meta.",
+     "Competência: escolha o mês da meta. Um mês por registro.",
+     "Tipo de Agrupamento: Geral (meta da empresa), Cliente, Produto, Grupo de Produto, Representante ou Responsável.",
+     "Preencha só a chave que combina com o tipo: Representante para tipo Representante, Cliente para tipo Cliente, e assim por diante. Busque pelo nome, não pelo código. Na meta Geral, deixe as chaves vazias.",
+     "Meta (R$): digite o valor do mês.",
+     "Salve. Competência, Tipo de Agrupamento e Meta são obrigatórios."
+    ]
+   },
+   {
+    "titulo": "Editar ou excluir",
+    "tipo": "passos",
+    "itens": [
+     "Editar: clique na célula da grade, altere e pressione Enter. Ou abra o registro no formulário, altere e salve.",
+     "Copiar a meta para o mês seguinte: no formulário, use Clonar e troque só a Competência e o valor.",
+     "Excluir: abra o registro no formulário, clique nos três pontinhos (⋯) e escolha excluir.",
+     "Ver quem mudou: os três pontinhos (⋯) também abrem o histórico do registro."
+    ]
+   },
+   {
+    "titulo": "Fazer a meta aparecer no app",
+    "tipo": "passos",
+    "itens": [
+     "Abra o app Faturamento (ou Vendas) e vá ao gráfico de metas.",
+     "Deixe o filtro de data do topo no mês da meta. O gráfico compara realizado e meta mês a mês.",
+     "Use o seletor do gráfico para escolher o tipo (Geral, Representante, Responsável...). Ele soma as metas daquele tipo.",
+     "Se o valor ainda não mudou, aguarde alguns segundos e atualize a página. O Cadastro chega ao BI quase na hora, sem esperar a carga do ERP."
+    ]
+   },
+   {
+    "titulo": "Cuidados",
+    "tipo": "lista",
+    "itens": [
+     "Só existe uma meta por mês + tipo + item. Cadastrar de novo a mesma combinação é recusado: edite a que já existe.",
+     "Para carregar muitas metas de uma vez: Cadastro > Ações > Importar (arquivo XLSX). A importação é tudo ou nada: uma linha com erro barra o arquivo inteiro.",
+     "Se a meta não aparecer depois de salva, você tem acesso ao Cadastro mas o gráfico continua zerado: acione o suporte WebMais, porque o Cadastro precisa estar ligado ao app."
+    ]
+   }
+  ],
+  "fontes": [
+   "https://docs.horusbi.com.br/dataviz/04-features/cadastros",
+   "https://docs.horusbi.com.br/dw/tables/cadastros/dados",
+   "https://docs.horusbi.com.br/hec/resources/cadastros-permissoes",
+   "https://docs.horusbi.com.br/dataviz/04-features/cadastros/no-bi"
+  ],
+  "videos": [
+   {
+    "url": "https://claude.ai/artifact/2GVpJBuayfm8ZFLzr4yi3u",
+    "titulo": "Cadastrar e consultar metas",
+    "duracao": "49 s",
+    "resumo": "Do menu Cadastros ao gráfico de metas no app Faturamento, nas telas reais do Horus.",
+    "arquivo": "videos/cadastrar-e-consultar-metas.mp4"
+   }
+  ]
+ },
+ {
+  "id": "relatorios-alertas",
+  "titulo": "Criar relatórios e alertas, configurar e publicar",
+  "resumo": "O relatório é montado no Explorer, em cima das tabelas ligadas do app. O mesmo relatório vira alerta pelo sino, com horário, condição e canal.",
+  "icone": "report",
+  "motion": "tabelas",
+  "blocos": [
+   {
+    "titulo": "Como as tabelas se ligam",
+    "tipo": "lista",
+    "itens": [
+     "A tabela de fato guarda os números (no Faturamento: cada item de nota, com valor e quantidade).",
+     "As dimensões descrevem esses números: Calendário (quando), Clientes e Representante (quem), Produtos (o quê), Tipo de operação (como).",
+     "Toda ligação é de 1 para muitos: um cliente tem muitas notas, uma nota tem muitos itens. Por isso um filtro em Clientes chega aos itens.",
+     "Dois fatos (ex.: vendas e metas) não se ligam direto. Os dois se ligam às mesmas dimensões, como Calendário e Representante. Num relatório de meta x realizado, use as colunas dessas dimensões, não a data de um dos fatos."
+    ]
+   },
+   {
+    "titulo": "Métricas disponíveis",
+    "tipo": "lista",
+    "itens": [
+     "Qualquer coluna de número, com Soma, Média, Mínimo, Máximo, Contagem ou Contagem Distinta.",
+     "Agrupar transforma a coluna em linha do relatório (ex.: por cliente, por mês).",
+     "Datas podem ser agrupadas por Dia, Mês, Ano/Mês, Ano, Semana do Ano, Dia da Semana e outras.",
+     "Expressões são métricas prontas do app, como Ticket médio, Margem % e CMV, com o mesmo cálculo dos painéis. Se não achar um campo, procure nas Expressões."
+    ]
+   },
+   {
+    "titulo": "Criar um relatório",
+    "tipo": "passos",
+    "itens": [
+     "Abra o app (ex.: Faturamento) e clique na aba Explorer, no topo.",
+     "Na caixa de busca, digite a coluna que você quer (ex.: emissão) e tecle Enter para escolher. Repita para cada coluna: Número Nota, Razão Social, Valor Líquido Item.",
+     "Clique fora da caixa: o relatório aparece, com o total no rodapé.",
+     "Para trocar a agregação de um campo (soma, média, contagem), use Funções na lista de sugestões.",
+     "Ordene, quebre e compare períodos pelo painel Estrutura, à esquerda (Ordenação, Quebras, Eixo matriz, Cenários)."
+    ]
+   },
+   {
+    "titulo": "Salvar e publicar o relatório",
+    "tipo": "passos",
+    "itens": [
+     "Clique em Salvar relatório, digite o nome (ex.: Faturamento Total) e clique em Salvar. Ele aparece em Pessoais, à esquerda.",
+     "Para o time ver: nos três pontos (Ações) ao lado do relatório, clique em Publicar e escolha publicar para o app.",
+     "Para exportar, clique no ícone de Excel ou de PDF na barra do topo. A tela mostra até 500 linhas; a exportação leva todas.",
+     "Para enviar a alguém, use o ícone de compartilhar: o link leva colunas, filtros e ordenação."
+    ]
+   },
+   {
+    "titulo": "Criar um alerta (plano Ultra)",
+    "tipo": "passos",
+    "itens": [
+     "No menu lateral, clique no megafone (Alertas) e depois em Criar alerta, no canto superior direito.",
+     "Em Dados gerais, digite o Nome do alerta.",
+     "Em Quando enviar, escolha Agendado (Diário ou Mensal, com horário e dias da semana) ou Condicional (os filtros viram a regra de disparo).",
+     "Em Usuários/Grupos, clique em Adicionar e escolha quem recebe.",
+     "Em Canais de Envio do Alerta, ligue E-mail e WhatsApp (ou Telegram). WhatsApp exige o telefone no seu perfil.",
+     "Clique em Salvar e abra a aba Conteúdo.",
+     "Adicione o que vai na mensagem: Gráfico, Texto, Análise com IA, Relatório ou Dashboard. A Análise com IA rende mais em envios menos frequentes, como uma vez por mês.",
+     "Clique em Pré-visualizar para conferir e, se estiver certo, em Salvar. Pronto: o alerta está criado.",
+     "Acompanhe as entregas em Histórico de alertas, no topo da tela Alertas."
+    ]
+   },
+   {
+    "titulo": "Para ter acesso",
+    "tipo": "lista",
+    "itens": [
+     "Criar alerta depende da permissão Alerta (Criar, Ler, Editar, Excluir) no seu grupo. Peça ao administrador se o sino não aparecer.",
+     "Alertas nascem privados. Para enviar a outras pessoas, o administrador liga Permitir usuários não administradores de compartilhar alertas.",
+     "Quem recebe vê o conteúdo mesmo sem acesso ao app: ele é gerado com o acesso de quem criou. Escolha os destinatários com cuidado."
+    ]
+   }
+  ],
+  "fontes": [
+   "https://docs.horusbi.com.br/dataviz/02-apps/explorer",
+   "https://docs.horusbi.com.br/dataviz/02-apps/data-modeling",
+   "https://docs.horusbi.com.br/dataviz/04-features/alerts",
+   "https://docs.horusbi.com.br/dataviz/04-features/alerts/conditions",
+   "https://docs.horusbi.com.br/dataviz/04-features/alerts/channels",
+   "https://docs.horusbi.com.br/dataviz/04-features/alerts/permissions"
+  ],
+  "videos": [
+   {
+    "url": "https://claude.ai/artifact/5vN6VBCQLfoEUyuXL5ZYtu",
+    "titulo": "Criar um relatório",
+    "duracao": "48 s",
+    "resumo": "Abrir o Explorer, digitar as colunas, salvar, publicar e exportar, nas telas reais do Horus.",
+    "arquivo": "videos/criar-um-relatorio.mp4"
+   },
+   {
+    "url": "https://claude.ai/artifact/JsaiCVXdf9ZMV13YEJ8iDg",
+    "titulo": "Criar um alerta",
+    "duracao": "51 s",
+    "resumo": "Do menu Alertas ao alerta salvo, com e-mail e WhatsApp, nas telas reais do Horus.",
+    "arquivo": "videos/criar-um-alerta.mp4"
+   }
+  ]
+ },
+ {
+  "id": "filtros",
+  "titulo": "Explorar filtros no app, nos relatórios e nos alertas",
+  "resumo": "Filtro é a forma de perguntar ao painel. Ele começa nos filtros do topo, continua no clique dos gráficos e vale também dentro de relatórios e alertas.",
+  "icone": "filter",
+  "blocos": [
+   {
+    "titulo": "No app: a barra do topo",
+    "tipo": "passos",
+    "itens": [
+     "Os filtros são de cada app: o que você filtra no Faturamento não muda o Vendas.",
+     "Para começar do zero, clique em Limpar tudo (a borracha ao lado de Adicionar Filtro).",
+     "Clique em Adicionar Filtro, escolha o campo (ex.: Grupo de Produto) e marque os valores.",
+     "Mudou um filtro, todos os gráficos da tela acompanham. Para tirar um filtro, clique no X dele.",
+     "Quanto mais filtros, menos dados entram: filtrar um grupo de produto tira do faturamento tudo o que foi vendido de outros grupos."
+    ]
+   },
+   {
+    "titulo": "Filtros que o app do Bacco já traz",
+    "tipo": "lista",
+    "itens": [
+     "Data (Calendário): começa em Mês Atual na maioria dos apps e em Ano Atual no Contas a Pagar, no Contas a Receber e no Devoluções.",
+     "Participa Indicadores = Participa (Faturamento, Vendas, Monitor Fiscal e Devoluções): só entram tipos de operação de saída marcados como venda no ERP.",
+     "Status NF = Finalizado (Faturamento, Monitor Fiscal e Devoluções): notas canceladas não entram.",
+     "Esses filtros você pode trocar na tela. Filtros de segurança (o que cada usuário pode ver) não aparecem para remoção."
+    ]
+   },
+   {
+    "titulo": "Período e datas",
+    "tipo": "lista",
+    "itens": [
+     "Use sempre a Data do Calendário: ela chega a todos os gráficos ligados ao Calendário.",
+     "Períodos relativos se atualizam sozinhos: Hoje, Ontem, Esta semana, Este mês, Mês passado, Este ano, Últimos X dias/meses.",
+     "Para um intervalo fixo, use Entre e escolha início e fim.",
+     "Mudou a data e um número não mexeu? Esse gráfico tem um filtro próprio (ex.: sempre o ano atual). Não é erro de dado."
+    ]
+   },
+   {
+    "titulo": "Clicar no gráfico para filtrar",
+    "tipo": "lista",
+    "itens": [
+     "Clicar numa barra, fatia ou ponto vira filtro e atualiza o resto da tela. Tire pelo X na barra do topo.",
+     "Gráficos com detalhamento abrem o nível de baixo (ano → meses). Alguns mostram botões para trocar o eixo.",
+     "Ir para o Relatório abre a tabela por trás do gráfico, já com os filtros da tela."
+    ]
+   },
+   {
+    "titulo": "Nos relatórios (Explorer)",
+    "tipo": "lista",
+    "itens": [
+     "Funil na barra: novo critério com os operadores =, !=, >, <, >=, <=, Entre, Contém, Não Contém e Relativo.",
+     "Clique num valor da tabela > Filtrar por Coluna, ou clique direito > Filtrar por esta linha para detalhar uma linha.",
+     "Os filtros ficam salvos junto com a visão (Favoritos > Salvar visão atual)."
+    ]
+   },
+   {
+    "titulo": "Nos alertas",
+    "tipo": "lista",
+    "itens": [
+     "No alerta condicional, os filtros são a regra de disparo. Se a consulta voltar vazia, nada é enviado.",
+     "Variáveis de texto e blocos de relatório têm filtros próprios (ex.: Data entre Ontem e Ontem).",
+     "O bloco de gráfico usa os filtros salvos no dashboard ou no widget. Para outra versão, salve uma visão com os filtros e use-a."
+    ]
+   }
+  ],
+  "fontes": [
+   "https://docs.horusbi.com.br/dataviz/01-getting-started",
+   "https://docs.horusbi.com.br/dataviz/02-apps/general",
+   "https://docs.horusbi.com.br/guia/receitas/calendario-filtros",
+   "https://docs.horusbi.com.br/dataviz/03-widgets",
+   "https://docs.horusbi.com.br/dataviz/02-apps/explorer"
+  ],
+  "videos": [
+   {
+    "url": "https://claude.ai/artifact/WbcgZV9SFdfRjhU7rgAAWr",
+    "titulo": "Filtrar e salvar filtros",
+    "duracao": "44 s",
+    "resumo": "Limpar tudo, adicionar um filtro, ver o efeito e salvar como padrão, nas telas reais do Horus.",
+    "arquivo": "videos/filtrar-e-salvar-filtros.mp4"
+   }
+  ]
+ },
+ {
+  "id": "visao-pessoal",
+  "titulo": "Criar e salvar uma visualização pessoal",
+  "resumo": "Guarde seus filtros preferidos numa visão salva, ou monte sua própria aba de dashboard. E, para que um tipo de operação conte como venda, marque-o no ERP.",
+  "icone": "bookmark",
+  "blocos": [
+   {
+    "titulo": "Salvar os seus filtros (filtro padrão)",
+    "tipo": "passos",
+    "itens": [
+     "Deixe o app com os filtros que você quer (ex.: o seu grupo de produto, o ano atual).",
+     "Clique na estrela (Favoritos), no canto superior direito.",
+     "Clique em Salvar filtros atuais e digite um nome.",
+     "Marque Abrir o dashboard com estes filtros para o app já abrir assim, e clique em Salvar.",
+     "Você pode salvar vários filtros, mas só um abre o dashboard como padrão. Para usar outro, abra a estrela e escolha."
+    ]
+   },
+   {
+    "titulo": "Criar seu próprio dashboard",
+    "tipo": "passos",
+    "itens": [
+     "No app publicado, clique no + na barra de abas de dashboards.",
+     "Escolha Criar do Zero ou Clonar Existente, dê um nome e clique em Criar.",
+     "Clique em Editar (lápis), adicione os gráficos com as colunas e expressões do app e clique em Salvar.",
+     "Clique direito na aba para Renomear, Compartilhar ou Excluir.",
+     "Se o + não aparecer, peça ao administrador para liberar dashboards pessoais (HEC > Tenants > Avançado)."
+    ]
+   },
+   {
+    "titulo": "Filtros padrão: o que muda e o que não muda",
+    "tipo": "lista",
+    "itens": [
+     "Os filtros de inicialização (Data e Participa Indicadores) vêm com valor e voltam toda vez que o app abre. Sua visão salva como padrão abre por cima deles.",
+     "Participa Indicadores = Participa não é decidido no BI. Ele vem da caixa Participa Relat. Gerenc. no cadastro do tipo de operação de saída no ERP.",
+     "Para um tipo de operação passar a contar em faturamento, vendas e metas, marque-o no ERP. Veja o passo a passo no vídeo do topo da página.",
+     "A mudança chega ao BI na próxima atualização contínua, em até 30 minutos (das 07:00 às 19:00)."
+    ]
+   },
+   {
+    "titulo": "Marcar um tipo de operação como Participa",
+    "tipo": "passos",
+    "itens": [
+     "No ERP, abra Cadastros Gerais > Tipo de Operação de Saída e clique no tipo na lista.",
+     "Clique na sub-aba COMERCIAL.",
+     "Marque Participa Relat. Gerenc.",
+     "Clique em CONFIRMAR."
+    ]
+   }
+  ],
+  "fontes": [
+   "https://docs.horusbi.com.br/dataviz/02-apps",
+   "https://docs.horusbi.com.br/dataviz/04-features/personal-dashboards",
+   "https://docs.horusbi.com.br/dataviz/02-apps/general"
+  ],
+  "videos": [
+   {
+    "url": "https://claude.ai/artifact/VARnvPeVmNRQS1Wt84UALG",
+    "titulo": "Participa Indicadores no ERP",
+    "duracao": "30 s",
+    "resumo": "Tipo de operação, sub-aba Comercial, Participa Relat. Gerenc. e Confirmar, nas telas reais do ERP.",
+    "arquivo": "videos/participa-indicadores-no-erp.mp4"
+   },
+   {
+    "url": "https://claude.ai/artifact/WbcgZV9SFdfRjhU7rgAAWr",
+    "titulo": "Filtrar e salvar filtros",
+    "duracao": "44 s",
+    "resumo": "Limpar tudo, adicionar um filtro, ver o efeito e salvar como padrão, nas telas reais do Horus.",
+    "arquivo": "videos/filtrar-e-salvar-filtros.mp4"
+   }
+  ]
+ },
+ {
+  "id": "lumia",
+  "titulo": "Perguntar à Lumia sobre as métricas da empresa",
+  "resumo": "A Lumia responde em português consultando os dados reais. Quanto mais precisa a pergunta, mais certa a resposta.",
+  "icone": "chat",
+  "blocos": [
+   {
+    "titulo": "Onde fica",
+    "tipo": "lista",
+    "itens": [
+     "Na home ou em qualquer tela, clique na estrela do menu lateral (Lumia). O chat abre à direita, com sugestões de perguntas.",
+     "Na janela flutuante, para perguntas rápidas, inclusive enquanto você navega num dashboard.",
+     "Pelo WhatsApp, conforme o seu plano. O Bacco está no Ultra, que inclui a Lumia no WhatsApp."
+    ]
+   },
+   {
+    "titulo": "Como perguntar",
+    "tipo": "passos",
+    "itens": [
+     "Escolha o modo, abaixo do campo de mensagem: Rápido para perguntas diretas; Aprofundado para análises de causa (mais lento e consome mais IA).",
+     "Diga a métrica: valor líquido, valor bruto, quantidade, ticket médio, margem.",
+     "Diga o objeto e a situação: pedidos faturados, notas finalizadas, títulos vencidos.",
+     "Diga qual data vale: emissão, vencimento, pagamento.",
+     "Diga o período e o recorte: esse mês, março de 2026, por representante.",
+     "Continue na mesma conversa (\"e no mês passado?\"): a Lumia lembra o contexto. Para outro assunto, use Nova Conversa."
+    ]
+   },
+   {
+    "titulo": "Exemplos",
+    "tipo": "comparar",
+    "itens": [
+     [
+      "Como estão as vendas esse mês?",
+      "Qual o valor líquido de pedidos faturados emitidos esse mês?"
+     ],
+     [
+      "Quanto falta receber?",
+      "Qual o saldo em aberto de títulos a receber com vencimento até o fim deste mês?"
+     ],
+     [
+      "Os clientes estão comprando?",
+      "Quantos clientes distintos tiveram nota finalizada em outubro de 2026, por representante?"
+     ],
+     [
+      "Como está a margem?",
+      "Qual a margem de contribuição em % sobre a ROL no mês atual, por grupo de produto?"
+     ]
+    ]
+   },
+   {
+    "titulo": "Boas práticas",
+    "tipo": "lista",
+    "itens": [
+     "Cite o app quando o termo existe em mais de um (ex.: \"no app Vendas\" ou \"no app Faturamento\").",
+     "Pode usar nomes aproximados de cliente ou produto: a Lumia procura o nome certo.",
+     "Para ver a lista linha a linha, use o Explorer. A Lumia entrega a resposta e o porquê.",
+     "Antes de uma decisão importante, confira o número no painel. O rodapé do chat avisa que a IA pode errar a interpretação."
+    ]
+   }
+  ],
+  "fontes": [
+   "https://docs.horusbi.com.br/ia/chat",
+   "https://docs.horusbi.com.br/ia/chat/como-funciona",
+   "https://docs.horusbi.com.br/dataviz/04-features/indicadores"
+  ],
+  "videos": [
+   {
+    "url": "https://claude.ai/artifact/9jWkgw5wjRhDcVi9Xk1zJp",
+    "titulo": "Perguntar à Lumia",
+    "duracao": "34 s",
+    "resumo": "Da estrela no menu até a pergunta enviada, e como montar uma pergunta precisa.",
+    "arquivo": "videos/perguntar-a-lumia.mp4"
+   }
+  ]
+ }
+]

@@ -1,0 +1,351 @@
+{
+ "appId": 41136,
+ "app": "Vendas",
+ "resumo": "Acompanha os pedidos de venda do mês: quanto está em cada etapa (análise, carteira, expedição, faturado, cancelado), quem vende, o que vende e para onde. Também compara com metas e anos anteriores, classifica clientes e produtos em curva ABC e organiza as cargas de expedição. Usado por gestor comercial, vendas e logística.",
+ "regras": [
+  "Período padrão: mês atual (muda pelo filtro de Data no topo).",
+  "Só entram operações que participam dos indicadores de venda; bonificações e similares ficam de fora.",
+  "Pedidos válidos são os que não estão cancelados, agrupados nem não finalizados.",
+  "Os rankings e o gráfico de produtos somam pedidos em carteira, análise comercial, expedição e faturados; análise financeira e cancelados ficam de fora deles.",
+  "O pódio da aba Apresentação considera só pedidos faturados.",
+  "O valor usado é o valor líquido dos itens do pedido.",
+  "Os gráficos de meta mostram o ano inteiro, ignorando o filtro de data do topo, mas respeitam os demais filtros.",
+  "Metas vêm do cadastro Meta de Vendas por Agrupamento (menu Cadastros)."
+ ],
+ "glossario": [
+  {
+   "termo": "Valor líquido",
+   "significado": "Valor dos itens do pedido já descontados os descontos."
+  },
+  {
+   "termo": "Carteira",
+   "significado": "Pedidos aceitos que ainda não foram faturados."
+  },
+  {
+   "termo": "Expedição",
+   "significado": "Pedidos separados, aguardando saída."
+  },
+  {
+   "termo": "Faturado",
+   "significado": "Pedido que já virou nota fiscal."
+  },
+  {
+   "termo": "Análise Financeira / Comercial",
+   "significado": "Pedido aguardando liberação de crédito ou aprovação comercial."
+  },
+  {
+   "termo": "Ticket médio",
+   "significado": "Valor médio de cada pedido."
+  },
+  {
+   "termo": "Atingimento",
+   "significado": "Quanto da meta foi vendido, em percentual."
+  },
+  {
+   "termo": "Orçado x Realizado",
+   "significado": "Orçado é a meta cadastrada; realizado é o que foi vendido."
+  },
+  {
+   "termo": "Curva ABC",
+   "significado": "Classificação que separa os itens que formam 80% do valor (A), os próximos 15% (B) e os 5% finais (C)."
+  },
+  {
+   "termo": "Carga / Romaneio",
+   "significado": "Carga é a viagem de entrega com seus pedidos; romaneio é o relatório impresso para separação e expedição."
+  },
+  {
+   "termo": "Narrativa",
+   "significado": "Nome ou descrição da rota da carga."
+  }
+ ],
+ "dashboards": [
+  {
+   "nome": "Controle de Pedido",
+   "objetivo": "Acompanhar os pedidos do mês por etapa, ver quem, o quê e para onde se vende, e comparar com metas e com o ano anterior.",
+   "widgets": [
+    {
+     "titulo": "Cartões de etapa do pedido: Faturados, Expedição, Carteira, Análise Financeira, Análise Comercial e Cancelado",
+     "tipo": "KPI (seis cartões)",
+     "mostra": "Seis cartões em linha, um por etapa do pedido. Cada um mostra o valor em reais dos pedidos naquela etapa e, ao lado (Qtd), quantos pedidos são. Faturados: já viraram nota. Expedição: separados, aguardando saída. Carteira: aceitos, ainda não faturados. Análise Financeira: aguardando liberação de crédito. Análise Comercial: aguardando aprovação comercial. Cancelado: pedidos cancelados. Período: o filtro do topo (padrão, mês atual). Faturados e Cancelado mostram também a comparação com o mês anterior.",
+     "como_ler": "Leia da esquerda para a direita como um funil: o pedido entra em análise, vai para carteira, expedição e é faturado. Valor parado em análise ou expedição ainda não é faturamento. Em Cancelado, quanto menor, melhor.",
+     "perguntas": [
+      "Quanto já foi faturado neste mês e quantos pedidos?",
+      "Quanto está parado esperando análise do financeiro ou do comercial?",
+      "Quanto está na carteira, ou seja, venda ainda por faturar?",
+      "Quanto perdemos em cancelamentos?"
+     ],
+     "dica": "Clique em um cartão para abrir o detalhe dos pedidos (cliente, representante, código do pedido) e achar quem está travando a venda."
+    },
+    {
+     "titulo": "Pedidos Totais",
+     "tipo": "KPI",
+     "mostra": "Valor de todos os pedidos válidos do período: em análise comercial, análise financeira, carteira, expedição e faturados. Cancelados, agrupados e não finalizados não entram. Ao lado, a quantidade de pedidos válidos. Mostra a variação contra o mês anterior.",
+     "como_ler": "A seta com percentual compara com o mês anterior: verde para cima, vermelho para baixo.",
+     "perguntas": [
+      "Quanto vendemos em pedidos neste mês?",
+      "Estamos acima ou abaixo do mês passado?",
+      "Quantos pedidos válidos temos?"
+     ],
+     "dica": "Compare com os cartões de etapa para ver como o total se distribui entre faturado, carteira e análises."
+    },
+    {
+     "titulo": "Ticket Médio",
+     "tipo": "KPI",
+     "mostra": "Valor médio por pedido: valor dos pedidos dividido pela quantidade de pedidos (considera análise comercial, expedição, faturados e carteira). Mostra também quantos clientes diferentes compraram e a variação contra o mês anterior.",
+     "como_ler": "Ticket subindo com menos pedidos indica vendas maiores. Ticket caindo com mais pedidos indica muitos pedidos pequenos.",
+     "perguntas": [
+      "Qual o valor médio de cada pedido?",
+      "Quantos clientes compraram no período?",
+      "O ticket subiu ou caiu em relação ao mês passado?"
+     ],
+     "dica": "Clique para ver os clientes e seus tickets."
+    },
+    {
+     "titulo": "Valor Total Itens e Qtd. com Desconto",
+     "tipo": "KPI",
+     "mostra": "Soma dos descontos concedidos nos itens dos pedidos e a quantidade de pedidos envolvidos, com variação contra o mês anterior.",
+     "como_ler": "Valor ou variação crescente indica que está sendo dado mais desconto nas vendas.",
+     "perguntas": [
+      "Quanto estamos dando de desconto?",
+      "O desconto aumentou em relação ao mês passado?"
+     ],
+     "dica": "Cruze com o Ranking de Representantes e com o Ticket Médio para ver se o desconto está trazendo mais volume."
+    },
+    {
+     "titulo": "Ranking Representantes",
+     "tipo": "Barras (ranking)",
+     "mostra": "Valor vendido por representante, do maior para o menor, mostrando até 15. Considera pedidos em carteira, análise comercial, expedição e faturados (fora análise financeira e cancelados), no período do filtro do topo.",
+     "como_ler": "Barra maior = representante que mais vendeu. O valor aparece na ponta da barra.",
+     "perguntas": [
+      "Quem são os representantes que mais vendem?",
+      "Há concentração da venda em poucos representantes?"
+     ],
+     "dica": "Compare com o Ranking Responsáveis para ver se a venda depende de poucas pessoas."
+    },
+    {
+     "titulo": "Ranking Responsáveis",
+     "tipo": "Barras (ranking)",
+     "mostra": "Valor vendido por responsável pelo pedido, do maior para o menor, até 15, com a mesma regra de pedidos do ranking de representantes.",
+     "como_ler": "Barra maior = responsável com mais venda no período.",
+     "perguntas": [
+      "Qual responsável mais vende?",
+      "Como se distribui a venda entre a equipe?"
+     ],
+     "dica": "Use junto com o pódio de Responsáveis da aba Apresentação, que mostra só pedidos faturados."
+    },
+    {
+     "titulo": "Ranking Clientes",
+     "tipo": "Barras (ranking)",
+     "mostra": "Valor vendido por cliente, do maior para o menor, até 15, com a mesma regra de pedidos dos rankings anteriores.",
+     "como_ler": "Barra maior = cliente que mais comprou no período.",
+     "perguntas": [
+      "Quais clientes mais compram?",
+      "Quanto da venda depende dos maiores clientes?"
+     ],
+     "dica": "Para uma visão completa e classificada em A, B e C, abra a aba Curva ABC."
+    },
+    {
+     "titulo": "Ranking Grupo Produto",
+     "tipo": "Barras (ranking)",
+     "mostra": "Valor vendido por grupo de produto, do maior para o menor, com a mesma regra de pedidos.",
+     "como_ler": "Barra maior = grupo que mais vende. Mostra onde está o peso da venda por linha de produto.",
+     "perguntas": [
+      "Quais grupos de produto mais vendem?",
+      "Estamos dependentes de um grupo só?"
+     ],
+     "dica": "Cruze com o gráfico de produtos logo abaixo para ver quais itens puxam cada grupo."
+    },
+    {
+     "titulo": "Valor e Quantidade de Produtos Vendidos",
+     "tipo": "Barras (ranking)",
+     "mostra": "Os 15 produtos que mais venderam em valor. Cada produto tem uma barra para o valor vendido e outra para a quantidade. Mesma regra de pedidos dos rankings (carteira, análise comercial, expedição e faturados).",
+     "como_ler": "Produto com barra de valor alta e quantidade baixa é item de preço alto; o contrário é item de volume e preço baixo.",
+     "perguntas": [
+      "Quais produtos mais vendem em valor?",
+      "Qual produto sai em maior quantidade?",
+      "Há produto caro com pouco volume ou barato com muito volume?"
+     ],
+     "dica": "Passe o mouse para ver os números exatos de cada produto."
+    },
+    {
+     "titulo": "Vendas Mensal x Metas",
+     "tipo": "Painel interativo (barras + linha de meta)",
+     "mostra": "Gráfico por mês (janeiro a dezembro) com as vendas do ano escolhido (barras laranja) contra o ano de comparação (barras escuras) e a linha amarela da meta do cadastro de metas. Soma pedidos válidos (sem cancelados, agrupados e não finalizados). No cabeçalho há três comparativos, com anterior e atual lado a lado: Valor vendido (contra o mesmo período do ano anterior), Meta (contra o período imediatamente anterior) e Atingimento, que é o valor vendido dividido pela meta (em pontos percentuais, contra o período anterior). Abaixo há o Acompanhamento, que abre no modo Resumido (uma barra com o realizado contra o orçado total) ou Detalhado (um cartão por responsável, representante ou grupo de produto, com orçado, realizado e percentual). Embaixo, seletores de ano, de agrupamento e uma busca por item.",
+     "como_ler": "Barra acima da linha amarela = meta batida no mês. No cabeçalho, verde indica melhora e vermelho piora. No acompanhamento: 100% ou mais é meta batida (verde), de 80% a 100% perto da meta, abaixo de 80% fica abaixo da meta. Mês sem meta cadastrada aparece com a meta zerada, e um texto avisa. Ao passar o mouse nas barras, o balão mostra os valores, a variação entre os anos e o atingimento do mês.",
+     "perguntas": [
+      "Estamos atingindo a meta mês a mês?",
+      "Estamos vendendo mais ou menos que no ano passado?",
+      "Quem está acima ou abaixo da meta: responsável, representante ou grupo de produto?",
+      "Qual item puxa o resultado para baixo?"
+     ],
+     "dica": "Clique em um cartão do modo Detalhado para filtrar o painel inteiro por aquele item, e clique de novo para tirar o filtro. Clique em Meta na legenda para esconder ou mostrar a linha. O gráfico mostra o ano todo, mesmo que o filtro de data do topo esteja em um mês só. As metas ficam no menu Cadastros."
+    },
+    {
+     "titulo": "Faturamento x Vendas (Valor Líq.)",
+     "tipo": "Barras empilhadas",
+     "mostra": "Por mês, compara o valor faturado em notas fiscais finalizadas com o valor dos pedidos de venda (carteira, análise comercial, expedição e faturados). As duas séries ficam lado a lado em cada mês.",
+     "como_ler": "Se o valor de pedidos é maior que o faturado, há venda ainda a faturar. Se o faturado se aproxima ou passa dos pedidos, a carteira anterior está sendo entregue.",
+     "perguntas": [
+      "O que vendemos em pedidos está virando nota?",
+      "Em quais meses a diferença entre pedido e faturamento é maior?"
+     ],
+     "dica": "Use com os cartões Carteira e Expedição para entender o que ainda falta faturar."
+    },
+    {
+     "titulo": "Vendas por dia",
+     "tipo": "Calendário de calor",
+     "mostra": "Calendário com o valor vendido em cada dia (pedidos válidos, sem cancelados, agrupados e não finalizados). Mostra também quantos pedidos foram feitos no dia.",
+     "como_ler": "Quanto mais intenso o tom do dia, maior o valor vendido. Dias claros ou vazios indicam pouca ou nenhuma venda.",
+     "perguntas": [
+      "Em quais dias vendemos mais?",
+      "Há dias da semana ou do mês fracos?",
+      "Teve algum dia sem venda?"
+     ],
+     "dica": "Passe o mouse no dia para ver o valor e a quantidade de pedidos."
+    },
+    {
+     "titulo": "Vendas por UF",
+     "tipo": "Pizza",
+     "mostra": "Participação de cada estado (UF) do cliente no valor vendido, considerando pedidos em análise comercial, expedição, faturados e carteira. Mostra o percentual e o valor de cada fatia.",
+     "como_ler": "Fatia maior = estado com mais venda. Cada estado tem uma cor fixa, do tom claro ao escuro.",
+     "perguntas": [
+      "De quais estados vem a venda?",
+      "Dependemos muito de um estado só?"
+     ],
+     "dica": "Cruze com o Ranking Clientes para ver quais clientes formam os maiores estados."
+    }
+   ]
+  },
+  {
+   "nome": "Curva ABC",
+   "objetivo": "Descobrir quais produtos, clientes ou redes concentram a maior parte do valor dos pedidos.",
+   "widgets": [
+    {
+     "titulo": "Curva ABC de Pedidos de Venda",
+     "tipo": "Tabela interativa (Curva ABC)",
+     "mostra": "Lista de produtos, clientes ou redes de clientes ordenada do maior valor de pedido para o menor, com quantidade, peso líquido, valor médio por quilo, valor do pedido, participação no total e a classe A, B ou C. A classe vem da soma acumulada: A são os itens que formam até 80% do valor, B os seguintes até 95%, C o restante. Há uma linha de totais no rodapé.",
+     "como_ler": "Curva A (verde) é o que mais pesa nas vendas: poucos itens com grande parte do valor. Curva B (amarelo) é intermediária. Curva C (cinza) tem muitos itens com pouco valor cada. A coluna de participação mostra o peso de cada item no total.",
+     "perguntas": [
+      "Quais produtos ou clientes concentram 80% das vendas?",
+      "Quantos itens estão em cada curva?",
+      "Qual rede de clientes mais compra (agrupando as lojas)?",
+      "Quais itens vendem pouco e podem ser revistos?"
+     ],
+     "dica": "Troque entre Produto, Cliente e Rede de Cliente nos botões do topo. Clique em Curva A, B ou C para filtrar só aquela classe, e clique de novo para voltar. Os botões Excel e PDF exportam a lista. Respeita os filtros do topo."
+    }
+   ]
+  },
+  {
+   "nome": "Formação de Carga",
+   "objetivo": "Consultar as cargas de expedição, seus pedidos e itens, e imprimir o romaneio.",
+   "widgets": [
+    {
+     "titulo": "Gestão de Cargas",
+     "tipo": "Painel interativo (lista de cargas com romaneio)",
+     "mostra": "Lista de cargas de expedição (viagens), com número da carga, empresa, data de emissão, narrativa (a rota), destino em cidade e UF, responsável e situação (Aberto, Finalizado ou Cancelado). Cada carga abre para mostrar seus pedidos e, em cada pedido, os produtos e quantidades. Acima da lista há filtros por data de emissão, situação, empresa e responsável, e uma busca por número ou narrativa.",
+     "como_ler": "A situação aparece em etiqueta: verde para Finalizado, vermelho para Cancelado e cinza para Aberto. O botão + de cada linha abre os pedidos da carga, e o + do pedido abre seus itens.",
+     "perguntas": [
+      "Quais cargas estão abertas e para onde vão?",
+      "Quais pedidos e produtos compõem cada carga?",
+      "Quem é o responsável por cada viagem?"
+     ],
+     "dica": "Marque as cargas desejadas e clique em Imprimir Romaneio: o relatório agrupa por rota (narrativa), lista os pedidos com cliente, bairro, cidade e cobrança, e traz o resumo consolidado de itens para a separação."
+    }
+   ]
+  },
+  {
+   "nome": "Apresentação",
+   "objetivo": "Tela para telão: pódio dos melhores representantes, clientes e responsáveis e o comparativo de vendas contra a meta.",
+   "widgets": [
+    {
+     "titulo": "Ranking de Representantes",
+     "tipo": "Ranking (pódio)",
+     "mostra": "Pódio com os três maiores representantes, seguido da lista do 4º ao 15º lugar. O restante é somado em uma linha chamada Demais. Valor em reais de pedidos faturados no período do filtro do topo.",
+     "como_ler": "O pedestal 1 (centro, mais alto) é o primeiro lugar; 2 e 3 ficam nas laterais. O valor aparece em cada pedestal e ao lado de cada nome da lista. A linha Demais fecha o total do período.",
+     "perguntas": [
+      "Quem foi o destaque de faturamento do período?",
+      "Como o faturamento se distribui entre os demais?"
+     ],
+     "dica": "Clique em um nome do pódio ou da lista para filtrar todo o dashboard por ele."
+    },
+    {
+     "titulo": "Ranking de Clientes",
+     "tipo": "Ranking (pódio)",
+     "mostra": "Pódio com os três maiores clientes, seguido da lista do 4º ao 15º lugar. O restante é somado em uma linha chamada Demais. Valor em reais de pedidos faturados no período do filtro do topo.",
+     "como_ler": "O pedestal 1 (centro, mais alto) é o primeiro lugar; 2 e 3 ficam nas laterais. O valor aparece em cada pedestal e ao lado de cada nome da lista. A linha Demais fecha o total do período.",
+     "perguntas": [
+      "Quem foi o destaque de faturamento do período?",
+      "Como o faturamento se distribui entre os demais?"
+     ],
+     "dica": "Clique em um nome do pódio ou da lista para filtrar todo o dashboard por ele."
+    },
+    {
+     "titulo": "Ranking de Responsáveis",
+     "tipo": "Ranking (pódio)",
+     "mostra": "Pódio com os três maiores responsáveis pelos pedidos, seguido da lista do 4º ao 15º lugar. O restante é somado em uma linha chamada Demais. Valor em reais de pedidos faturados no período do filtro do topo.",
+     "como_ler": "O pedestal 1 (centro, mais alto) é o primeiro lugar; 2 e 3 ficam nas laterais. O valor aparece em cada pedestal e ao lado de cada nome da lista. A linha Demais fecha o total do período.",
+     "perguntas": [
+      "Quem foi o destaque de faturamento do período?",
+      "Como o faturamento se distribui entre os demais?"
+     ],
+     "dica": "Clique em um nome do pódio ou da lista para filtrar todo o dashboard por ele."
+    },
+    {
+     "titulo": "Vendas Faturadas x Meta",
+     "tipo": "Painel interativo (barras + linha de meta)",
+     "mostra": "Gráfico por mês com as vendas do ano principal (laranja) contra o ano de comparação, e a linha amarela da meta do cadastro de metas. Considera pedidos válidos (sem cancelados, agrupados e não finalizados). Abaixo ficam os seletores de ano, de agrupamento (Geral, Cliente, Produto, Grupo de Produto, Representante, Responsável) e uma busca por item. O gráfico mostra o ano todo, mesmo com o filtro de data do topo em um mês.",
+     "como_ler": "Barra acima da linha amarela = meta batida no mês. O balão ao passar o mouse mostra os valores e o atingimento, em verde (100% ou mais) ou vermelho (abaixo). Mês sem meta cadastrada aparece com a meta zerada. Meta por item existe para Responsável, Representante e Grupo de Produto; para Cliente e Produto não há meta por item.",
+     "perguntas": [
+      "Atingimos a meta em cada mês?",
+      "Estamos acima do ano passado?",
+      "Qual responsável, representante ou grupo está abaixo da meta?"
+     ],
+     "dica": "Escolha o agrupamento e digite o nome para ver só aquele item. Para cadastrar ou alterar metas, use o menu Cadastros."
+    }
+   ]
+  }
+ ],
+ "roteiros": [
+  {
+   "titulo": "Por que as vendas faturadas estão abaixo do esperado neste mês?",
+   "passos": [
+    "Veja o cartão Faturados e compare com o mês anterior.",
+    "Olhe Carteira, Expedição e as duas análises: se há muito valor parado, o problema é andamento, não falta de venda.",
+    "Clique no cartão da etapa travada e veja os clientes e pedidos.",
+    "Confira Vendas Mensal x Metas para ver o atingimento contra a meta."
+   ]
+  },
+  {
+   "titulo": "Quem está puxando ou segurando o resultado de vendas?",
+   "passos": [
+    "Em Vendas Mensal x Metas, abra o Acompanhamento Detalhado e escolha Representante ou Responsável.",
+    "Veja quem está abaixo de 80% da meta.",
+    "Clique no cartão para filtrar o dashboard e conferir clientes e produtos daquele item nos rankings."
+   ]
+  },
+  {
+   "titulo": "Onde concentrar o esforço comercial?",
+   "passos": [
+    "Na aba Curva ABC, escolha Cliente e filtre Curva A.",
+    "Troque para Produto e veja os itens A.",
+    "Compare com Vendas por UF para ver as regiões que sustentam esses clientes."
+   ]
+  },
+  {
+   "titulo": "Estou vendendo mais com mais desconto?",
+   "passos": [
+    "Veja Valor Total Itens e Qtd. com Desconto e sua variação.",
+    "Compare com Ticket Médio e Pedidos Totais.",
+    "Se o desconto sobe sem aumento de pedidos ou de ticket, revise as condições praticadas, com ajuda do Ranking Representantes."
+   ]
+  },
+  {
+   "titulo": "Preparar a expedição do dia",
+   "passos": [
+    "Na aba Formação de Carga, filtre as cargas Abertas pela data.",
+    "Abra cada carga para conferir pedidos e itens.",
+    "Marque as cargas e clique em Imprimir Romaneio."
+   ]
+  }
+ ]
+}

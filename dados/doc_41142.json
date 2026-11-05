@@ -1,0 +1,87 @@
+{
+ "appId": 41142,
+ "app": "Monitor Fiscal",
+ "resumo": "Compara os impostos que a empresa paga nas compras (créditos) com os impostos que cobra nas vendas (débitos). Serve para o financeiro e a contabilidade acompanharem, mês a mês, se o saldo de ICMS, PIS, COFINS e IPI está devedor ou credor, e conferirem nota a nota o que compõe cada valor.",
+ "regras": [
+  "O período padrão é o mês atual. Mude o filtro de Emissão no topo para ver outros meses.",
+  "Débito (saídas) considera só notas de venda finalizadas e de operações que participam de venda.",
+  "Crédito (entradas) soma os impostos destacados nos itens das notas de entrada do período.",
+  "Saldo = Débito menos Crédito. Saldo positivo é DEVEDOR (a empresa tem imposto a pagar); zero ou negativo é CREDOR.",
+  "Os filtros do topo valem para todos os números e listas do painel."
+ ],
+ "glossario": [
+  {
+   "termo": "Débito",
+   "significado": "Imposto cobrado nas notas de venda (saídas). É o que a empresa deve recolher."
+  },
+  {
+   "termo": "Crédito",
+   "significado": "Imposto pago nas notas de compra (entradas). Pode ser abatido do débito."
+  },
+  {
+   "termo": "Saldo devedor",
+   "significado": "Débito maior que o crédito: sobra imposto a pagar no período."
+  },
+  {
+   "termo": "Saldo credor",
+   "significado": "Crédito maior que o débito: a empresa tem imposto a compensar."
+  },
+  {
+   "termo": "Total débito (Visão Geral)",
+   "significado": "Total de impostos das notas de venda. Inclui também ICMS-ST e FCP-ST, por isso pode ser maior que a soma dos quatro impostos mostrados."
+  },
+  {
+   "termo": "Base de cálculo e alíquota",
+   "significado": "Valor sobre o qual o imposto é calculado e o percentual aplicado. Aparecem ao abrir os itens de uma nota."
+  }
+ ],
+ "dashboards": [
+  {
+   "nome": "Monitor Fiscal",
+   "objetivo": "Mostrar o saldo de impostos do período e permitir auditar de onde vem cada valor, por imposto, nota e produto.",
+   "widgets": [
+    {
+     "titulo": "Monitor Fiscal com Auditoria",
+     "tipo": "Painel interativo",
+     "mostra": "Ao abrir, você escolhe uma visão: Visão Geral, ICMS, PIS, COFINS ou IPI. Cada visão mostra três cartões: Total Débito (saídas), Total Crédito (entradas) e Saldo Líquido do Período (débito menos crédito), com selo DEVEDOR ou CREDOR. Na Visão Geral aparecem ainda quatro cartões pequenos, um por imposto, com saldo, débito (D) e crédito (C). Abaixo fica a Auditoria: lista das notas que compõem o valor (número, emissão, cliente ou fornecedor, valor bruto, valor líquido e o imposto), com a opção de alternar entre Débitos (notas de saída) e Créditos (notas de entrada), e uma coluna lateral Por produto com os 10 produtos de maior imposto e o restante agrupado em Demais.",
+     "como_ler": "Vermelho é débito e saldo devedor; verde é crédito e saldo credor. Quando o saldo de um imposto fica credor, o painel mostra uma animação de confirmação. Abaixo da lista, o Total da lista é comparado com o cartão: o selo verde Confere com o card indica que as notas listadas fecham com o número do cartão; o selo laranja mostra a diferença. As barras de Por produto mostram o peso de cada produto no imposto.",
+     "perguntas": [
+      "Estou com imposto a pagar ou a compensar neste mês?",
+      "Qual imposto pesa mais no saldo: ICMS, PIS, COFINS ou IPI?",
+      "Quais notas de venda geraram mais débito?",
+      "Quais compras estão dando mais crédito?",
+      "Quais produtos concentram o imposto?"
+     ],
+     "dica": "Clique num dos quatro cartões de imposto da Visão Geral para abrir a visão dele. Na lista, clique numa nota para ver os itens, com base de cálculo e alíquota. O ícone de Excel exporta a lista atual."
+    }
+   ]
+  }
+ ],
+ "roteiros": [
+  {
+   "titulo": "O saldo de impostos está devedor. De onde vem?",
+   "passos": [
+    "Abra a Visão Geral e veja qual dos quatro impostos tem o maior saldo devedor.",
+    "Clique nesse imposto para abrir a visão dele e compare Total Débito com Total Crédito.",
+    "Na Auditoria, fique em Débitos e veja as notas de maior valor e os produtos em Por produto.",
+    "Mude para Créditos e verifique se há poucas compras com crédito no período."
+   ]
+  },
+  {
+   "titulo": "Conferir se o número do painel fecha com as notas",
+   "passos": [
+    "Escolha o imposto e a aba (Débitos ou Créditos).",
+    "Olhe o rodapé da lista: o selo deve dizer Confere com o card.",
+    "Se aparecer diferença, clique nas notas para ver os itens e exporte para Excel para analisar com a contabilidade."
+   ]
+  },
+  {
+   "titulo": "Entender o imposto de uma nota específica",
+   "passos": [
+    "Abra a visão do imposto desejado e a aba da nota (saída ou entrada).",
+    "Localize a nota pelo número ou pelo cliente e clique nela.",
+    "Veja, item a item, o valor bruto e líquido, a base de cálculo, a alíquota e o imposto."
+   ]
+  }
+ ]
+}

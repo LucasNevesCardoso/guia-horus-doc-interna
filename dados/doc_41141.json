@@ -1,0 +1,434 @@
+{
+  "appId": 41141,
+  "app": "Contas a Receber",
+  "resumo": "Acompanha o dinheiro que a empresa tem a receber de clientes: o que vence hoje, na semana e no mês, o que já foi recebido e o que está atrasado. É usado pelo financeiro e pela cobrança para prever o caixa, achar quem está devendo e priorizar a cobrança por cliente, rede ou representante.",
+  "regras": [
+    "O período padrão do app é o ano atual. Esse recorte vale para os gráficos que não têm período próprio.",
+    "Os cartões de hoje, semana, mês, mês passado e ano têm período próprio e não mudam com o filtro de data do topo.",
+    "Valor do título é o valor original da ordem de recebimento. Saldo é o que ainda falta receber desse título.",
+    "Título em aberto é o que ainda tem saldo a receber. Vencido é o título em aberto com vencimento antes de hoje. A vencer vence hoje ou depois.",
+    "Valor recebido soma liquidação, juros e multa. Desconto e tarifa bancária não entram, para bater com o relatório de títulos liquidados do ERP.",
+    "O dia do recebimento é a data de crédito do dinheiro, não a data da baixa no sistema.",
+    "As faixas de atraso e de prazo são: até 30 dias, 31 a 60, 61 a 90 e acima de 90 dias.",
+    "Os filtros do topo (cliente, representante, tipo de cobrança etc.) valem para todos os gráficos. Clicar em um cliente, rede, representante ou título em alguns painéis também aplica filtro nos demais."
+  ],
+  "glossario": [
+    {"termo": "Ordem de recebimento (OR)", "significado": "O título a receber de um cliente: tem número, valor, vencimento e tipo de cobrança."},
+    {"termo": "Valor OR", "significado": "Valor original do título, antes de qualquer recebimento."},
+    {"termo": "Saldo", "significado": "Quanto do título ainda não foi recebido."},
+    {"termo": "Recebido (valor movimentado)", "significado": "Dinheiro efetivamente recebido: liquidação, juros e multa, na data de crédito."},
+    {"termo": "Vencido", "significado": "Saldo em aberto de títulos com vencimento anterior a hoje."},
+    {"termo": "A vencer", "significado": "Saldo em aberto de títulos que vencem hoje ou no futuro."},
+    {"termo": "Inadimplente", "significado": "Cliente ou título com saldo em aberto depois do vencimento."},
+    {"termo": "Tipo de cobrança", "significado": "Forma de pagamento do título, como boleto, PIX, cartão ou DOC/TED."},
+    {"termo": "Portador", "significado": "Banco ou carteira responsável por cobrar o título."},
+    {"termo": "Rede de clientes", "significado": "Grupo de clientes da mesma rede ou bandeira. Quem não tem rede aparece como Sem Rede."},
+    {"termo": "Centro de custo e elemento de custo", "significado": "Classificações internas do lançamento, usadas para ver de onde vem o atraso."}
+  ],
+  "dashboards": [
+    {
+      "nome": "Visão Geral Recebimentos",
+      "objetivo": "Resumo do que entra e do que está para entrar: hoje, na semana e no mês, com quem deve, onde estão os clientes, qual a forma de cobrança e por qual conta o dinheiro passa.",
+      "widgets": [
+        {
+          "titulo": "Cartões do topo: À Receber e Recebido (hoje, semana e mês)",
+          "tipo": "KPI",
+          "mostra": "Seis números lado a lado. À Receber hoje, À Receber Semana e À Receber Mês: saldo em aberto dos títulos com vencimento naquele dia, na semana atual e no mês atual inteiro. Recebido Hoje, Recebido Semana e Recebido Mês: dinheiro creditado no dia, na semana e no mês.",
+          "como_ler": "Compare cada par. Se o Recebido do mês está bem abaixo do À Receber do mês, há dinheiro previsto que ainda não entrou. Os cartões não mudam com o filtro de data do topo.",
+          "perguntas": ["Quanto vence hoje e quanto já entrou?", "A semana está dentro do previsto?", "O mês vai fechar o que esperávamos receber?"],
+          "dica": "Use os filtros do topo (cliente, representante, tipo de cobrança) para ver o mesmo par só de uma carteira."
+        },
+        {
+          "titulo": "Top 10 Clientes Inadimplentes",
+          "tipo": "Barras",
+          "mostra": "Os 10 clientes com maior valor de títulos, em barras horizontais. A conta usa o valor original dos títulos com vencimento até 21/09/2026, uma data fixa definida no gráfico.",
+          "como_ler": "Barra maior significa mais valor concentrado naquele cliente. Como usa o valor do título e não o saldo, confirme o quanto falta pagar na tela À Receber ou em Vencidos - Vencer.",
+          "perguntas": ["Quais clientes concentram a maior parte dos títulos com vencimento já passado?", "A carteira está concentrada em poucos nomes?"],
+          "dica": "Anote os primeiros nomes e abra Vencidos - Vencer para ver quanto de cada um está vencido e há quantos dias."
+        },
+        {
+          "titulo": "Valor por UF",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada estado no valor dos títulos. Mostra os 5 maiores estados e agrupa o resto em Outros.",
+          "como_ler": "Cada fatia traz o percentual do total. Fatia grande é estado que pesa mais na carteira.",
+          "perguntas": ["Em quais estados está a maior parte do valor a receber?", "Há dependência de uma região?"],
+          "dica": "Filtre por um estado no topo para ver clientes e representantes só daquela região."
+        },
+        {
+          "titulo": "Valor à Receber por Tipo de Cobrança",
+          "tipo": "Barras",
+          "mostra": "Saldo em aberto mês a mês, dividido por tipo de cobrança (boleto, PIX, cartão, cheque etc.). Cada tipo tem uma cor própria.",
+          "como_ler": "A altura da barra é o saldo do mês. As cores mostram quanto vem de cada forma de cobrança. Meses com barra alta são os de maior entrada prevista.",
+          "perguntas": ["Em que meses se concentra o que falta receber?", "Qual forma de cobrança domina cada mês?", "Há muito saldo em formas de recebimento mais lentas, como cheque?"],
+          "dica": "Use a legenda para ligar e desligar tipos e comparar só duas formas de cobrança."
+        },
+        {
+          "titulo": "Valor por Tipo de Cobrança",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada tipo de cobrança no valor dos títulos. Mostra os 4 maiores e agrupa o resto em Outros.",
+          "como_ler": "Fatias maiores são as formas de cobrança mais usadas. O percentual aparece ao lado de cada fatia.",
+          "perguntas": ["Qual forma de cobrança mais usamos?", "Quanto da carteira depende de boleto?"],
+          "dica": "Cruze com o gráfico de saldo por tipo de cobrança para ver se a forma mais usada também é a que mais atrasa."
+        },
+        {
+          "titulo": "Top 10 Dias com maior valor Movimentado",
+          "tipo": "Barras (área)",
+          "mostra": "Os períodos em que mais dinheiro foi recebido, do maior para o menor. Usa só os recebimentos (liquidação, juros e multa) e mostra até 15 pontos.",
+          "como_ler": "Os picos são os dias ou meses de maior entrada. Valores muito acima dos demais podem ser recebimentos grandes e pontuais.",
+          "perguntas": ["Quando o caixa recebeu mais?", "Os picos coincidem com vencimentos grandes ou com campanhas de cobrança?"],
+          "dica": "Compare os picos com o calendário de calor logo abaixo para ver em quais dias do mês eles se repetem."
+        },
+        {
+          "titulo": "Clientes Transacionando",
+          "tipo": "KPI",
+          "mostra": "Quantidade de clientes diferentes que têm títulos no período filtrado.",
+          "como_ler": "É uma contagem de clientes, não um valor. Muda com os filtros do topo.",
+          "perguntas": ["Quantos clientes estão gerando títulos?", "A base de clientes ativa cresceu ou encolheu?"],
+          "dica": "Divida o valor a receber por esse número para ter uma ideia do valor médio por cliente."
+        },
+        {
+          "titulo": "Emitido x Realizado - Ano anterior",
+          "tipo": "Barras",
+          "mostra": "Mês a mês, duas barras: o valor dos títulos emitidos (preto) e o valor realmente recebido (laranja). O período vai do início do ano passado até o mesmo dia de hoje no ano passado.",
+          "como_ler": "Barra preta bem maior que a laranja indica mês com muito título emitido e pouco recebimento. Barras próximas indicam carteira se convertendo em caixa.",
+          "perguntas": ["Quanto do que foi emitido virou dinheiro?", "Quais meses do ano passado tiveram a pior conversão?"],
+          "dica": "Use como referência para avaliar o desempenho do ano atual nos mesmos meses."
+        },
+        {
+          "titulo": "Recebimentos por representantes",
+          "tipo": "Barras",
+          "mostra": "Os 10 representantes com maior valor recebido (liquidação, juros e multa).",
+          "como_ler": "Barras maiores são quem mais gerou entrada de caixa. Não mostra atraso, só o que já entrou.",
+          "perguntas": ["Quais representantes trazem mais recebimento?", "Há representantes com carteira grande e pouco recebido?"],
+          "dica": "Compare com o ranking de saldo por representante na tela À Receber para achar quem recebe pouco para o tamanho da carteira."
+        },
+        {
+          "titulo": "Valor Movimentado por Dia",
+          "tipo": "Calendário de calor",
+          "mostra": "Calendário em que cada dia é colorido pelo valor recebido nele. O período é do início do ano passado até hoje, um ano atrás.",
+          "como_ler": "Quanto mais forte a cor, maior o recebimento do dia. Dias claros ou vazios tiveram pouca entrada.",
+          "perguntas": ["Em quais dias do mês o dinheiro costuma entrar?", "Há dias da semana com entrada fraca?"],
+          "dica": "Passe o mouse sobre um dia para ver o valor e planeje o fluxo de caixa pelos dias fortes."
+        },
+        {
+          "titulo": "Valor movimentado x Saldo x Valor OR por Conta Bancária",
+          "tipo": "Barras + área",
+          "mostra": "Para cada conta bancária, três medidas: valor recebido (amarelo), valor original dos títulos (preto) e saldo ainda em aberto (laranja, em área).",
+          "como_ler": "Dentro de cada conta, compare o recebido com o valor dos títulos. Saldo alto em relação ao valor indica conta com muita cobrança pendente.",
+          "perguntas": ["Por qual conta o dinheiro está entrando?", "Qual conta concentra mais saldo a receber?"],
+          "dica": "Use para conferir com a conciliação bancária e achar contas com recebimento abaixo do esperado."
+        }
+      ]
+    },
+    {
+      "nome": "À Receber",
+      "objetivo": "Detalhar o saldo que ainda falta receber: por prazo, forma de cobrança, cliente, representante e estado, além de listar os títulos que vencem hoje, na semana e no mês.",
+      "widgets": [
+        {
+          "titulo": "Cartões do topo: À Receber Hoje, Semana, Mês, Ano, Total Aberto e Total Inadimplente",
+          "tipo": "KPI",
+          "mostra": "Seis cartões de saldo a receber. À Receber Hoje: saldo em aberto que vence hoje, com a quantidade de títulos. À Receber Semana e À Receber Mês: saldo com vencimento na semana e no mês atuais. À Receber Ano: saldo em aberto com vencimento no ano atual, com quantidade. Total Aberto: todo o saldo em aberto, com quantidade de títulos. Total Inadimplente (em vermelho): saldo de títulos com vencimento até 07/10/2026, uma data fixa definida no cartão.",
+          "como_ler": "Os cartões laranja são valores a receber. O vermelho chama atenção para atraso. O valor menor ao lado (Qtd.) é o número de títulos.",
+          "perguntas": ["Quanto temos em aberto no total?", "Quanto vence hoje, na semana e no mês?", "Qual o tamanho da inadimplência?"],
+          "dica": "Compare Total Aberto com Total Inadimplente para ver que parte da carteira já passou do vencimento."
+        },
+        {
+          "titulo": "Saldo à receber por Tipo de Cobrança",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada tipo de cobrança no saldo em aberto. Mostra os 3 maiores e agrupa o resto em Outros.",
+          "como_ler": "Fatia maior é a forma de cobrança com mais dinheiro pendente.",
+          "perguntas": ["Em qual forma de cobrança está o maior saldo?", "O que falta receber depende mais de boleto ou de PIX?"],
+          "dica": "Filtre um tipo de cobrança no topo para ver clientes e prazos só dele."
+        },
+        {
+          "titulo": "Saldo à receber por Cliente",
+          "tipo": "Ranking (barras)",
+          "mostra": "Os 15 clientes com maior saldo em aberto.",
+          "como_ler": "Barra maior significa mais dinheiro pendente daquele cliente. Só entram clientes com saldo maior que zero.",
+          "perguntas": ["Quem mais nos deve hoje?", "A carteira em aberto está concentrada em poucos clientes?"],
+          "dica": "Abra Vencidos - Vencer para ver quanto desse saldo já está vencido e em qual faixa de atraso."
+        },
+        {
+          "titulo": "Saldo à receber por Representante",
+          "tipo": "Ranking (barras)",
+          "mostra": "Os 10 representantes com maior saldo em aberto na sua carteira.",
+          "como_ler": "Barra maior é carteira com mais dinheiro pendente.",
+          "perguntas": ["Qual representante tem mais dinheiro na rua?", "Quem deve ser acionado para ajudar na cobrança?"],
+          "dica": "Cruze com Recebimentos por representantes (Visão Geral) para comparar o que cada um recebeu com o que ainda falta."
+        },
+        {
+          "titulo": "Saldo à receber por UF",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada estado no saldo em aberto. Mostra os 5 maiores e agrupa o resto em Outros.",
+          "como_ler": "Fatias grandes são estados com mais saldo pendente.",
+          "perguntas": ["Qual região concentra o saldo a receber?", "Há estado com cobrança mais fraca?"],
+          "dica": "Clique em um estado para filtrar o painel e achar os clientes daquela região."
+        },
+        {
+          "titulo": "Saldo pendente por Data de Vencimento",
+          "tipo": "Calendário de calor",
+          "mostra": "Calendário em que cada dia é colorido pelo saldo em aberto dos títulos que vencem nele.",
+          "como_ler": "Cor mais forte é dia com muito dinheiro a vencer. Serve para enxergar os dias de pico do fluxo de caixa.",
+          "perguntas": ["Em quais dias vence a maior parte do saldo?", "Há semanas mais carregadas que outras?"],
+          "dica": "Se o dia tem cor forte, filtre pela data e veja a lista de títulos no painel de títulos agrupados."
+        },
+        {
+          "titulo": "Saldo à Receber por mês",
+          "tipo": "Barras",
+          "mostra": "Saldo em aberto somado por mês de vencimento, em ordem de calendário.",
+          "como_ler": "Cada barra é um mês. Meses passados com barra alta são atraso. Meses futuros mostram o que está previsto entrar.",
+          "perguntas": ["Em que meses se acumula o saldo?", "Qual a previsão de entrada para os próximos meses?"],
+          "dica": "Compare com o total recebido por mês na tela Recebidos para avaliar se a entrada acompanha a previsão."
+        },
+        {
+          "titulo": "Saldo x Valor OR",
+          "tipo": "Barras + linha",
+          "mostra": "Para os 15 títulos com maior saldo: o saldo em aberto (linha preta) e o valor original do título (barra laranja). Títulos sem saldo ficam de fora.",
+          "como_ler": "Quando a linha chega ao topo da barra, nada foi pago. Linha bem abaixo da barra indica título pago em parte.",
+          "perguntas": ["Quais são os maiores títulos em aberto?", "Algum deles já foi pago em parte?"],
+          "dica": "Anote o número do título e use o painel de títulos agrupados para ver cliente e vencimento."
+        },
+        {
+          "titulo": "Títulos à receber agrupados",
+          "tipo": "Painel interativo",
+          "mostra": "Lista os títulos com vencimento no mês atual, com número, cliente, vencimento e valor. Três abas dividem a lista em Hoje, Semana e Mês, e cada aba mostra a quantidade de títulos.",
+          "como_ler": "Na aba Hoje a data aparece em laranja. O valor é o valor total do título.",
+          "perguntas": ["Quais títulos vencem hoje?", "Quais clientes vão pagar esta semana?", "Quantos títulos temos para o mês?"],
+          "dica": "Clique em uma linha para filtrar todo o dashboard por aquele título. Clique de novo para tirar o filtro."
+        },
+        {
+          "titulo": "Saldo/Pago Clientes",
+          "tipo": "Tabela",
+          "mostra": "Por cliente: o valor já pago (verde) e o saldo em aberto. A lista traz clientes com saldo maior que zero, ordenados do maior saldo para o menor.",
+          "como_ler": "Valor pago alto e saldo baixo indica bom pagador. Saldo alto com pouco pago indica cliente para cobrar.",
+          "perguntas": ["Quanto cada cliente já pagou e quanto ainda deve?", "Quais clientes têm o maior saldo?"],
+          "dica": "Use o tamanho do Valor Pago em relação ao saldo para decidir quem cobrar primeiro."
+        }
+      ]
+    },
+    {
+      "nome": "Recebidos",
+      "objetivo": "Mostrar o dinheiro que já entrou: por período, forma de cobrança, cliente, representante e estado.",
+      "widgets": [
+        {
+          "titulo": "Cartões do topo: Recebido Hoje, Semana, Mês Atual, Mês Passado, Ano Atual e Total até Hoje",
+          "tipo": "KPI",
+          "mostra": "Seis valores recebidos (liquidação, juros e multa): hoje, na semana atual, no mês atual, no mês passado, no ano atual e o total desde 12/01/2024 até 07/10/2026 (datas fixas do cartão).",
+          "como_ler": "Compare Mês Atual com Mês Passado para ver o ritmo. Os cartões não mudam com o filtro de data do topo.",
+          "perguntas": ["Quanto recebemos hoje, na semana e no mês?", "O mês atual está acima ou abaixo do passado?", "Qual o total recebido no ano?"],
+          "dica": "Filtre um cliente ou representante no topo para ver o recebido só dele."
+        },
+        {
+          "titulo": "Valor Recebido por Tipo de Cobrança",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada forma de cobrança no valor recebido. Mostra as 5 maiores e agrupa o resto em Outros.",
+          "como_ler": "Fatia maior é a forma pela qual mais dinheiro entrou.",
+          "perguntas": ["Por qual forma de cobrança recebemos mais?", "O PIX já ganhou espaço sobre o boleto?"],
+          "dica": "Clique em uma fatia para filtrar o dashboard por aquela forma de cobrança."
+        },
+        {
+          "titulo": "Valor Recebido por Cliente",
+          "tipo": "Ranking (barras)",
+          "mostra": "Os 15 clientes de quem mais recebemos no período.",
+          "como_ler": "Barra maior é cliente que mais pagou. Não indica quem está devendo.",
+          "perguntas": ["Quem são os melhores pagadores?", "Quanto da entrada vem dos maiores clientes?"],
+          "dica": "Cruze com Saldo à receber por Cliente para ver clientes que pagam muito e também devem muito."
+        },
+        {
+          "titulo": "Valor Recebido por Representante",
+          "tipo": "Ranking (barras)",
+          "mostra": "Os 15 representantes com maior valor recebido da sua carteira.",
+          "como_ler": "Barras maiores são carteiras que mais geraram caixa.",
+          "perguntas": ["Qual carteira de representante mais gerou caixa?", "Quem está abaixo do esperado?"],
+          "dica": "Use junto com o saldo por representante (tela À Receber) para comparar recebido e pendente."
+        },
+        {
+          "titulo": "Valor Recebido por UF",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada estado no valor recebido. Mostra os 5 maiores e agrupa o resto em Outros.",
+          "como_ler": "Fatia maior é o estado de onde veio mais dinheiro.",
+          "perguntas": ["De quais estados vem a maior parte do recebimento?"],
+          "dica": "Compare com o saldo a receber por UF para ver se a região que mais paga é também a que mais deve."
+        },
+        {
+          "titulo": "Valor Recebido por Dia",
+          "tipo": "Calendário de calor",
+          "mostra": "Calendário em que cada dia é colorido pelo valor recebido nele.",
+          "como_ler": "Cor mais forte é dia de maior entrada. Dias em branco não tiveram recebimento.",
+          "perguntas": ["Em quais dias entra mais dinheiro?", "Há buracos de recebimento no mês?"],
+          "dica": "Passe o mouse no dia para ver o valor exato."
+        },
+        {
+          "titulo": "Valor Recebido por mês",
+          "tipo": "Barras",
+          "mostra": "Valor recebido somado por mês, em ordem de calendário.",
+          "como_ler": "Cada barra é um mês. Compare meses seguidos para ver se o recebimento sobe ou cai.",
+          "perguntas": ["O recebimento está crescendo ao longo do ano?", "Quais meses foram os mais fracos?"],
+          "dica": "Compare com Saldo à Receber por mês para ver se o recebido acompanha a previsão."
+        },
+        {
+          "titulo": "Valor Recebido x Valor OR",
+          "tipo": "Barras + linha",
+          "mostra": "Por título que ainda tem saldo: o valor recebido (barra laranja) e o valor original do título (linha preta). Ordena do maior saldo para o menor.",
+          "como_ler": "Barra perto da linha significa título quase pago. Barra baixa em relação à linha significa pagamento parcial.",
+          "perguntas": ["Quais títulos foram pagos só em parte?", "Quanto falta para fechar os maiores títulos parciais?"],
+          "dica": "Anote os títulos com maior diferença e procure o cliente na tela Vencidos - Vencer."
+        },
+        {
+          "titulo": "Títulos Recebidos Agrupados",
+          "tipo": "Painel interativo",
+          "mostra": "Lista os recebimentos creditados no mês atual, com número do título, cliente, data de crédito e valor recebido. Abas Hoje, Semana e Mês mostram a quantidade em cada uma.",
+          "como_ler": "Na aba Hoje, a data aparece em laranja. O valor é o que entrou, não o valor total do título.",
+          "perguntas": ["Quais clientes pagaram hoje?", "Quanto entrou esta semana e por quem?"],
+          "dica": "Clique em uma linha para filtrar o dashboard por aquele título e clique de novo para tirar o filtro."
+        }
+      ]
+    },
+    {
+      "nome": "Vencidos - Vencer",
+      "objetivo": "Separar o saldo em aberto entre vencido e a vencer, por faixa de dias, e mostrar quem são os maiores devedores por cliente, rede e representante.",
+      "widgets": [
+        {
+          "titulo": "Resumo por Faixa",
+          "tipo": "Painel interativo",
+          "mostra": "Três totais no topo: Total Geral Aberto, Total Vencido e Total a Vencer. Abaixo, dois blocos de quatro cartões: Risco de Inadimplência (vencido por faixa) e Projeção de Entrada (a vencer por faixa). As faixas são até 30 dias, 31 a 60, 61 a 90 e acima de 90 dias, contados a partir de hoje.",
+          "como_ler": "Cartões vermelhos são dinheiro atrasado: quanto mais à direita, mais antigo e mais difícil de recuperar. Cartões verdes são entradas previstas. Títulos que vencem hoje entram em Até 30 dias, a vencer.",
+          "perguntas": ["Quanto está vencido e há quanto tempo?", "Quanto vai entrar nos próximos 30, 60 e 90 dias?", "Qual a parte da carteira em risco?"],
+          "dica": "Clique em um cartão de faixa para abrir a lista de títulos (vencimento, número, cliente e saldo), do maior para o menor. Use o botão Voltar aos Totais para sair."
+        },
+        {
+          "titulo": "Cliente",
+          "tipo": "Matriz",
+          "mostra": "Uma linha por cliente com o saldo vencido em cada faixa (até 30, 31 a 60, 61 a 90 e acima de 90 dias), o Total Vencido, o saldo a vencer nas mesmas faixas, o Total a Vencer e o Total Geral. Ordenada do maior total para o menor.",
+          "como_ler": "Valores vermelhos são atraso e verdes são a vencer. Valores apagados indicam faixa sem títulos. Procure clientes com valor alto nas faixas mais à direita do vencido.",
+          "perguntas": ["Quais clientes têm mais dinheiro atrasado?", "O atraso é recente ou antigo?", "Quanto cada cliente ainda vai pagar?"],
+          "dica": "Clique em um valor colorido para ver os títulos (documento, emissão, vencimento e saldo). Clique no nome do cliente para filtrar o dashboard inteiro por ele."
+        },
+        {
+          "titulo": "Rede Cliente",
+          "tipo": "Matriz",
+          "mostra": "A mesma visão da tabela de clientes, mas somada por rede de clientes. Clientes sem rede ficam em Sem Rede.",
+          "como_ler": "Mostra o risco por grupo: uma rede pode ter vários clientes pequenos que juntos somam um valor grande.",
+          "perguntas": ["Qual rede tem mais saldo vencido?", "A dívida de uma rede está espalhada entre várias lojas?"],
+          "dica": "Clique no valor em vermelho ou verde para ver os documentos em aberto. Clique no nome da rede para filtrar o dashboard por ela."
+        },
+        {
+          "titulo": "Representante",
+          "tipo": "Matriz",
+          "mostra": "A mesma visão, somada por representante: vencido e a vencer por faixa de dias, com totais.",
+          "como_ler": "Mostra a carteira de cada representante e quanto dela está atrasado. Valores apagados indicam ausência de títulos na faixa.",
+          "perguntas": ["Qual representante tem a pior carteira em atraso?", "Quem precisa ajudar na cobrança?"],
+          "dica": "Clique em um valor para ver os títulos. Clique no nome do representante para filtrar o dashboard. Se a lista for grande, filtre por região ou supervisor no topo."
+        },
+        {
+          "titulo": "Cartões: Vencido Hoje, Vencido Semana Atual, Vencido Mês Atual, Recebido no Mês Atual e Total Vencido",
+          "tipo": "KPI",
+          "mostra": "Vencido Hoje: saldo em aberto com vencimento hoje. Vencido Semana Atual: saldo em aberto com vencimento do começo da semana até hoje. Vencido Mês Atual: saldo em aberto do começo do mês até hoje. Recebido no Mês Atual: dinheiro creditado no mês. Total Vencido: todo o saldo em aberto com vencimento anterior a hoje.",
+          "como_ler": "Compare Vencido Mês Atual com Recebido no Mês Atual para ver se a cobrança está recuperando o que venceu. Total Vencido é a dívida acumulada.",
+          "perguntas": ["Quanto venceu hoje e nesta semana sem ser pago?", "O recebido do mês cobre o que venceu?", "Qual o total de atraso?"],
+          "dica": "Filtre um representante ou tipo de cobrança no topo para ver o mesmo conjunto de cartões para ele."
+        },
+        {
+          "titulo": "Cliente (Total Vencido)",
+          "tipo": "Ranking (barras)",
+          "mostra": "Os 10 clientes com maior saldo vencido.",
+          "como_ler": "Barra maior é cliente com maior atraso em valor.",
+          "perguntas": ["Quem lidera a inadimplência?"],
+          "dica": "Procure o cliente na matriz de clientes para ver as faixas de atraso e abrir os títulos."
+        },
+        {
+          "titulo": "Representante (Total Vencido)",
+          "tipo": "Ranking (barras)",
+          "mostra": "Os 10 representantes com maior saldo vencido na carteira.",
+          "como_ler": "Barra maior é carteira com mais atraso em valor.",
+          "perguntas": ["Qual carteira de representante tem mais atraso?"],
+          "dica": "Use para direcionar a conversa de cobrança com cada representante."
+        },
+        {
+          "titulo": "Centro de Custo (Total Vencido)",
+          "tipo": "Ranking (barras)",
+          "mostra": "Saldo vencido somado por centro de custo, do maior para o menor.",
+          "como_ler": "Barra maior é a área ou origem do lançamento com mais atraso.",
+          "perguntas": ["De qual centro de custo vem a maior parte do atraso?"],
+          "dica": "Cruze com Elemento de Custo para apontar a origem do atraso."
+        },
+        {
+          "titulo": "Elemento de Custo (Total Vencido)",
+          "tipo": "Ranking (barras)",
+          "mostra": "Saldo vencido somado por elemento de custo.",
+          "como_ler": "Barra maior é a classificação com mais atraso.",
+          "perguntas": ["Que tipo de receita está mais atrasada?"],
+          "dica": "Combine com o filtro do topo para olhar um elemento de custo por vez."
+        },
+        {
+          "titulo": "Portador (Total Vencido)",
+          "tipo": "Ranking (barras)",
+          "mostra": "Saldo vencido somado por portador (banco ou carteira de cobrança).",
+          "como_ler": "Barra maior é o portador com mais títulos vencidos.",
+          "perguntas": ["Qual banco ou carteira concentra o atraso?"],
+          "dica": "Útil para cobrar o banco ou revisar a carteira de cobrança com mais atraso."
+        },
+        {
+          "titulo": "Tipo de Cobrança (Total Vencido)",
+          "tipo": "Ranking (barras)",
+          "mostra": "Saldo vencido somado por tipo de cobrança.",
+          "como_ler": "Barra maior é a forma de cobrança com mais atraso.",
+          "perguntas": ["Qual forma de cobrança tem mais inadimplência?"],
+          "dica": "Compare com o peso de cada forma em Saldo à receber por Tipo de Cobrança para ver se ela atrasa mais que a média."
+        }
+      ]
+    },
+    {
+      "nome": "Calendario",
+      "objetivo": "Visão de calendário mensal do que foi recebido, do que vence e do saldo acumulado a receber dia a dia.",
+      "widgets": [
+        {
+          "titulo": "Calendário de Recebimentos",
+          "tipo": "Painel interativo",
+          "mostra": "Calendário do mês com, em cada dia, o valor recebido (Rec, verde), o valor que vence (Venc, âmbar) e o A Receber acumulado até aquele dia (valor dos vencimentos menos o recebido, somados). À direita, um painel com o Valor à Receber Atual, o total recebido e o total que venceu no período, e a evolução mês a mês (recebido, vencimento e A Receber no fim do mês).",
+          "como_ler": "O dia de hoje tem contorno laranja. Dias vazios estão sem movimento. O A Receber acumulado sobe quando vence mais do que entra e desce quando entra mais do que vence.",
+          "perguntas": ["Quanto vence e quanto entrou em cada dia?", "O saldo acumulado a receber está subindo ou caindo?", "Quais meses tiveram mais vencimento do que recebimento?"],
+          "dica": "Use Anterior e Próximo para navegar nos meses, ou clique em um mês da lista da direita. Clique em um dia com valor para ver os títulos que vencem nele, com documento, cliente, valor e saldo em aberto."
+        }
+      ]
+    }
+  ],
+  "roteiros": [
+    {
+      "titulo": "Quem está nos devendo e há quanto tempo?",
+      "passos": [
+        "Em Vencidos - Vencer, veja o Resumo por Faixa: o Total Vencido e a divisão em até 30, 31 a 60, 61 a 90 e acima de 90 dias.",
+        "Role até a matriz de Cliente e procure os maiores totais vencidos, olhando as faixas mais à direita (atrasos mais antigos).",
+        "Clique no valor vermelho do cliente para abrir os títulos, com emissão, vencimento e saldo, e defina a cobrança.",
+        "Clique no nome do cliente para filtrar o dashboard e conferir o histórico em Recebidos (Valor Recebido por Cliente)."
+      ]
+    },
+    {
+      "titulo": "O caixa do mês vai fechar o que esperamos?",
+      "passos": [
+        "Em Visão Geral Recebimentos, compare À Receber Mês com Recebido Mês nos cartões do topo.",
+        "Em À Receber, veja Saldo pendente por Data de Vencimento para ver os dias que ainda concentram vencimentos.",
+        "Abra Títulos à receber agrupados na aba Semana para listar quem deve pagar nos próximos dias.",
+        "Em Vencidos - Vencer, confira o Vencido Mês Atual: é o que já venceu no mês e ainda não entrou."
+      ]
+    },
+    {
+      "titulo": "Qual carteira de representante merece atenção na cobrança?",
+      "passos": [
+        "Em À Receber, veja Saldo à receber por Representante para achar as maiores carteiras em aberto.",
+        "Em Vencidos - Vencer, abra a matriz de Representante e veja quanto da carteira está vencido e em qual faixa.",
+        "Compare com Recebimentos por representantes (Visão Geral) para ver se a carteira grande também recebe bem.",
+        "Clique no nome do representante para filtrar o app e listar os clientes que mais atrasam."
+      ]
+    },
+    {
+      "titulo": "A forma de cobrança está influenciando o atraso?",
+      "passos": [
+        "Em Visão Geral Recebimentos, veja o gráfico Valor por Tipo de Cobrança para saber o peso de cada forma.",
+        "Em Vencidos - Vencer, veja Tipo de Cobrança (Total Vencido) para ver qual forma acumula mais atraso.",
+        "Compare os dois: uma forma com peso pequeno na carteira e atraso grande merece revisão.",
+        "Em Recebidos, veja o Valor Recebido por Tipo de Cobrança para ver por qual forma o dinheiro realmente entra."
+      ]
+    }
+  ]
+}

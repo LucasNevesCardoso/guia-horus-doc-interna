@@ -1,0 +1,148 @@
+{
+ "app": "Faturamento",
+ "nos": [
+  {
+   "id": "fato",
+   "nome": "Itens da NF de saída",
+   "papel": "fato",
+   "x": 63,
+   "y": 50,
+   "campos": [
+    "Valor líquido",
+    "Valor bruto",
+    "Quantidade"
+   ]
+  },
+  {
+   "id": "d0",
+   "nome": "Calendário",
+   "papel": "dimensao",
+   "x": 10,
+   "y": 18,
+   "campos": [
+    "Data",
+    "Mês",
+    "Ano"
+   ]
+  },
+  {
+   "id": "d1",
+   "nome": "Clientes",
+   "papel": "dimensao",
+   "x": 10,
+   "y": 50,
+   "campos": [
+    "Razão social",
+    "UF",
+    "Cidade"
+   ]
+  },
+  {
+   "id": "d2",
+   "nome": "Produtos",
+   "papel": "dimensao",
+   "x": 91,
+   "y": 18,
+   "campos": [
+    "Descrição",
+    "Grupo"
+   ]
+  },
+  {
+   "id": "d3",
+   "nome": "Tipo de operação",
+   "papel": "dimensao",
+   "x": 91,
+   "y": 50,
+   "campos": [
+    "Descrição",
+    "Participa Indicadores"
+   ]
+  },
+  {
+   "id": "d4",
+   "nome": "Representante",
+   "papel": "dimensao",
+   "x": 10,
+   "y": 82,
+   "campos": [
+    "Nome"
+   ]
+  },
+  {
+   "id": "d5",
+   "nome": "Nota Fiscal",
+   "papel": "dimensao",
+   "x": 36,
+   "y": 50,
+   "campos": [
+    "Número",
+    "Status NF",
+    "Emissão"
+   ]
+  }
+ ],
+ "arestas": [
+  {
+   "de": "d0",
+   "para": "d5",
+   "chave": "EMISSAO",
+   "chave_completa": "DATA → EMISSAO",
+   "via": "via Nota Fiscal"
+  },
+  {
+   "de": "d1",
+   "para": "d5",
+   "chave": "IDCLIENTE",
+   "chave_completa": "ID_CLIENTE → IDCLIENTE",
+   "via": "via Nota Fiscal"
+  },
+  {
+   "de": "d2",
+   "para": "fato",
+   "chave": "IDPRODUTO",
+   "chave_completa": "ID → IDPRODUTO",
+   "via": "direta"
+  },
+  {
+   "de": "d3",
+   "para": "fato",
+   "chave": "TIPOOPERACAO",
+   "chave_completa": "ID → TIPOOPERACAO",
+   "via": "direta"
+  },
+  {
+   "de": "d4",
+   "para": "d5",
+   "chave": "IDREPRESENTANTE",
+   "chave_completa": "ID → IDREPRESENTANTE",
+   "via": "via Nota Fiscal"
+  },
+  {
+   "de": "d5",
+   "para": "fato",
+   "chave": "IDFATURAMENTO",
+   "chave_completa": "ID → IDFATURAMENTO",
+   "via": "direta"
+  }
+ ],
+ "metricas": [
+  {
+   "nome": "Faturamento líquido",
+   "formula": "Σ Valor líquido"
+  },
+  {
+   "nome": "Ticket médio",
+   "formula": "Valor líquido ÷ nº de notas"
+  },
+  {
+   "nome": "Margem %",
+   "formula": "Margem de contribuição ÷ ROL"
+  }
+ ],
+ "filtro": {
+  "tabela": "Tipo de operação",
+  "campo": "Participa Indicadores",
+  "valor": "Participa"
+ }
+}

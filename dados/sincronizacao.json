@@ -1,0 +1,10 @@
+{
+  "fuso": "America/Sao_Paulo",
+  "cargas": [
+    {"id": "nf", "nome": "Atualização contínua", "quando": "A cada 30 minutos, das 07:00 às 19:00", "duracao": "5 a 8 min", "o_que": "Notas de saída e entrada, itens, devoluções, pedidos, ordens de compra, contas a pagar e a receber, movimentação de estoque, saldo por lote, clientes, produtos e demais cadastros. Traz o que mudou desde a última carga.", "inicio": "07:00", "fim": "19:00", "passo_min": 30},
+    {"id": "integridade", "nome": "Conferência de integridade", "quando": "A cada 2 horas, das 08:30 às 16:30", "duracao": "6 a 9 min", "o_que": "Relê por completo notas, pedidos, financeiro e estoque, para corrigir alterações e exclusões feitas no ERP depois da carga contínua.", "inicio": "08:30", "fim": "16:30", "passo_min": 120},
+    {"id": "diaria", "nome": "Recálculo diário", "quando": "Uma vez por dia, por volta da meia-noite", "duracao": "menos de 1 min", "o_que": "Atividade diária e última compra de cada cliente, usadas no painel Clientes (churn).", "inicio": "00:00", "fim": "00:00", "passo_min": 0},
+    {"id": "mensal", "nome": "Recarga completa", "quando": "Dia 1 de cada mês, às 04:00", "duracao": "cerca de 10 min", "o_que": "Recarrega todas as 43 tabelas do zero, como garantia geral.", "inicio": "04:00", "fim": "04:00", "passo_min": 0}
+  ],
+  "metas": "Metas de faturamento e de vendas vêm dos cadastros do próprio BI. Alterou o cadastro, o painel já mostra o valor novo."
+}

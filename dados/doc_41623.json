@@ -1,0 +1,264 @@
+{
+ "appId": 41623,
+ "app": "Devoluções",
+ "resumo": "Acompanha as devoluções de venda: quanto foi devolvido, de quem, em que produtos e em que períodos, e quanto isso pesa sobre o faturamento. Usado por gestão comercial, qualidade e financeiro para achar clientes, representantes e produtos com devolução fora do normal.",
+ "regras": [
+  "Devolução de venda é o item de nota de entrada que aponta para uma nota de venda. Ela é datada pela emissão da nota de venda original, igual ao relatório de Evolução de Faturamento com Devoluções do ERP.",
+  "O período padrão é o ano atual. Mude o filtro de Data no topo para outro período.",
+  "Só entram vendas finalizadas e de operações que participam de venda.",
+  "Os valores são brutos, antes de descontos de impostos.",
+  "Exceção: o Calendário de Devoluções usa a data em que a mercadoria voltou (entrada da devolução).",
+  "Todos os gráficos respeitam os filtros do topo, e clicar num item dos rankings filtra o painel inteiro."
+ ],
+ "glossario": [
+  {
+   "termo": "Devolução de venda",
+   "significado": "Mercadoria que o cliente devolveu, registrada por nota de entrada ligada à nota de venda original."
+  },
+  {
+   "termo": "% Devolução",
+   "significado": "Valor devolvido dividido pelo faturamento bruto do mesmo recorte."
+  },
+  {
+   "termo": "Faturamento − Devoluções",
+   "significado": "Faturamento bruto menos o valor devolvido."
+  },
+  {
+   "termo": "Nota de venda original",
+   "significado": "Nota em que o cliente comprou a mercadoria depois devolvida. A data dela define o mês da devolução."
+  },
+  {
+   "termo": "Valor bruto",
+   "significado": "Valor do item antes de descontos de impostos."
+  },
+  {
+   "termo": "p.p. (ponto percentual)",
+   "significado": "Diferença entre dois percentuais. De 2% para 3% são 1 p.p."
+  }
+ ],
+ "dashboards": [
+  {
+   "nome": "Devolução",
+   "objetivo": "Mostrar quanto se devolve, quem devolve e como isso evolui, com o detalhe nota a nota quando precisar conferir.",
+   "widgets": [
+    {
+     "titulo": "Devoluções (R$)",
+     "tipo": "KPI",
+     "mostra": "Valor bruto das mercadorias devolvidas por clientes no período do filtro. Cada devolução é datada pela emissão da nota de venda original, não pela data em que a mercadoria voltou.",
+     "como_ler": "Quanto menor, melhor. Compare sempre com o faturamento ao lado.",
+     "perguntas": [
+      "Quanto foi devolvido no período?",
+      "Quais representantes e clientes mais devolveram?"
+     ],
+     "dica": "Clique no cartão para abrir o detalhe por representante e cliente."
+    },
+    {
+     "titulo": "Faturamento (Brut.)",
+     "tipo": "KPI",
+     "mostra": "Valor bruto das vendas do mesmo recorte (notas finalizadas e operações que participam de venda).",
+     "como_ler": "É a base de comparação das devoluções: devolução só faz sentido olhada contra o que foi vendido.",
+     "perguntas": [
+      "Quanto vendi no período?"
+     ],
+     "dica": ""
+    },
+    {
+     "titulo": "Faturamento − Devoluções",
+     "tipo": "KPI",
+     "mostra": "Faturamento bruto menos as devoluções de venda. É a coluna Diferença do relatório de faturamento com devoluções.",
+     "como_ler": "É a venda que realmente ficou. Quanto mais perto do faturamento bruto, menos devolução.",
+     "perguntas": [
+      "Quanto da venda sobrou depois das devoluções?"
+     ],
+     "dica": ""
+    },
+    {
+     "titulo": "% Devolução",
+     "tipo": "KPI",
+     "mostra": "Devoluções divididas pelo faturamento bruto do mesmo recorte.",
+     "como_ler": "Quanto menor, melhor. Use para comparar clientes, representantes e períodos de tamanhos diferentes.",
+     "perguntas": [
+      "A devolução está alta em relação ao que vendo?",
+      "Ela subiu ou caiu?"
+     ],
+     "dica": ""
+    },
+    {
+     "titulo": "Notas Devolvidas",
+     "tipo": "KPI",
+     "mostra": "Quantidade de notas de devolução diferentes no período.",
+     "como_ler": "Muitas notas com valor baixo indicam devoluções pequenas e frequentes; poucas notas com valor alto indicam casos pontuais.",
+     "perguntas": [
+      "Quantas notas de devolução recebi?"
+     ],
+     "dica": ""
+    },
+    {
+     "titulo": "Clientes com Devolução",
+     "tipo": "KPI",
+     "mostra": "Quantidade de clientes diferentes que devolveram ao menos uma mercadoria no período.",
+     "como_ler": "Compare com o total de clientes atendidos para saber se o problema é espalhado ou concentrado.",
+     "perguntas": [
+      "Quantos clientes devolveram?"
+     ],
+     "dica": ""
+    },
+    {
+     "titulo": "Ranking Devoluções",
+     "tipo": "Ranking",
+     "mostra": "Ranking pelo valor devolvido (bruto). Mostra os 10 primeiros e permite agrupar por Cliente, Segmento Comercial, UF, Cidade, Representante, Responsável, Rede Cliente ou Produto. Só entra quem teve devolução.",
+     "como_ler": "A barra laranja é proporcional ao maior valor da lista. A posição 1 é quem mais devolveu em dinheiro.",
+     "perguntas": [
+      "Quem concentra as devoluções em valor?",
+      "Qual produto ou segmento mais volta?"
+     ],
+     "dica": "Troque o agrupamento na caixa Agrupar por. Clique numa linha para filtrar todo o painel por aquele item. O ícone de Excel exporta o ranking."
+    },
+    {
+     "titulo": "Ranking % Devolução",
+     "tipo": "Ranking",
+     "mostra": "Ranking pelo percentual de devolução sobre o faturamento bruto, com o valor devolvido ao lado. Mostra os 10 primeiros e permite agrupar por Cliente, Segmento Comercial, UF, Cidade, Representante, Responsável, Rede Cliente ou Produto. Só entra quem teve devolução.",
+     "como_ler": "Percentual alto com valor pequeno pode ser só pouca venda; olhe os dois números juntos.",
+     "perguntas": [
+      "Quem devolve mais proporcionalmente ao que compra?",
+      "Há cliente ou representante fora do padrão?"
+     ],
+     "dica": "Troque o agrupamento na caixa Agrupar por. Clique numa linha para filtrar todo o painel por aquele item. O ícone de Excel exporta o ranking."
+    },
+    {
+     "titulo": "Ranking Quantidade Devolvida",
+     "tipo": "Ranking",
+     "mostra": "Ranking pela quantidade de unidades devolvidas. Mostra os 10 primeiros e permite agrupar por Cliente, Segmento Comercial, UF, Cidade, Representante, Responsável, Rede Cliente ou Produto. Só entra quem teve devolução.",
+     "como_ler": "Mostra volume físico, que pode ser diferente do valor: produtos baratos aparecem mais aqui do que no ranking em reais.",
+     "perguntas": [
+      "Quais produtos voltam em maior quantidade?",
+      "Onde a devolução pesa na operação, mesmo com valor baixo?"
+     ],
+     "dica": "Troque o agrupamento na caixa Agrupar por. Clique numa linha para filtrar todo o painel por aquele item. O ícone de Excel exporta o ranking."
+    },
+    {
+     "titulo": "Ranking Notas de Devolução",
+     "tipo": "Ranking",
+     "mostra": "Ranking pela quantidade de notas de devolução. Mostra os 10 primeiros e permite agrupar por Cliente, Segmento Comercial, UF, Cidade, Representante, Responsável, Rede Cliente ou Produto. Só entra quem teve devolução.",
+     "como_ler": "Muitas notas para o mesmo item indicam devolução repetida.",
+     "perguntas": [
+      "Quem devolve com mais frequência?"
+     ],
+     "dica": "Troque o agrupamento na caixa Agrupar por. Clique numa linha para filtrar todo o painel por aquele item. O ícone de Excel exporta o ranking."
+    },
+    {
+     "titulo": "Devoluções Mensais",
+     "tipo": "Barras+Linha",
+     "mostra": "Colunas com o valor devolvido em cada mês do período do filtro (laranja) lado a lado com o mesmo mês do ano anterior (cinza escuro, ou claro no tema escuro). A linha amarela é o percentual de devolução do período atual, lido no eixo da direita. No topo, três blocos comparam os dois períodos: Devoluções, Faturamento Bruto e % Devolução, cada um com a variação. O período atual é cortado em hoje, e o ano anterior usa as mesmas datas.",
+     "como_ler": "Nos blocos do topo, o selo vermelho é ruim e o verde é bom: devolução ou percentual subindo fica vermelho; faturamento subindo fica verde. A variação do percentual é em pontos percentuais (p.p.). Passe o mouse num mês para ver os valores.",
+     "perguntas": [
+      "As devoluções estão maiores ou menores que no ano passado?",
+      "Em que meses o percentual de devolução disparou?",
+      "O aumento de devolução acompanha o aumento de vendas?"
+     ],
+     "dica": "Se o filtro de Data do topo for o mês atual, o gráfico tem uma só coluna. Amplie o período para ver a evolução."
+    },
+    {
+     "titulo": "Calendário de Devoluções",
+     "tipo": "Calendário de calor",
+     "mostra": "Calendário do mês com o valor devolvido em cada dia. À esquerda, um painel laranja destaca o dia escolhido: valor devolvido, número de notas e de clientes. Atenção: aqui o dia é a data em que a mercadoria voltou (entrada da devolução), e não a emissão da venda original como nos demais gráficos.",
+     "como_ler": "Quanto mais forte o laranja, maior o valor devolvido naquele dia em relação ao dia mais alto do mês. Dia sem cor não teve devolução. Passe o mouse num dia para ver valor, notas e clientes.",
+     "perguntas": [
+      "Em que dias as devoluções chegam?",
+      "Há picos concentrados em poucos dias?",
+      "O que voltou em um dia específico?"
+     ],
+     "dica": "Clique num dia e depois em Ver auditoria para ver cliente, nota de devolução, nota de venda, produto, quantidade e valor. Use as setas para trocar de mês e o Excel para exportar. Como a data difere da dos outros gráficos, os totais podem não coincidir mês a mês."
+    },
+    {
+     "titulo": "Mapa Devoluções",
+     "tipo": "Mapa",
+     "mostra": "Mapa do Brasil com o valor devolvido por estado e cidade do cliente.",
+     "como_ler": "Cores mais escuras de verde indicam mais devolução; cinza claro, nenhuma. Compare regiões com o volume de vendas delas.",
+     "perguntas": [
+      "Em quais regiões as devoluções se concentram?",
+      "Há cidades com devolução fora do esperado?"
+     ],
+     "dica": "Confirme no ranking agrupado por UF ou Cidade antes de agir."
+    },
+    {
+     "titulo": "Valor por UF",
+     "tipo": "Pizza/Donut",
+     "mostra": "Participação de cada estado no valor devolvido: os 5 maiores estados e o restante agrupado em Outros.",
+     "como_ler": "Os rótulos mostram o percentual de cada fatia. Fatia grande é onde está a maior parte das devoluções.",
+     "perguntas": [
+      "Que estados respondem pela maior parte das devoluções?"
+     ],
+     "dica": "Cruze com o Mapa Devoluções e com o Ranking Devoluções agrupado por UF."
+    },
+    {
+     "titulo": "Devolução acumulada no período",
+     "tipo": "Linha",
+     "mostra": "Área que soma, mês a mês, o valor devolvido ao longo do período do filtro.",
+     "como_ler": "A linha só sobe. Quanto mais inclinada, mais devolução no mês. Trechos quase planos indicam meses calmos.",
+     "perguntas": [
+      "Quanto já devolvi no ano?",
+      "Em que meses a devolução acelerou?"
+     ],
+     "dica": "Compare a inclinação com a de Devoluções Mensais para localizar o mês do pico."
+    },
+    {
+     "titulo": "Valor por Representante",
+     "tipo": "Pizza/Donut",
+     "mostra": "Participação de cada representante no valor devolvido: os 3 maiores e o restante agrupado em Outros.",
+     "como_ler": "Fatia grande indica concentração em poucos representantes. Lembre que quem vende mais tende a ter mais devolução em valor.",
+     "perguntas": [
+      "Que representantes concentram as devoluções?"
+     ],
+     "dica": "Confira o percentual de cada representante no Ranking % Devolução agrupado por Representante."
+    },
+    {
+     "titulo": "Notas e clientes com devolução por mês",
+     "tipo": "Linha",
+     "mostra": "Duas linhas por mês: quantidade de notas de devolução (laranja) e de clientes com devolução (cinza), com o número escrito em cada ponto. Os meses seguem a emissão da nota de venda original.",
+     "como_ler": "Se as duas linhas sobem juntas, a devolução está espalhada entre muitos clientes. Se só as notas sobem, poucos clientes estão devolvendo várias vezes.",
+     "perguntas": [
+      "O número de clientes devolvendo está crescendo?",
+      "Há clientes que devolvem várias notas no mesmo mês?"
+     ],
+     "dica": "Clique num mês para abrir a auditoria dele, item a item (cliente, nota de devolução, data da devolução, nota de venda, produto, quantidade e valor), com exportação para Excel."
+    }
+   ]
+  }
+ ],
+ "roteiros": [
+  {
+   "titulo": "O percentual de devolução subiu. Quem está puxando?",
+   "passos": [
+    "Veja o cartão % Devolução e confirme a alta em Devoluções Mensais, comparando com o ano anterior.",
+    "Abra o Ranking % Devolução e agrupe por Cliente, depois por Representante.",
+    "Clique no nome que mais se destaca para filtrar o painel e ver o que mudou nos outros gráficos.",
+    "Troque o ranking de Devoluções para Produto e veja o que mais volta."
+   ]
+  },
+  {
+   "titulo": "Onde as devoluções se concentram geograficamente?",
+   "passos": [
+    "Olhe o Mapa Devoluções e o gráfico Valor por UF.",
+    "No Ranking Devoluções, agrupe por UF e depois por Cidade.",
+    "Clique na UF principal e veja Clientes com Devolução e Notas Devolvidas."
+   ]
+  },
+  {
+   "titulo": "Conferir uma devolução nota a nota",
+   "passos": [
+    "Em Notas e clientes com devolução por mês, clique no mês desejado.",
+    "Na auditoria, localize o cliente, a nota de devolução e a nota de venda original.",
+    "Exporte para Excel se precisar enviar à área de qualidade ou ao representante."
+   ]
+  },
+  {
+   "titulo": "Em que dias as mercadorias voltam?",
+   "passos": [
+    "Abra o Calendário de Devoluções e navegue até o mês.",
+    "Clique no dia mais forte e use Ver auditoria.",
+    "Lembre que esse calendário usa a data de entrada da devolução, diferente do mês dos outros gráficos."
+   ]
+  }
+ ]
+}

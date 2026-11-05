@@ -1,0 +1,402 @@
+{
+  "appId": 41140,
+  "app": "Contas a Pagar",
+  "resumo": "Mostra o que a empresa tem a pagar a fornecedores e o que já foi pago. Reúne títulos em aberto, vencidos e a vencer, pagamentos por fornecedor, empresa e forma de cobrança, e um calendário de pagamentos. Serve ao financeiro e à gestão para planejar o caixa e cobrar o fim dos atrasos.",
+  "regras": [
+    "O período padrão do painel é o ano atual. Os filtros do topo valem para todos os dashboards.",
+    "\"Em aberto\" significa título com saldo ainda a pagar. O saldo é o que falta pagar da ordem de pagamento.",
+    "\"Valor\" é o valor total da ordem de pagamento. \"Saldo\" é o que ainda não foi pago dela.",
+    "\"Pago\" soma só os movimentos de liquidação, juros e multa. Descontos e tarifas não entram.",
+    "O dia de um pagamento é a data do movimento (data de crédito). O dia de um título a pagar é a data de vencimento.",
+    "Vencido é o título em aberto com vencimento antes de hoje. A vencer é o que vence hoje ou depois.",
+    "Alguns cartões e gráficos têm período próprio (hoje, semana, mês, ano) e não seguem o período do topo. Isso está indicado em cada um."
+  ],
+  "glossario": [
+    {"termo": "Ordem de pagamento (OP)", "significado": "O título que a empresa deve a um fornecedor. Tem número, vencimento e valor."},
+    {"termo": "Valor da OP", "significado": "Valor total da ordem de pagamento, pago ou não."},
+    {"termo": "Saldo", "significado": "Quanto ainda falta pagar de uma ordem de pagamento."},
+    {"termo": "Valor pago (movimentado)", "significado": "Soma dos pagamentos efetivos: liquidação, juros e multa. Não inclui desconto nem tarifa."},
+    {"termo": "À pagar", "significado": "Saldo em aberto com vencimento no período indicado (hoje, semana, mês ou ano)."},
+    {"termo": "Vencido", "significado": "Saldo em aberto cujo vencimento já passou."},
+    {"termo": "A vencer", "significado": "Saldo em aberto que vence hoje ou nos próximos dias."},
+    {"termo": "Faixa de prazo", "significado": "Grupo de dias de atraso ou de espera: até 30 dias, 31 a 60, 61 a 90 e acima de 90."},
+    {"termo": "Tipo de cobrança", "significado": "Forma como o fornecedor cobra: boleto, PIX, DOC/TED, cartão, cheque, entre outras."},
+    {"termo": "Portador", "significado": "Quem ou onde o título está ligado para o pagamento, como o banco ou a carteira."},
+    {"termo": "Centro de custo / Elemento de custo", "significado": "Classificações que dizem em qual área e em qual tipo de gasto a despesa foi lançada."},
+    {"termo": "Grupo de fornecedor", "significado": "Agrupamento dos fornecedores. Nos gráficos de pizza o grupo aparece por sigla, como SP, RS e MG."}
+  ],
+  "dashboards": [
+    {
+      "nome": "Visão Geral Pagamentos",
+      "objetivo": "Resumo do que vence e do que foi pago hoje, na semana e no mês, com os principais fornecedores, empresas e formas de cobrança.",
+      "widgets": [
+        {
+          "titulo": "À Pagar Hoje / Semana / Mês",
+          "tipo": "KPI",
+          "mostra": "Três cartões com o saldo em aberto que vence hoje, na semana atual e no mês atual (mês inteiro). Só entram títulos com saldo maior que zero.",
+          "como_ler": "Número maior significa mais dinheiro a sair no período. Compare hoje com a semana e o mês para ver como o pagamento se distribui.",
+          "perguntas": ["Quanto preciso ter em caixa hoje?", "Quanto vence nesta semana?", "Quanto falta pagar até o fim do mês?"],
+          "dica": "Compare cada cartão com o Pago do mesmo período, logo ao lado, para ver quanto já foi feito."
+        },
+        {
+          "titulo": "Pago Hoje / Semana / Mês",
+          "tipo": "KPI",
+          "mostra": "Três cartões com o valor efetivamente pago hoje, na semana atual e no mês atual. Soma liquidação, juros e multa, pela data do pagamento.",
+          "como_ler": "Mostra o ritmo de pagamento. Se o pago do mês está bem abaixo do À Pagar Mês, ainda há muito a quitar.",
+          "perguntas": ["Quanto já saiu do caixa hoje?", "O ritmo de pagamento da semana está em linha com o que vence?", "Quanto já paguei neste mês?"],
+          "dica": "Use junto com os cartões À Pagar para montar a leitura: o que vence, o que já foi pago e o que resta."
+        },
+        {
+          "titulo": "Top 10 Fornecedores em Atraso",
+          "tipo": "Barras",
+          "mostra": "Os 10 fornecedores com maior valor de ordens de pagamento, em barras deitadas. A soma é do valor total das ordens com vencimento até 21/09/2026 (período fixo deste gráfico).",
+          "como_ler": "Barra mais longa é o fornecedor com mais valor nesse recorte. O gráfico soma o valor da ordem, não só o saldo em aberto.",
+          "perguntas": ["Com quais fornecedores concentro mais valor?", "Quem eu devo priorizar na negociação?"],
+          "dica": "Para ver o que está em aberto de fato, confira o mesmo fornecedor no dashboard Vencidos - Vencer."
+        },
+        {
+          "titulo": "Valor por Grupo de Fornecedor",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada grupo de fornecedor no valor total das ordens de pagamento. Mostra os 5 maiores e junta o resto em \"-Outros-\". Os rótulos são percentuais.",
+          "como_ler": "Fatias maiores concentram mais gasto. Uma fatia dominante indica dependência de um grupo.",
+          "perguntas": ["Quais grupos de fornecedor concentram o gasto?", "Há dependência de um grupo?"],
+          "dica": "Compare com a pizza de Tipo de Cobrança para ver se o grupo maior paga mais por boleto ou por PIX."
+        },
+        {
+          "titulo": "Valor à Pagar por Tipo de Cobrança",
+          "tipo": "Linha",
+          "mostra": "Saldo em aberto mês a mês, com uma linha para cada tipo de cobrança (boleto, PIX, DOC/TED, cartão e outros).",
+          "como_ler": "Cada cor é uma forma de cobrança. Subidas indicam meses com mais saldo a pagar naquela forma. A legenda mostra qual cor é qual.",
+          "perguntas": ["Em que meses o saldo a pagar é maior?", "Qual forma de cobrança pesa mais em cada mês?"],
+          "dica": "Clique na legenda para ocultar tipos e comparar só os que interessam."
+        },
+        {
+          "titulo": "Valor por Tipo de Cobrança",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada tipo de cobrança no valor total das ordens de pagamento. Mostra os 4 maiores e agrupa o restante em \"-Outros-\".",
+          "como_ler": "Mostra quais formas de pagamento dominam. Boleto e PIX costumam ser as maiores fatias.",
+          "perguntas": ["Quanto do gasto passa por boleto e quanto por PIX?", "Há cobranças fora do padrão, como cartão ou cheque?"],
+          "dica": ""
+        },
+        {
+          "titulo": "Top 10 Dias com maior valor Movimentado",
+          "tipo": "Barras+Linha",
+          "mostra": "Os maiores valores pagos, em área, ordenados do maior para o menor (até 15 pontos). Só entram pagamentos efetivos (liquidação, juros e multa).",
+          "como_ler": "Picos mostram os períodos em que mais dinheiro saiu. Ajuda a ver concentração de pagamentos.",
+          "perguntas": ["Quando mais dinheiro saiu do caixa?", "Os picos de pagamento estão previstos no fluxo de caixa?"],
+          "dica": "Cruze com o Calendário de pagamentos para ver os dias e os títulos por trás de cada pico."
+        },
+        {
+          "titulo": "Fornecedores Transacionando",
+          "tipo": "KPI",
+          "mostra": "Quantidade de fornecedores diferentes que têm ordens de pagamento no período do filtro.",
+          "como_ler": "Número maior significa base de fornecedores mais ampla. Muda conforme os filtros do topo.",
+          "perguntas": ["Com quantos fornecedores a empresa trabalha no período?"],
+          "dica": "Filtre uma empresa ou um período e veja como o número muda."
+        },
+        {
+          "titulo": "Emitido x Realizado - Ano anterior",
+          "tipo": "Barras",
+          "mostra": "Por mês, duas barras do ano anterior até a mesma data de hoje: o valor emitido (valor das ordens de pagamento) e o valor realizado (pago).",
+          "como_ler": "Barra preta é o emitido e barra laranja é o pago. Quando a laranja é menor, parte do emitido ficou sem pagar naquele mês.",
+          "perguntas": ["No ano anterior, quanto do emitido foi pago?", "Em que meses a diferença foi maior?"],
+          "dica": "Use como referência para comparar com o ritmo de pagamento deste ano."
+        },
+        {
+          "titulo": "Pagamentos por Empresa",
+          "tipo": "Barras",
+          "mostra": "Valor pago por empresa, em barras deitadas, para as 10 empresas que mais pagaram.",
+          "como_ler": "Barra maior é a empresa com mais pagamentos efetivos.",
+          "perguntas": ["Qual empresa do grupo mais paga?", "Os pagamentos estão distribuídos como esperado?"],
+          "dica": "Compare com Saldo à pagar por Empresa no dashboard À Pagar."
+        },
+        {
+          "titulo": "Valor Movimentado por Dia",
+          "tipo": "Calendário de calor",
+          "mostra": "Calendário em que cada dia é colorido conforme o valor pago nele. Considera pagamentos efetivos, do mesmo período do ano anterior até hoje.",
+          "como_ler": "Cor mais forte é dia de mais pagamento. Dias vazios ou claros tiveram pouco ou nenhum pagamento.",
+          "perguntas": ["Em quais dias do mês concentro pagamentos?", "Há dias que sempre pesam mais?"],
+          "dica": "Procure um padrão (início, meio ou fim de mês) para melhorar o planejamento de caixa."
+        },
+        {
+          "titulo": "Valor movimentado x Saldo x Valor OP por Conta Bancária",
+          "tipo": "Barras+Linha",
+          "mostra": "Para cada conta bancária, três números lado a lado: valor pago (amarelo), valor das ordens de pagamento (preto) e saldo ainda em aberto (área laranja).",
+          "como_ler": "Compare as três medidas na mesma conta. Se o saldo é grande perto do valor da OP, pouca coisa foi paga por essa conta.",
+          "perguntas": ["Por qual conta saem mais pagamentos?", "Em qual conta há mais saldo a pagar?"],
+          "dica": "Use para prever quanto cada conta precisa ter de saldo nas próximas datas."
+        }
+      ]
+    },
+    {
+      "nome": "À Pagar",
+      "objetivo": "Mostrar o saldo em aberto: quanto é, quando vence e a quem se deve, por fornecedor, empresa, grupo e forma de cobrança.",
+      "widgets": [
+        {
+          "titulo": "Cartões de saldo (À Pagar Hoje, Semana, Mês, Ano, Total Aberto e Total em Atraso)",
+          "tipo": "KPI",
+          "mostra": "Seis cartões com o saldo a pagar e a quantidade de títulos: hoje, na semana, no mês, no ano (títulos em aberto), o total em aberto e o total em atraso. O Total Aberto usa um período amplo, de 2000 a 2040. O Total em Atraso considera vencimentos de 2013 até 07/10/2026 (período fixo do cartão).",
+          "como_ler": "O cartão vermelho é o de atraso. Os demais, em laranja, mostram o que ainda vai vencer. \"Qtd.\" é o número de títulos.",
+          "perguntas": ["Quanto temos a pagar em cada período?", "Quanto já está vencido?", "Quantos títulos estão por trás de cada valor?"],
+          "dica": "Parta do Total Aberto e veja quanto está atrasado. Para saber quem, use o dashboard Vencidos - Vencer."
+        },
+        {
+          "titulo": "Saldo à pagar por Tipo de Cobrança",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada forma de cobrança no saldo em aberto. Mostra as 3 maiores e agrupa o resto em \"-Outros-\".",
+          "como_ler": "Fatia maior concentra mais saldo a pagar naquela forma.",
+          "perguntas": ["Quanto do que devo é boleto e quanto é PIX?", "Qual forma de pagamento exige mais atenção?"],
+          "dica": ""
+        },
+        {
+          "titulo": "Saldo à pagar por Fornecedor",
+          "tipo": "Barras",
+          "mostra": "Os 15 fornecedores com maior saldo em aberto, em barras deitadas.",
+          "como_ler": "Barra mais longa é o fornecedor a quem mais se deve.",
+          "perguntas": ["A quem devo mais?", "Quem concentra o saldo a pagar?"],
+          "dica": "Compare com o Valor Pago por Fornecedor do dashboard Pagos para ver quem recebeu e quem ainda tem saldo."
+        },
+        {
+          "titulo": "Saldo à pagar por Empresa",
+          "tipo": "Barras",
+          "mostra": "Saldo em aberto por empresa do grupo (até 10), em barras deitadas.",
+          "como_ler": "Barra maior é a empresa com mais contas a pagar.",
+          "perguntas": ["Qual empresa tem mais contas a pagar?"],
+          "dica": ""
+        },
+        {
+          "titulo": "Saldo à pagar por Grupo de Fornecedor",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada grupo de fornecedor no saldo em aberto. Mostra os 5 maiores e junta o resto em \"-Outros-\".",
+          "como_ler": "Fatia maior concentra mais saldo a pagar naquele grupo.",
+          "perguntas": ["Que grupos de fornecedor concentram o que devo?"],
+          "dica": ""
+        },
+        {
+          "titulo": "Saldo pendente por Data de Vencimento",
+          "tipo": "Calendário de calor",
+          "mostra": "Calendário em que cada dia é colorido pelo saldo em aberto que vence nele.",
+          "como_ler": "Cor mais forte é dia com mais dinheiro a pagar. Mostra as concentrações de vencimento.",
+          "perguntas": ["Em quais dias vence mais dinheiro?", "Há semanas sobrecarregadas?"],
+          "dica": "Antecipe o caixa para os dias de cor mais forte."
+        },
+        {
+          "titulo": "Saldo à Pagar por mês",
+          "tipo": "Barras",
+          "mostra": "Saldo em aberto em cada mês do calendário, em barras.",
+          "como_ler": "Barras maiores indicam meses com mais dinheiro a sair.",
+          "perguntas": ["Quais meses terão mais saídas?", "Existe mês crítico?"],
+          "dica": "Cruze com o Valor Pago por mês do dashboard Pagos."
+        },
+        {
+          "titulo": "Saldo x Valor OP",
+          "tipo": "Barras+Linha",
+          "mostra": "Para as 15 ordens de pagamento com maior saldo: o saldo ainda em aberto (linha preta) e o valor total da ordem (barra laranja). Ordens com saldo zero não aparecem.",
+          "como_ler": "Quanto mais perto a linha estiver do topo da barra, menos da ordem foi paga. Linha bem abaixo da barra indica pagamento parcial.",
+          "perguntas": ["Quais ordens têm maior saldo?", "Alguma ordem foi paga só em parte?"],
+          "dica": "Anote o número da ordem e procure no widget Títulos à pagar agrupados."
+        },
+        {
+          "titulo": "Títulos à pagar agrupados",
+          "tipo": "Tabela",
+          "mostra": "Lista as ordens de pagamento do mês atual, com número, fornecedor, vencimento e valor total. Tem três abas: Hoje, Semana e Mês, cada uma com a quantidade de títulos.",
+          "como_ler": "Escolha a aba para ver o que vence naquele período. O vencimento do dia aparece em laranja.",
+          "perguntas": ["Quais títulos vencem hoje?", "Quais vencem nesta semana?", "Quais fornecedores estão por trás dos valores do mês?"],
+          "dica": "Clique em uma linha para filtrar o dashboard por aquela ordem. Clique de novo para tirar o filtro."
+        },
+        {
+          "titulo": "Saldo/Pago Fornecedores",
+          "tipo": "Tabela",
+          "mostra": "Por fornecedor: o valor pago (liquidação, juros e multa) e o saldo em aberto. A lista vai do maior para o menor saldo e só mostra fornecedores com saldo maior que zero.",
+          "como_ler": "Valor pago em verde e saldo em aberto em preto. Fornecedor com pouco pago e muito saldo merece atenção.",
+          "perguntas": ["Quanto já paguei e quanto devo a cada fornecedor?", "Quais fornecedores têm o maior saldo?"],
+          "dica": ""
+        }
+      ]
+    },
+    {
+      "nome": "Pagos",
+      "objetivo": "Acompanhar tudo o que já foi pago: por período, fornecedor, empresa, forma de cobrança e dia.",
+      "widgets": [
+        {
+          "titulo": "Pago Hoje / Semana / Mês Atual / Mês Passado / Ano Atual / Total até Hoje",
+          "tipo": "KPI",
+          "mostra": "Seis cartões com o valor pago em cada período: hoje, semana atual, mês atual, mês passado, ano atual e total acumulado (de 12/01/2024 até 07/10/2026, período fixo do cartão). Só entram liquidação, juros e multa. O cartão Pago Hoje permite abrir a lista das ordens pagas.",
+          "como_ler": "Compare o mês atual com o mês passado para ver se o ritmo de pagamento sobe ou cai.",
+          "perguntas": ["Quanto já paguei hoje, na semana e no mês?", "Estou pagando mais ou menos do que no mês passado?", "Qual o total pago no ano?"],
+          "dica": "Clique no Pago Hoje para abrir as ordens pagas e o valor de cada uma."
+        },
+        {
+          "titulo": "Valor Pago por Tipo de Cobrança",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada tipo de cobrança no valor pago. Mostra os 5 maiores e agrupa o resto em \"-Outros-\".",
+          "como_ler": "Fatia maior é a forma de pagamento mais usada.",
+          "perguntas": ["Por qual forma pago mais?", "Quanto passa por PIX e quanto por boleto?"],
+          "dica": "Clique em uma fatia para abrir os números das ordens pagas."
+        },
+        {
+          "titulo": "Valor Pago por Fornecedor",
+          "tipo": "Barras",
+          "mostra": "Os 15 fornecedores que mais receberam, em barras deitadas.",
+          "como_ler": "Barra mais longa é o fornecedor com mais pagamentos no período.",
+          "perguntas": ["Quem mais recebe da empresa?", "Os maiores pagamentos estão concentrados em poucos fornecedores?"],
+          "dica": "Compare com Saldo à pagar por Fornecedor para ver se quem mais recebe também é quem ainda tem saldo."
+        },
+        {
+          "titulo": "Valor Pago por Empresa",
+          "tipo": "Barras",
+          "mostra": "Valor pago por empresa do grupo, em barras deitadas, para até 15 empresas.",
+          "como_ler": "Barra maior é a empresa que mais pagou.",
+          "perguntas": ["Qual empresa mais paga?"],
+          "dica": ""
+        },
+        {
+          "titulo": "Valor Pago por Grupo de Fornecedor",
+          "tipo": "Pizza/Donut",
+          "mostra": "Participação de cada grupo de fornecedor no valor pago. Mostra os 5 maiores e junta o resto em \"-Outros-\".",
+          "como_ler": "Fatia maior é o grupo que mais recebeu.",
+          "perguntas": ["Que grupos de fornecedor recebem mais?"],
+          "dica": ""
+        },
+        {
+          "titulo": "Valor Pago por Dia",
+          "tipo": "Calendário de calor",
+          "mostra": "Calendário em que cada dia é colorido pelo valor pago nele.",
+          "como_ler": "Cor mais forte indica dia de mais pagamentos.",
+          "perguntas": ["Em quais dias costumo pagar mais?", "Existem dias sem pagamento?"],
+          "dica": "Procure um padrão no mês para ajustar o planejamento de caixa."
+        },
+        {
+          "titulo": "Valor Pago por mês",
+          "tipo": "Barras",
+          "mostra": "Valor pago em cada mês do calendário, em barras.",
+          "como_ler": "Barras maiores são meses em que mais dinheiro saiu.",
+          "perguntas": ["Em que meses pago mais?", "O ritmo está estável ao longo do ano?"],
+          "dica": "Cruze com o Saldo à Pagar por mês do dashboard À Pagar."
+        },
+        {
+          "titulo": "Valor Pago x Valor OP",
+          "tipo": "Barras+Linha",
+          "mostra": "Por ordem de pagamento: o valor pago (barra laranja) e o valor total da ordem (linha preta). Considera ordens com saldo acima de 1.",
+          "como_ler": "Se a barra alcança a linha, a ordem foi toda paga. Barra abaixo da linha indica pagamento parcial.",
+          "perguntas": ["Quais ordens foram pagas só em parte?", "Quanto falta pagar nas ordens parciais?"],
+          "dica": "Use o número da ordem para localizar o título no widget Títulos Pagos Agrupados."
+        },
+        {
+          "titulo": "Títulos Pagos Agrupados",
+          "tipo": "Tabela",
+          "mostra": "Lista os pagamentos do mês atual: número do título, fornecedor, data de crédito e valor pago. Tem abas Hoje, Semana e Mês, cada uma com a quantidade de títulos. A data usada é a do pagamento, não a do vencimento.",
+          "como_ler": "Escolha a aba para o período. A data de hoje aparece em laranja.",
+          "perguntas": ["Quais títulos foram pagos hoje?", "Quem recebeu nesta semana?", "Quanto foi pago a cada fornecedor no mês?"],
+          "dica": "Clique em uma linha para filtrar o dashboard por aquela ordem. Clique de novo para limpar o filtro."
+        }
+      ]
+    },
+    {
+      "nome": "Vencidos - Vencer",
+      "objetivo": "Separar o que já venceu do que ainda vai vencer, por faixa de prazo, e mostrar os fornecedores, grupos e empresas por trás de cada valor.",
+      "widgets": [
+        {
+          "titulo": "Resumo por Faixa",
+          "tipo": "Painel interativo",
+          "mostra": "Três totais (Total Geral Aberto, Total Vencido e Total a Vencer) e oito cartões por faixa: quatro de atraso (Risco de Atraso) e quatro de saídas futuras (Projeção de Saída). As faixas são até 30 dias, 31 a 60, 61 a 90 e acima de 90 dias. Usa o saldo em aberto.",
+          "como_ler": "Os cartões em vermelho são o atraso e quanto mais velha a faixa, maior o risco. Os cartões em verde são o que ainda vai vencer, por prazo.",
+          "perguntas": ["Quanto está vencido e há quanto tempo?", "Qual o valor a vencer nos próximos 30, 60 e 90 dias?", "O atraso está concentrado em faixas antigas?"],
+          "dica": "Clique em uma faixa para abrir a lista de títulos: vencimento, número da ordem, fornecedor e saldo. Use o botão Voltar aos Totais para retornar."
+        },
+        {
+          "titulo": "Fornecedor",
+          "tipo": "Matriz",
+          "mostra": "Uma linha por fornecedor, com o saldo vencido e a vencer em cada faixa de prazo, mais Total Vencido, Total a Vencer e Total Geral. A lista vai do maior para o menor total.",
+          "como_ler": "Valores em vermelho são atraso e em verde são o que vai vencer. Valores zerados aparecem apagados. Total Vencido alto num fornecedor sinaliza prioridade de pagamento.",
+          "perguntas": ["Quais fornecedores estão com mais atraso?", "Quanto vence nos próximos 30 dias por fornecedor?", "Qual o total devido a cada fornecedor?"],
+          "dica": "Clique em uma faixa para ver os títulos (documento, emissão, vencimento e saldo). Clique no nome do fornecedor para filtrar o dashboard só por ele."
+        },
+        {
+          "titulo": "Grupo de Fornecedor",
+          "tipo": "Matriz",
+          "mostra": "A mesma matriz de faixas de prazo (vencido e a vencer), agora por grupo de fornecedor.",
+          "como_ler": "Mesma leitura da matriz por Fornecedor: vermelho é atraso, verde é a vencer. Grupos sem informação aparecem como \"Sem Grupo de Fornecedor\".",
+          "perguntas": ["Que grupos de fornecedor estão mais atrasados?", "Onde estará o maior saldo nos próximos meses?"],
+          "dica": "Clique em uma faixa para ver os títulos. Clique no nome do grupo para filtrar o dashboard."
+        },
+        {
+          "titulo": "Empresa",
+          "tipo": "Matriz",
+          "mostra": "A mesma matriz de faixas de prazo, agora por empresa do grupo.",
+          "como_ler": "Vermelho é atraso, verde é a vencer. Mostra qual empresa tem mais pendência.",
+          "perguntas": ["Qual empresa do grupo tem mais atraso?", "Como o saldo a vencer se distribui entre as empresas?"],
+          "dica": "Clique em uma faixa para ver os títulos. Clique no nome da empresa para filtrar o dashboard."
+        },
+        {
+          "titulo": "Vencido Hoje / Semana Atual / Mês Atual / Pago no Mês Atual / Total Vencido",
+          "tipo": "KPI",
+          "mostra": "Cinco cartões: o saldo vencido hoje, o vencido na semana atual, o vencido no mês atual, o valor pago no mês atual e o Total Vencido (todo o saldo em aberto com vencimento passado).",
+          "como_ler": "Compare o vencido do mês com o pago do mês para ver se o pagamento acompanha o atraso. Total Vencido alto pede ação.",
+          "perguntas": ["Quanto venceu hoje, nesta semana e neste mês?", "Quanto está vencido ao todo?", "O que paguei no mês cobre o que venceu?"],
+          "dica": "Os gráficos de barras abaixo abrem o Total Vencido por fornecedor, empresa, centro de custo, elemento de custo, portador e tipo de cobrança."
+        },
+        {
+          "titulo": "Total Vencido por Fornecedor / Empresa / Centro de Custo / Elemento de Custo / Portador / Tipo de Cobrança",
+          "tipo": "Barras",
+          "mostra": "Seis gráficos de barras do Total Vencido, cada um por uma quebra: fornecedor, empresa, centro de custo, elemento de custo, portador e tipo de cobrança. Fornecedor e empresa mostram os 10 maiores.",
+          "como_ler": "Barra maior é a quebra com mais atraso. Mostra onde o vencido está concentrado.",
+          "perguntas": ["Quem concentra o atraso: fornecedor, empresa ou centro de custo?", "Que tipo de gasto está mais atrasado?", "Que forma de cobrança tem mais atraso?"],
+          "dica": "Comece pelo gráfico de fornecedor e cruze com o centro de custo para achar a causa do atraso."
+        }
+      ]
+    },
+    {
+      "nome": "Calendario",
+      "objetivo": "Ver, dia a dia, o que foi pago, o que vence e quanto fica pendente, em formato de calendário mensal.",
+      "widgets": [
+        {
+          "titulo": "Calendário de Pagamentos",
+          "tipo": "Painel interativo",
+          "mostra": "Calendário mensal. Em cada dia aparecem o valor pago (Pag), o valor com vencimento no dia (Venc) e o valor a pagar acumulado (A Pagar). O A Pagar é a soma dos vencimentos menos os pagamentos, acumulada desde o início. No painel lateral: o Valor à Pagar Atual, o total Pago no Período, o total de Vencimento no Período e um resumo de cada mês.",
+          "como_ler": "Verde é o pago e âmbar é o vencimento do dia. O dia de hoje tem destaque laranja. Dia sem cor não teve movimento. No resumo mensal, \"A Pagar (fim do mês)\" é o saldo acumulado no último dia do mês.",
+          "perguntas": ["Quanto vence e quanto é pago em cada dia?", "Como o saldo a pagar evolui ao longo do mês?", "Que meses têm mais vencimento do que pagamento?"],
+          "dica": "Use as setas Anterior e Próximo ou clique em um mês no painel lateral. Clique em um dia com movimento para listar os títulos que vencem nele, com fornecedor, valor e saldo em aberto."
+        }
+      ]
+    }
+  ],
+  "roteiros": [
+    {
+      "titulo": "O que preciso pagar hoje e nesta semana?",
+      "passos": [
+        "Abra Visão Geral Pagamentos e veja os cartões À Pagar Hoje e À Pagar Semana.",
+        "Vá ao dashboard À Pagar e abra Títulos à pagar agrupados. Troque entre as abas Hoje e Semana para ver cada título.",
+        "Clique em uma linha para filtrar o dashboard por aquela ordem e conferir o fornecedor.",
+        "Compare com Pago Hoje e Pago Semana para saber quanto já foi quitado."
+      ]
+    },
+    {
+      "titulo": "Onde está o atraso e a quem devo?",
+      "passos": [
+        "Abra Vencidos - Vencer e veja o Resumo por Faixa: quanto está vencido e em qual faixa de prazo.",
+        "Clique na faixa mais crítica (por exemplo, acima de 90 dias) para abrir a lista de títulos.",
+        "Na matriz Fornecedor, ordene a atenção pelos maiores Totais Vencidos. Clique no nome para filtrar o dashboard.",
+        "Veja nos gráficos de barras do mesmo dashboard se o atraso se concentra em uma empresa, centro de custo ou forma de cobrança."
+      ]
+    },
+    {
+      "titulo": "Como será o caixa nos próximos meses?",
+      "passos": [
+        "No dashboard À Pagar, veja o Saldo à Pagar por mês para identificar os meses de maior saída.",
+        "Use Saldo pendente por Data de Vencimento para achar os dias com mais vencimento.",
+        "Abra o dashboard Calendario e navegue pelos meses para ver o A Pagar acumulado dia a dia.",
+        "Clique no dia mais pesado para ver os títulos e os fornecedores que o compõem."
+      ]
+    },
+    {
+      "titulo": "Quanto paguei e para quem?",
+      "passos": [
+        "Abra o dashboard Pagos e veja os cartões: mês atual, mês passado e ano atual.",
+        "Confira Valor Pago por Fornecedor e Valor Pago por Grupo de Fornecedor para ver quem mais recebeu.",
+        "Veja Valor Pago por Tipo de Cobrança para saber por qual forma o dinheiro sai.",
+        "Use Valor Pago x Valor OP para achar ordens pagas só em parte."
+      ]
+    }
+  ]
+}
