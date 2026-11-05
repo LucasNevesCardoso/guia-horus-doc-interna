@@ -89,7 +89,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .state.off b i { background: var(--muted); }
 
 /* ---------- blocos ---------- */
-main { padding-block: 32px 64px; }
+main { padding-block: 32px 0; }
+.help-wrap { flex: 1 0 auto; padding-bottom: 48px; }
 .block + .block { margin-top: 48px; }
 .page-top { margin-bottom: 24px; }
 .page-top .lead { color: var(--muted); margin-top: 4px; }
@@ -219,7 +220,7 @@ dl.gloss dd { margin: 0; color: var(--muted); font-size: 14px; }
 .empty h2 { font-size: 17px; }
 .empty p { color: var(--muted); }
 
-.help { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; font-size: 13.5px; }
+.help { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; font-size: 13.5px; }
 .help h2 { font-size: 14px; font-weight: 500; }
 .help p { color: var(--muted); }
 .help .btn { background: transparent; color: var(--link); padding: 0; min-height: 0; font-weight: 500; }
@@ -441,9 +442,9 @@ button.btn { border: 0; }
   </div>
 </header>
 
-<main class="wrap" id="view" tabindex="-1" style="flex: 1 0 auto; width: 100%"></main>
+<main class="wrap" id="view" tabindex="-1" style="width: 100%"></main>
 
-<div class="wrap">
+<div class="wrap help-wrap">
   <aside class="help" aria-label="Suporte">
     <div><h2>Não encontrou o que procurava?</h2><p>A equipe WebMais responde dúvidas sobre os painéis e os relatórios do ERP.</p></div>
     <a class="btn" href="https://webmaissistemas.movidesk.com/kb/article/160181/ola-seja-bem-vindo-a-nossa-base-de-conhecimento" target="_blank" rel="noopener">Abrir a base de conhecimento</a>
