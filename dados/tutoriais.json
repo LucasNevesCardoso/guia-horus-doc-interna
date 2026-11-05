@@ -11,7 +11,7 @@
   },
   "blocos": [
    {
-    "titulo": "Onde ficam as metas do Bacco",
+    "titulo": "Onde ficam as metas",
     "tipo": "lista",
     "itens": [
      "Meta de Faturamento por Agrupamento: usada no app Faturamento, no gráfico Faturamento Mensal x Metas.",
@@ -194,7 +194,7 @@
     ]
    },
    {
-    "titulo": "Filtros que o app do Bacco já traz",
+    "titulo": "Filtros que o app já traz",
     "tipo": "lista",
     "itens": [
      "Data (Calendário): começa em Mês Atual na maioria dos apps e em Ano Atual no Contas a Pagar, no Contas a Receber e no Devoluções.",
@@ -341,7 +341,7 @@
     "itens": [
      "Na home ou em qualquer tela, clique na estrela do menu lateral (Lumia). O chat abre à direita, com sugestões de perguntas.",
      "Na janela flutuante, para perguntas rápidas, inclusive enquanto você navega num dashboard.",
-     "Pelo WhatsApp, conforme o seu plano. O Bacco está no Ultra, que inclui a Lumia no WhatsApp."
+     "Pelo WhatsApp, conforme o seu plano. O plano Ultra inclui a Lumia no WhatsApp."
     ]
    },
    {

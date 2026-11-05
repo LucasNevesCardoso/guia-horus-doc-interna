@@ -1,4 +1,4 @@
-<title>Guia dos Painéis Bacco</title>
+<title>Guia Horus BI Ultra</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,7 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--text); font: 400 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; touch-action: manipulation; }
+body { margin: 0; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font: 400 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; touch-action: manipulation; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
 .wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 h1, h2, h3, h4 { color: var(--fg); margin: 0; font-weight: 600; line-height: 1.25; }
@@ -224,8 +224,9 @@ dl.gloss dd { margin: 0; color: var(--muted); font-size: 14px; }
 .btn:hover { background: var(--brand-strong); color: #fff; text-decoration: none; }
 .btn.go { background: var(--brand); color: #000; }
 .btn.go:hover { background: var(--brand-hot); color: #000; }
-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
-footer .wrap { padding-block: 16px; }
+body > .wrap, body > header, body > footer { width: 100%; }
+footer { position: sticky; bottom: 0; z-index: 15; background: var(--surface); border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+footer .wrap { padding-block: 10px; }
 
 /* ---------- como fazer ---------- */
 .callout { display: flex; gap: 10px; border-left: 2px solid var(--brand); padding: 2px 0 2px 12px; color: var(--fg); margin-bottom: 24px; font-size: 14px; }
@@ -418,7 +419,7 @@ button.btn { border: 0; }
   <div class="wrap">
     <a class="logo" href="#inicio" data-route="inicio">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4.5 6.3v8.6L12 19.2l7.5-4.3V6.3zm0 2.3 5.5 3.2v6.4L12 17.1 6.5 13.9V7.5z"/><circle cx="12" cy="10.7" r="2.4"/></svg>
-      Horus BI <small>Central Bacco</small>
+      Horus BI <small>Plano Ultra</small>
     </a>
     <nav class="menu" aria-label="Seções">
       <a href="#inicio" data-route="inicio">Início</a>
@@ -436,7 +437,7 @@ button.btn { border: 0; }
   </div>
 </header>
 
-<main class="wrap" id="view" tabindex="-1"></main>
+<main class="wrap" id="view" tabindex="-1" style="flex: 1 0 auto; width: 100%"></main>
 
 <div class="wrap">
   <aside class="help" aria-label="Suporte">
@@ -1117,7 +1118,7 @@ button.btn { border: 0; }
   $('#q').addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => render(), 200); });
   $('#q').addEventListener('keydown', (e) => { if (e.key === 'Escape') { $('#q').value = ''; render(); } });
   window.addEventListener('hashchange', () => { const s = location.hash.replace('#', '') || 'inicio'; if (s !== atual) ir(s); });
-  $('#foot').textContent = `Atualizado em ${DATA.gerado}, a partir dos apps publicados no tenant Bacco. Os números dos painéis mudam com os filtros do topo.`;
+  $('#foot').textContent = `Atualizado em ${DATA.gerado}, a partir dos apps do plano Ultra. Os números dos painéis mudam com os filtros do topo.`;
   pmRetorno();
   render();
 })();

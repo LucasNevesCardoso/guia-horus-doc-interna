@@ -1,4 +1,4 @@
-/* Motions da Central dos Painéis Bacco.
+/* Motions da Central dos Painéis (plano Ultra).
    Cada motion é um "vídeo" feito com a biblioteca Motion (motion.dev): uma linha do tempo
    animate(sequence) com tocar, pausar, recomeçar, barra de progresso clicável e legenda
    sincronizada pelo relógio da linha do tempo. A cena das tabelas vem de
