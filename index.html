@@ -9,16 +9,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Central Horus BI. Layout de documentação técnica: listas com divisórias e tabelas, sem cards,
-   cantos retos (2px), laranja só para ação e estado. IBM Plex Sans + Plex Mono para números e fórmulas. */
+   cantos suaves (8px), laranja só para ação e estado. IBM Plex Sans + Plex Mono para números e fórmulas. */
 :root {
   --bg: #ffffff;
   --surface: #ffffff;
-  --soft: #f8fafc;
-  --fg: #0f172a;
-  --text: #334155;
-  --muted: #64748b;
-  --line: #e2e8f0;
-  --line-2: #cbd5e1;
+  --soft: #f7f7f7;
+  --fg: #2f2f2f;
+  --text: #4a4a4a;
+  --muted: #5f5f5f;
+  --line: #e6e6e6;
+  --line-2: #d4d4d4;
   --brand: #f97316;
   --brand-hot: #ff5a2c;
   --brand-strong: #c2410c;
@@ -29,19 +29,19 @@
   --ok-tint: #f0fdf4;
   --font: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
-  --r: 2px;
-  --r-sm: 2px;
+  --r: 8px;
+  --r-sm: 6px;
   --shadow: none;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #020617; --surface: #020617; --soft: #0f172a; --fg: #f8fafc; --text: #cbd5e1; --muted: #94a3b8; --line: #1e293b; --line-2: #334155;
+    --bg: #161616; --surface: #1e1e1e; --soft: #232323; --fg: #f2f2f2; --text: #d6d6d6; --muted: #a8a8a8; --line: #333333; --line-2: #444444;
     --brand-strong: #fb923c; --brand-tint: rgba(249, 115, 22, .12); --link: #fb923c; --ok: #4ade80; --ok-tint: rgba(74, 222, 128, .1); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #020617; --surface: #020617; --soft: #0f172a; --fg: #f8fafc; --text: #cbd5e1; --muted: #94a3b8; --line: #1e293b; --line-2: #334155;
+  --bg: #161616; --surface: #1e1e1e; --soft: #232323; --fg: #f2f2f2; --text: #d6d6d6; --muted: #a8a8a8; --line: #333333; --line-2: #444444;
   --brand-strong: #fb923c; --brand-tint: rgba(249, 115, 22, .12); --link: #fb923c; --ok: #4ade80; --ok-tint: rgba(74, 222, 128, .1); color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -343,7 +343,7 @@ footer .wrap { padding-block: 16px; }
 .pm-campo select, .pm-campo input { min-height: 38px; width: 100%; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--bg); color: var(--fg); font: 400 14px var(--font); padding: 0 10px; }
 .pm-campo select:focus, .pm-campo input:focus { outline: none; border-color: var(--brand); }
 .pm-campo small { font-weight: 400; }
-.chips { display: flex; flex-wrap: wrap; border: 1px solid var(--line-2); border-radius: var(--r); width: fit-content; max-width: 100%; }
+.chips { display: flex; flex-wrap: wrap; border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; width: fit-content; max-width: 100%; }
 .chip { border: 0; border-right: 1px solid var(--line-2); background: var(--bg); color: var(--text); min-height: 36px; padding: 0 12px; font-size: 13.5px; font-weight: 500; }
 .chip:last-child { border-right: 0; }
 .chip:hover:not([disabled]) { color: var(--fg); background: var(--soft); }
@@ -369,7 +369,10 @@ button.btn { border: 0; }
 .sheet { display: grid; gap: 8px; position: sticky; top: 80px; }
 .sheet-t { font-size: 13px; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 6px; }
 .sheet-t svg { color: var(--ok); }
-.sheet table { width: 100%; border-collapse: collapse; font: 400 12px var(--mono); table-layout: fixed; border: 1px solid var(--line-2); }
+.sheet table { width: 100%; border-collapse: separate; border-spacing: 0; font: 400 12px var(--mono); table-layout: fixed; border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; }
+.sheet th, .sheet td { border-width: 0 1px 1px 0 !important; }
+.sheet tr > :last-child { border-right: 0 !important; }
+.sheet tbody tr:last-child td { border-bottom: 0 !important; }
 .sheet th { background: var(--soft); color: var(--fg); font-weight: 500; text-align: left; padding: 6px 8px; border: 1px solid var(--line-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sheet td { color: var(--muted); padding: 6px 8px; border: 1px solid var(--line); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sheet td.v { background: var(--brand-tint); color: var(--brand-strong); }
