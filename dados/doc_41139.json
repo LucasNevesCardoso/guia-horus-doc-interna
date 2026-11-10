@@ -4,7 +4,7 @@
   "resumo": "Acompanha o que a empresa compra: valor comprado, fornecedores, produtos e operações, e como as compras se comparam ao faturamento e às vendas. Serve ao time de compras e ao financeiro para negociar, controlar a meta de compras e cobrar prazo de entrega.",
   "regras": [
     "O período padrão é o mês atual completo; mude no filtro de data do topo e todos os painéis acompanham.",
-    "O app já traz alguns filtros fixos de configuração aplicados a todos os painéis do topo. Eles não aparecem como escolha para o usuário.",
+    "O módulo já traz alguns filtros fixos de configuração aplicados a todos os painéis do topo. Eles não aparecem como escolha para o usuário.",
     "Compras em reais usam o valor líquido dos itens das notas fiscais de entrada, salvo onde o título diz Bruto.",
     "Faturamento e vendas contam só notas de saída finalizadas e de operações que participam de venda.",
     "O custo das vendas (CMV) vem da movimentação de estoque das saídas de venda.",

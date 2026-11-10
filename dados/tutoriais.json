@@ -14,8 +14,8 @@
     "titulo": "Onde ficam as metas",
     "tipo": "lista",
     "itens": [
-     "Meta de Faturamento por Agrupamento: usada no app Faturamento, no gráfico Faturamento Mensal x Metas.",
-     "Meta de Vendas por Agrupamento: usada no app Vendas, nos gráficos Vendas Mensal x Metas e Vendas Faturadas x Meta (painel Apresentação).",
+     "Meta de Faturamento por Agrupamento: usada no módulo Faturamento, no gráfico Faturamento Mensal x Metas.",
+     "Meta de Vendas por Agrupamento: usada no módulo Vendas, nos gráficos Vendas Mensal x Metas e Vendas Faturadas x Meta (painel Apresentação).",
      "As duas ficam no menu Cadastros do DataViz, agrupadas pela mesa em que foram publicadas."
     ]
    },
@@ -43,10 +43,10 @@
     ]
    },
    {
-    "titulo": "Fazer a meta aparecer no app",
+    "titulo": "Fazer a meta aparecer no módulo",
     "tipo": "passos",
     "itens": [
-     "Abra o app Faturamento (ou Vendas) e vá ao gráfico de metas.",
+     "Abra o módulo Faturamento (ou Vendas) e vá ao gráfico de metas.",
      "Deixe o filtro de data do topo no mês da meta. O gráfico compara realizado e meta mês a mês.",
      "Use o seletor do gráfico para escolher o tipo (Geral, Representante, Responsável...). Ele soma as metas daquele tipo.",
      "Se o valor ainda não mudou, aguarde alguns segundos e atualize a página. O Cadastro chega ao BI quase na hora, sem esperar a carga do ERP."
@@ -58,7 +58,7 @@
     "itens": [
      "Só existe uma meta por mês + tipo + item. Cadastrar de novo a mesma combinação é recusado: edite a que já existe.",
      "Para carregar muitas metas de uma vez: Cadastro > Ações > Importar (arquivo XLSX). A importação é tudo ou nada: uma linha com erro barra o arquivo inteiro.",
-     "Se a meta não aparecer depois de salva, você tem acesso ao Cadastro mas o gráfico continua zerado: acione o suporte WebMais, porque o Cadastro precisa estar ligado ao app."
+     "Se a meta não aparecer depois de salva, você tem acesso ao Cadastro mas o gráfico continua zerado: acione o suporte WebMais, porque o Cadastro precisa estar ligado ao módulo."
     ]
    }
   ],
@@ -73,7 +73,7 @@
     "url": "https://claude.ai/artifact/2GVpJBuayfm8ZFLzr4yi3u",
     "titulo": "Cadastrar e consultar metas",
     "duracao": "49 s",
-    "resumo": "Do menu Cadastros ao gráfico de metas no app Faturamento, nas telas reais do Horus.",
+    "resumo": "Do menu Cadastros ao gráfico de metas no módulo Faturamento, nas telas reais do Horus.",
     "arquivo": "videos/cadastrar-e-consultar-metas.mp4"
    }
   ]
@@ -81,7 +81,7 @@
  {
   "id": "relatorios-alertas",
   "titulo": "Criar relatórios e alertas, configurar e publicar",
-  "resumo": "O relatório é montado no Explorer, em cima das tabelas ligadas do app. O mesmo relatório vira alerta pelo sino, com horário, condição e canal.",
+  "resumo": "O relatório é montado no Explorer, em cima das tabelas ligadas do módulo. O mesmo relatório vira alerta pelo sino, com horário, condição e canal.",
   "icone": "report",
   "motion": "tabelas",
   "blocos": [
@@ -102,14 +102,14 @@
      "Qualquer coluna de número, com Soma, Média, Mínimo, Máximo, Contagem ou Contagem Distinta.",
      "Agrupar transforma a coluna em linha do relatório (ex.: por cliente, por mês).",
      "Datas podem ser agrupadas por Dia, Mês, Ano/Mês, Ano, Semana do Ano, Dia da Semana e outras.",
-     "Expressões são métricas prontas do app, como Ticket médio, Margem % e CMV, com o mesmo cálculo dos painéis. Se não achar um campo, procure nas Expressões."
+     "Expressões são métricas prontas do módulo, como Ticket médio, Margem % e CMV, com o mesmo cálculo dos painéis. Se não achar um campo, procure nas Expressões."
     ]
    },
    {
     "titulo": "Criar um relatório",
     "tipo": "passos",
     "itens": [
-     "Abra o app (ex.: Faturamento) e clique na aba Explorer, no topo.",
+     "Abra o módulo (ex.: Faturamento) e clique na aba Explorer, no topo.",
      "Na caixa de busca, digite a coluna que você quer (ex.: emissão) e tecle Enter para escolher. Repita para cada coluna: Número Nota, Razão Social, Valor Líquido Item.",
      "Clique fora da caixa: o relatório aparece, com o total no rodapé.",
      "Para trocar a agregação de um campo (soma, média, contagem), use Funções na lista de sugestões.",
@@ -147,7 +147,7 @@
     "itens": [
      "Criar alerta depende da permissão Alerta (Criar, Ler, Editar, Excluir) no seu grupo. Peça ao administrador se o sino não aparecer.",
      "Alertas nascem privados. Para enviar a outras pessoas, o administrador liga Permitir usuários não administradores de compartilhar alertas.",
-     "Quem recebe vê o conteúdo mesmo sem acesso ao app: ele é gerado com o acesso de quem criou. Escolha os destinatários com cuidado."
+     "Quem recebe vê o conteúdo mesmo sem acesso ao módulo: ele é gerado com o acesso de quem criou. Escolha os destinatários com cuidado."
     ]
    }
   ],
@@ -178,15 +178,15 @@
  },
  {
   "id": "filtros",
-  "titulo": "Explorar filtros no app, nos relatórios e nos alertas",
+  "titulo": "Explorar filtros no módulo, nos relatórios e nos alertas",
   "resumo": "Filtro é a forma de perguntar ao painel. Ele começa nos filtros do topo, continua no clique dos gráficos e vale também dentro de relatórios e alertas.",
   "icone": "filter",
   "blocos": [
    {
-    "titulo": "No app: a barra do topo",
+    "titulo": "No módulo: a barra do topo",
     "tipo": "passos",
     "itens": [
-     "Os filtros são de cada app: o que você filtra no Faturamento não muda o Vendas.",
+     "Os filtros são de cada módulo: o que você filtra no Faturamento não muda o Vendas.",
      "Para começar do zero, clique em Limpar tudo (a borracha ao lado de Adicionar Filtro).",
      "Clique em Adicionar Filtro, escolha o campo (ex.: Grupo de Produto) e marque os valores.",
      "Mudou um filtro, todos os gráficos da tela acompanham. Para tirar um filtro, clique no X dele.",
@@ -194,10 +194,10 @@
     ]
    },
    {
-    "titulo": "Filtros que o app já traz",
+    "titulo": "Filtros que o módulo já traz",
     "tipo": "lista",
     "itens": [
-     "Data (Calendário): começa em Mês Atual na maioria dos apps e em Ano Atual no Contas a Pagar, no Contas a Receber e no Devoluções.",
+     "Data (Calendário): começa em Mês Atual na maioria dos módulos e em Ano Atual no Contas a Pagar, no Contas a Receber e no Devoluções.",
      "Participa Indicadores = Participa (Faturamento, Vendas, Monitor Fiscal e Devoluções): só entram tipos de operação de saída marcados como venda no ERP.",
      "Status NF = Finalizado (Faturamento, Monitor Fiscal e Devoluções): notas canceladas não entram.",
      "Esses filtros você pode trocar na tela. Filtros de segurança (o que cada usuário pode ver) não aparecem para remoção."
@@ -268,10 +268,10 @@
     "titulo": "Salvar os seus filtros (filtro padrão)",
     "tipo": "passos",
     "itens": [
-     "Deixe o app com os filtros que você quer (ex.: o seu grupo de produto, o ano atual).",
+     "Deixe o módulo com os filtros que você quer (ex.: o seu grupo de produto, o ano atual).",
      "Clique na estrela (Favoritos), no canto superior direito.",
      "Clique em Salvar filtros atuais e digite um nome.",
-     "Marque Abrir o dashboard com estes filtros para o app já abrir assim, e clique em Salvar.",
+     "Marque Abrir o dashboard com estes filtros para o módulo já abrir assim, e clique em Salvar.",
      "Você pode salvar vários filtros, mas só um abre o dashboard como padrão. Para usar outro, abra a estrela e escolha."
     ]
    },
@@ -281,7 +281,7 @@
     "itens": [
      "No app publicado, clique no + na barra de abas de dashboards.",
      "Escolha Criar do Zero ou Clonar Existente, dê um nome e clique em Criar.",
-     "Clique em Editar (lápis), adicione os gráficos com as colunas e expressões do app e clique em Salvar.",
+     "Clique em Editar (lápis), adicione os gráficos com as colunas e expressões do módulo e clique em Salvar.",
      "Clique direito na aba para Renomear, Compartilhar ou Excluir.",
      "Se o + não aparecer, peça ao administrador para liberar dashboards pessoais (HEC > Tenants > Avançado)."
     ]
@@ -290,7 +290,7 @@
     "titulo": "Filtros padrão: o que muda e o que não muda",
     "tipo": "lista",
     "itens": [
-     "Os filtros de inicialização (Data e Participa Indicadores) vêm com valor e voltam toda vez que o app abre. Sua visão salva como padrão abre por cima deles.",
+     "Os filtros de inicialização (Data e Participa Indicadores) vêm com valor e voltam toda vez que o módulo abre. Sua visão salva como padrão abre por cima deles.",
      "Participa Indicadores = Participa não é decidido no BI. Ele vem da caixa Participa Relat. Gerenc. no cadastro do tipo de operação de saída no ERP.",
      "Para um tipo de operação passar a contar em faturamento, vendas e metas, marque-o no ERP. Veja o passo a passo no vídeo do topo da página.",
      "A mudança chega ao BI na próxima atualização contínua, em até 30 minutos (das 07:00 às 19:00)."
@@ -382,7 +382,7 @@
     "titulo": "Boas práticas",
     "tipo": "lista",
     "itens": [
-     "Cite o app quando o termo existe em mais de um (ex.: \"no app Vendas\" ou \"no app Faturamento\").",
+     "Cite o módulo quando o termo existe em mais de um (ex.: \"no módulo Vendas\" ou \"no módulo Faturamento\").",
      "Pode usar nomes aproximados de cliente ou produto: a Lumia procura o nome certo.",
      "Para ver a lista linha a linha, use o Explorer. A Lumia entrega a resposta e o porquê.",
      "Antes de uma decisão importante, confira o número no painel. O rodapé do chat avisa que a IA pode errar a interpretação."

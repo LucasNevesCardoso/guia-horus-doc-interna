@@ -17,7 +17,7 @@
     {"termo": "Perda/Risco consolidado", "significado": "Soma do custo dos lotes vencidos, a vencer em menos de 30 dias ou com saldo negativo."},
     {"termo": "Dias parado", "significado": "Dias desde a última movimentação do lote."},
     {"termo": "Saída no período", "significado": "Quantidade que saiu do produto nas movimentações de estoque dentro do período do filtro."},
-    {"termo": "Indicadores do app", "significado": "O app também tem números prontos para usar em alertas e relatórios: custo das saídas de venda (CMV), entradas e saídas no período, saldo em estoque, quantidade de lotes em estoque, itens com saldo negativo e itens parados há mais de 90 dias."}
+    {"termo": "Indicadores do módulo", "significado": "O módulo também tem números prontos para usar em alertas e relatórios: custo das saídas de venda (CMV), entradas e saídas no período, saldo em estoque, quantidade de lotes em estoque, itens com saldo negativo e itens parados há mais de 90 dias."}
   ],
   "dashboards": [
     {

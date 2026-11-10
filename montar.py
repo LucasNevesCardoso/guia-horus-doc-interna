@@ -28,6 +28,37 @@ dados = {'gerado': datetime.date.today().strftime('%d/%m/%Y'), 'apps': apps,
          'sincronizacao': ler('dados', 'sincronizacao.json'),
          'tutoriais': ler('dados', 'tutoriais.json')}
 
+# Novidades: cada mudança aponta (ref) para um ponto da documentação. Aqui as refs são validadas,
+# para que nenhum link da página Novidades quebre.
+TIPOS = ('novo', 'alterado', 'removido', 'corrigido')
+novidades = ler('dados', 'novidades.json') if os.path.exists(os.path.join(AQUI, 'dados', 'novidades.json')) else []
+erros = []
+for v in novidades:
+    for m in v['mudancas']:
+        r, tag = m['ref'], f"{v['versao']} ({m['texto'][:40]}...)"
+        if m['tipo'] not in TIPOS:
+            erros.append(f'{tag}: tipo invalido {m["tipo"]}')
+        if 'metrica' in r:
+            if not any(x['metrica'] == r['metrica'] for x in dados['metricas']):
+                erros.append(f'{tag}: metrica nao existe: {r["metrica"]}')
+        elif 'tutorial' in r:
+            if not any(x['id'] == r['tutorial'] for x in dados['tutoriais']):
+                erros.append(f'{tag}: tutorial nao existe: {r["tutorial"]}')
+        elif 'app' in r:
+            a = next((x for x in apps if x['app'].strip() == r['app']), None)
+            d = a and next((x for x in a['dashboards'] if x['nome'] == r.get('dashboard')), None) if 'dashboard' in r else a
+            if not a:
+                erros.append(f'{tag}: app nao existe: {r["app"]}')
+            elif 'dashboard' in r and not d:
+                erros.append(f'{tag}: dashboard nao existe: {r["dashboard"]}')
+            elif 'widget' in r and not any(w['titulo'] == r['widget'] for w in d['widgets']):
+                erros.append(f'{tag}: widget nao existe: {r["widget"]}')
+        else:
+            erros.append(f'{tag}: ref sem app, metrica ou tutorial')
+if erros:
+    raise SystemExit('Novidades com referencia quebrada:\n  ' + '\n  '.join(erros))
+dados['novidades'] = novidades
+
 imgs = {}
 for n in ('erp-1', 'erp-2', 'erp-3'):
     b = open(os.path.join(AQUI, 'assets', n + '.jpg'), 'rb').read()

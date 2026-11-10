@@ -3,7 +3,7 @@
   "app": "Contas a Receber",
   "resumo": "Acompanha o dinheiro que a empresa tem a receber de clientes: o que vence hoje, na semana e no mês, o que já foi recebido e o que está atrasado. É usado pelo financeiro e pela cobrança para prever o caixa, achar quem está devendo e priorizar a cobrança por cliente, rede ou representante.",
   "regras": [
-    "O período padrão do app é o ano atual. Esse recorte vale para os gráficos que não têm período próprio.",
+    "O período padrão do módulo é o ano atual. Esse recorte vale para os gráficos que não têm período próprio.",
     "Os cartões de hoje, semana, mês, mês passado e ano têm período próprio e não mudam com o filtro de data do topo.",
     "Valor do título é o valor original da ordem de recebimento. Saldo é o que ainda falta receber desse título.",
     "Título em aberto é o que ainda tem saldo a receber. Vencido é o título em aberto com vencimento antes de hoje. A vencer vence hoje ou depois.",
@@ -418,7 +418,7 @@
         "Em À Receber, veja Saldo à receber por Representante para achar as maiores carteiras em aberto.",
         "Em Vencidos - Vencer, abra a matriz de Representante e veja quanto da carteira está vencido e em qual faixa.",
         "Compare com Recebimentos por representantes (Visão Geral) para ver se a carteira grande também recebe bem.",
-        "Clique no nome do representante para filtrar o app e listar os clientes que mais atrasam."
+        "Clique no nome do representante para filtrar o módulo e listar os clientes que mais atrasam."
       ]
     },
     {

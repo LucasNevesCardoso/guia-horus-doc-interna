@@ -90,7 +90,7 @@ main { padding-block: 32px 0; }
 .block + .block { margin-top: 48px; }
 .page-top { margin-bottom: 24px; }
 .page-top .lead { color: var(--muted); margin-top: 4px; }
-.more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+.more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
 .more a { display: grid; gap: 2px; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--r); text-decoration: none; transition: border-color .15s, background .15s; }
 .more a:hover { border-color: var(--brand); background: var(--brand-tint); }
 .more b { color: var(--fg); font-weight: 600; font-size: 15px; }
@@ -101,6 +101,27 @@ main { padding-block: 32px 0; }
 .block-head p { color: var(--muted); font-size: 13.5px; }
 .block-head > a { font-size: 13.5px; font-weight: 500; }
 .duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; margin-top: 32px; }
+
+/* novidades: versões, etiquetas e links para o ponto alterado */
+.nv-ver { border-top: 1px solid var(--line-2); padding: 20px 0 28px; }
+.nv-ver + .nv-ver { margin-top: 8px; }
+.nv-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 6px; }
+.nv-head h2 { font-size: 19px; font-weight: 600; font-family: var(--mono); }
+.nv-head .nv-meta { color: var(--muted); font-size: 13.5px; }
+.nv-resumo { max-width: 68ch; margin-bottom: 14px; }
+.nv-ex { display: inline-block; font-size: 12px; font-weight: 600; color: var(--brand-strong); background: var(--brand-tint); border-radius: var(--r-sm); padding: 2px 8px; }
+.nv-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.nv-lista li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 4px 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.nv-lista p { color: var(--fg); }
+.nv-onde { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px 4px; margin-top: 4px; font-size: 13px; color: var(--muted); }
+.nv-onde a { font-weight: 500; }
+.nv-tag { display: inline-block; height: 22px; line-height: 20px; padding: 0 8px; border-radius: var(--r-sm); border: 1px solid var(--line-2); font-size: 12px; font-weight: 600; white-space: nowrap; align-self: start; justify-self: start; }
+.nv-tag.novo { color: var(--ok); background: var(--ok-tint); border-color: transparent; }
+.nv-tag.alterado { color: var(--brand-strong); background: var(--brand-tint); border-color: transparent; }
+.nv-tag.corrigido { color: var(--fg); background: var(--soft); }
+.nv-tag.removido { color: var(--muted); text-decoration: line-through; }
+.item .nv-tag { margin-left: 8px; vertical-align: 2px; height: 20px; line-height: 18px; font-size: 11.5px; }
+@media (max-width: 560px) { .nv-lista li { grid-template-columns: minmax(0, 1fr); } }
 
 /* listas de linhas (substituem os cards) */
 .rows { border-top: 1px solid var(--line-2); }
@@ -131,25 +152,6 @@ main { padding-block: 32px 0; }
 .freq.f-meta i { background: var(--ok); }
 .freq.f-diaria i { background: var(--muted); }
 
-/* agenda */
-.status { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 14px; padding: 12px 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line); }
-.status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
-.status.off .dot { background: var(--muted); }
-.status strong { color: var(--fg); font-weight: 500; }
-.status p { color: var(--muted); font-size: 13.5px; }
-.status a { display: none; }
-.day { padding: 16px 0; border-bottom: 1px solid var(--line); }
-.day-scroll { overflow-x: auto; }
-.day svg { display: block; min-width: 640px; width: 100%; height: auto; }
-.day text { fill: var(--muted); font: 400 11px var(--mono); }
-.day .lane-name { fill: var(--fg); font: 500 12px var(--font); }
-.loads { display: grid; }
-.load { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 200px) minmax(0, 1fr); gap: 20px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
-.load h3 { font-size: 14px; font-weight: 500; display: flex; gap: 8px; align-items: center; }
-.load h3 i { width: 8px; height: 8px; flex: none; }
-.load .when { color: var(--fg); font-size: 13px; font-family: var(--mono); }
-.load p { font-size: 13.5px; color: var(--muted); grid-column: 3; }
-.load p + p { display: none; }
 .note { margin-top: 12px; padding-left: 12px; border-left: 2px solid var(--brand); color: var(--text); font-size: 13.5px; display: flex; gap: 8px; }
 .note svg { display: none; }
 
@@ -438,10 +440,10 @@ button.btn { border: 0; }
     </a>
     <nav class="menu" aria-label="Seções">
       <a href="#inicio" data-route="inicio">Início</a>
-      <a href="#apps" data-route="apps">Apps</a>
+      <a href="#apps" data-route="apps">Módulos</a>
       <a href="#como-fazer" data-route="como-fazer">Como fazer</a>
-      <a href="#metricas" data-route="metricas">Métricas</a>
-      <a href="#atualizacao" data-route="atualizacao">Atualização</a>
+      <a href="#metricas" data-route="metricas">Como ler</a>
+      <a href="#novidades" data-route="novidades">Novidades</a>
       <a href="#plano" data-route="plano">Plano</a>
     </nav>
     <label class="search" for="q">
@@ -476,6 +478,7 @@ button.btn { border: 0; }
 (function () {
   const DATA = JSON.parse(document.getElementById('data').textContent);
   const apps = DATA.apps, MET = DATA.metricas, SYNC = DATA.sincronizacao, TUT = DATA.tutoriais;
+  const NOV = (DATA.novidades || []).slice().sort((a, b) => b.versao.localeCompare(a.versao, undefined, { numeric: true }));
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const slug = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -546,23 +549,13 @@ button.btn { border: 0; }
     return h * 60 + m;
   }
   const hhmm = (min) => `${String(Math.floor(min / 60) % 24).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;
-  function status() {
-    const now = agoraBRT(), ini = 7 * 60, fim = 19 * 60;
-    if (now >= ini && now <= fim + 8) {
-      const ult = ini + Math.floor((Math.min(now, fim) - ini) / 30) * 30;
-      const prox = ult + 30 <= fim ? hhmm(ult + 30) : 'amanhã às 07:00';
-      return `<div class="status" role="status"><span class="dot" aria-hidden="true"></span><div><strong>Atualização contínua ativa.</strong><p>Última rodada iniciada às <span class="num">${hhmm(ult)}</span> (horário de Brasília). Próxima: <span class="num">${prox}</span>. Uma nota lançada no ERP aparece no painel em até 40 minutos.</p></div><a href="#atualizacao" data-route="atualizacao">Ver agenda</a></div>`;
-    }
-    return `<div class="status off" role="status"><span class="dot" aria-hidden="true"></span><div><strong>Fora do horário de atualização.</strong><p>Os painéis mostram os dados até a última carga das 19:00. O que for lançado agora aparece a partir das 07:00.</p></div><a href="#atualizacao" data-route="atualizacao">Ver agenda</a></div>`;
-  }
-
   /* linha de estado no início: carga contínua das 07h às 19h, a cada 30 min */
   function pulse() {
     const now = agoraBRT(), ini = 7 * 60, fim = 19 * 60, on = now >= ini && now <= fim + 8;
     const ult = ini + Math.floor((Math.min(now, fim) - ini) / 30) * 30;
     const prox = ult + 30 <= fim ? hhmm(ult + 30) : 'amanhã 07:00';
     return `<div class="state${on ? '' : ' off'}" role="status"><b><i aria-hidden="true"></i>${on ? 'Dados atualizando' : 'Atualização pausada até 07:00'}</b>
-      ${on ? `<span>Última carga <span class="tab">${hhmm(ult)}</span>, próxima <span class="tab">${prox}</span></span>` : ''}<a href="#atualizacao" data-route="atualizacao">Agenda</a></div>`;
+      ${on ? `<span>Última carga <span class="tab">${hhmm(ult)}</span>, próxima <span class="tab">${prox}</span></span>` : ''}</div>`;
   }
 
   /* ---------- peças ---------- */
@@ -573,7 +566,7 @@ button.btn { border: 0; }
   }
   function metTable(list) {
     if (!list.length) return '';
-    return `<div class="mtable" role="table" aria-label="Métricas">
+    return `<div class="mtable" role="table" aria-label="Como ler">
       <div class="mrow head" role="row"><span class="label" role="columnheader">Métrica</span><span class="label" role="columnheader">Como é calculada</span><span class="label" role="columnheader">Onde ver</span><span class="label" role="columnheader">Atualiza</span></div>
       ${list.map((m) => `<div class="mrow" role="row">
         <div class="name" role="cell">${esc(m.metrica)}<small>${esc(m.app)}</small></div>
@@ -588,38 +581,9 @@ button.btn { border: 0; }
     const names = ['Todos', ...new Set(MET.map((m) => m.app))];
     const list = metFilter === 'Todos' ? MET : MET.filter((m) => m.app === metFilter);
     return `<section class="block" id="metricas" aria-labelledby="met-t">
-      <div class="page-top"><h1 class="page-h" id="met-t">Métricas</h1><p class="lead">Como cada número é calculado e onde ele aparece.</p></div>
-      <div class="filters" role="group" aria-label="Filtrar por app">${names.map((n) => `<button class="pill" data-met="${esc(n)}" aria-pressed="${n === metFilter}">${esc(n)}</button>`).join('')}</div>
+      <div class="page-top"><h1 class="page-h" id="met-t">Como ler</h1><p class="lead">Como cada número é calculado e onde ele aparece.</p></div>
+      <div class="filters" role="group" aria-label="Filtrar por módulo">${names.map((n) => `<button class="pill" data-met="${esc(n)}" aria-pressed="${n === metFilter}">${esc(n)}</button>`).join('')}</div>
       <div id="mt">${metTable(list)}</div>
-    </section>`;
-  }
-  function daySvg() {
-    const W = 760, L = 150, R = 16, top = 24, lane = 34;
-    const x = (min) => L + (min / 1440) * (W - L - R);
-    const lanes = [
-      { n: 'Contínua (30 min)', c: 'var(--brand)', ticks: Array.from({ length: 25 }, (_, i) => 420 + i * 30) },
-      { n: 'Integridade (2 h)', c: 'var(--brand-strong)', ticks: [510, 630, 750, 870, 990] },
-      { n: 'Diária (clientes)', c: 'var(--link)', ticks: [0] },
-      { n: 'Mensal (dia 1)', c: 'var(--muted)', ticks: [240] }
-    ];
-    const H = top + lanes.length * lane + 24;
-    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Agenda do dia: atualização contínua a cada 30 minutos das 7h às 19h, conferência a cada 2 horas das 8h30 às 16h30, recálculo diário à meia-noite e recarga mensal às 4h do dia 1.">`;
-    s += `<rect x="${x(420)}" y="${top - 8}" width="${x(1140) - x(420)}" height="${lanes.length * lane}" fill="var(--brand-tint)" rx="4"/>`;
-    for (let h = 0; h <= 24; h += 3) { s += `<line x1="${x(h * 60)}" x2="${x(h * 60)}" y1="${top - 8}" y2="${top + lanes.length * lane - 8}" stroke="var(--line)"/><text x="${x(h * 60)}" y="${H - 6}" text-anchor="middle">${String(h).padStart(2, '0')}h</text>`; }
-    lanes.forEach((ln, i) => {
-      const y = top + i * lane + 8;
-      s += `<text class="lane-name" x="0" y="${y + 4}">${ln.n}</text>`;
-      ln.ticks.forEach((t) => { s += `<rect x="${x(t) - 2}" y="${y - 8}" width="4" height="16" rx="2" fill="${ln.c}"/>`; });
-    });
-    return s + '</svg>';
-  }
-  function syncSection() {
-    const cores = { nf: 'var(--brand)', integridade: 'var(--brand-strong)', diaria: 'var(--link)', mensal: 'var(--muted)' };
-    return `<section class="block" id="atualizacao" aria-labelledby="sync-t">
-      <div class="page-top"><h1 class="page-h" id="sync-t">Atualização</h1><p class="lead">Cargas agendadas a partir do ERP, no horário de Brasília.</p></div>
-      <div class="day" style="border-top:1px solid var(--line-2)"><div class="day-scroll">${daySvg()}</div></div>
-      <div class="loads">${SYNC.cargas.map((c) => `<div class="load"><h3><i style="background:${cores[c.id]}" aria-hidden="true"></i>${esc(c.nome)}</h3><span class="when">${esc(c.quando)}</span><p>${esc(c.o_que)}</p><p>Duração: ${esc(c.duracao)}.</p></div>`).join('')}</div>
-      <div class="note">${ic('info')}<span><b>Na prática:</b> um lançamento feito no ERP entre 07:00 e 19:00 aparece no painel em até 40 minutos. Exclusões e alterações de notas antigas são corrigidas na conferência seguinte, em até 2 horas. ${esc(SYNC.metas)}</span></div>
     </section>`;
   }
   function planSection() {
@@ -704,26 +668,73 @@ button.btn { border: 0; }
     return `${pulse()}
     <div class="duo">
       <section aria-labelledby="cf-t"><div class="block-head"><h2 id="cf-t">Como fazer</h2><a href="#como-fazer" data-route="como-fazer">Ver tudo</a></div>${tutCards()}</section>
-      <section aria-labelledby="apps-t"><div class="block-head"><h2 id="apps-t">Apps</h2><a href="#apps" data-route="apps">${total} gráficos</a></div>${appRows()}</section>
+      <section aria-labelledby="apps-t"><div class="block-head"><h2 id="apps-t">Módulos</h2><a href="#apps" data-route="apps">${total} gráficos</a></div>${appRows()}</section>
     </div>
     <nav class="more" aria-label="Outras páginas">
-      <a href="#metricas" data-route="metricas"><b>Métricas</b><span>Como cada número é calculado</span></a>
-      <a href="#atualizacao" data-route="atualizacao"><b>Atualização</b><span>Quando os dados do ERP chegam</span></a>
+      <a href="#metricas" data-route="metricas"><b>Como ler</b><span>Como cada número é calculado</span></a>
       <a href="#plano" data-route="plano"><b>Seu plano</b><span>O que está incluso</span></a>
     </nav>`;
   }
+  /* ---------- novidades ---------- */
+  const TIPO_NV = { novo: 'Novo', alterado: 'Alterado', corrigido: 'Corrigido', removido: 'Removido' };
+  const REC = NOV.slice(0, 3), tagMap = {};
+  REC.slice().reverse().forEach((v) => v.mudancas.forEach((m) => { const r = m.ref; if (r.widget) tagMap[[r.app, r.dashboard, r.widget].join('|')] = { tipo: m.tipo, versao: v.versao }; }));
+  const tagDe = (app, dash, w) => tagMap[[app, dash, w].join('|')];
+  const tagHtml = (t) => t ? `<span class="nv-tag ${t.tipo}" title="${TIPO_NV[t.tipo]} na versão ${esc(t.versao)}">${t.tipo === 'novo' ? 'Novo' : t.tipo === 'corrigido' ? 'Corrigido' : 'Atualizado'} ${esc(t.versao)}</span>` : '';
+  const appDe = (r) => apps.find((x) => x.app === (r.app || (MET.find((m) => m.metrica === r.metrica) || {}).app));
+  function refPartes(r) {
+    if (r.metrica) { const m = MET.find((x) => x.metrica === r.metrica); return [...(m ? [m.app] : []), 'Como ler', r.metrica]; }
+    if (r.tutorial) { const t = TUT.find((x) => x.id === r.tutorial); return ['Como fazer', t ? t.titulo : r.tutorial]; }
+    return [r.app, r.dashboard, r.widget].filter(Boolean);
+  }
+  function refLink(r) {
+    const a = appDe(r);
+    const href = r.tutorial ? `#tut-${r.tutorial}` : a ? `#${a.slug}` : '#metricas';
+    return `<span class="nv-onde">Onde ver: <a href="${href}" data-nref="${encodeURIComponent(JSON.stringify(r))}">${refPartes(r).map(esc).join(' › ')}</a></span>`;
+  }
+  function irRef(r) {
+    const alvo = (el) => el && el.scrollIntoView({ block: 'start', behavior: 'auto' });
+    if (r.tutorial) return ir('tut-' + r.tutorial);
+    const a = appDe(r);
+    if (!a) return ir('metricas');
+    ir(a.slug);
+    if (r.metrica) return alvo(document.getElementById('met'));
+    const i = a.dashboards.findIndex((d) => d.nome === r.dashboard);
+    if (i < 0) return;
+    const j = r.widget ? a.dashboards[i].widgets.findIndex((w) => w.titulo === r.widget) : -1;
+    if (j < 0) return alvo(document.getElementById('d' + i));
+    const panel = document.getElementById(`p${i}-${j}`), it = panel.parentElement;
+    it.dataset.open = 'true'; it.querySelector('button').setAttribute('aria-expanded', 'true'); panel.hidden = false;
+    alvo(it);
+  }
+  let nvFiltro = 'Todos';
+  function nvLista() {
+    const list = nvFiltro === 'Todos' ? NOV : NOV.filter((v) => v.template === nvFiltro);
+    if (!list.length) return `<div class="empty"><h2>Nenhuma atualização registrada</h2><p>As próximas atualizações dos templates aparecem aqui.</p></div>`;
+    return list.map((v) => `<section class="nv-ver" aria-label="Versão ${esc(v.versao)}">
+      <div class="nv-head"><h2>${esc(v.versao)}</h2><span class="nv-meta">${esc(v.template)} · ${new Date(v.data + 'T12:00:00').toLocaleDateString('pt-BR')}</span>${v.exemplo ? '<span class="nv-ex">Exemplo</span>' : ''}</div>
+      <p class="nv-resumo">${esc(v.resumo)}</p>
+      <ul class="nv-lista">${v.mudancas.map((m) => `<li><span class="nv-tag ${m.tipo}">${TIPO_NV[m.tipo]}</span><div><p>${esc(m.texto)}</p>${refLink(m.ref)}</div></li>`).join('')}</ul>
+    </section>`).join('');
+  }
+  function novSection() {
+    const nomes = ['Todos', ...new Set(NOV.map((v) => v.template))];
+    return `<div class="page-top"><h1 class="page-h">Novidades</h1><p class="lead">O que mudou a cada atualização dos templates e onde está explicado na documentação.</p></div>
+      ${nomes.length > 2 ? `<div class="filters" role="group" aria-label="Filtrar por template">${nomes.map((n) => `<button class="pill" data-nv="${esc(n)}" aria-pressed="${n === nvFiltro}">${esc(n)}</button>`).join('')}</div>` : ''}
+      <div id="nv">${nvLista()}</div>`;
+  }
   const migalha = (nome) => `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 12)}<span aria-current="page">${nome}</span></nav>`;
   const PAGINAS = {
-    apps: () => `${migalha('Apps')}<div class="page-top"><h1 class="page-h">Apps</h1><p class="lead">${apps.length} painéis, ${total} gráficos. Abra um para ver o que cada gráfico mostra.</p></div>${appRows()}`,
-    metricas: () => migalha('Métricas') + metSection(),
-    atualizacao: () => migalha('Atualização') + syncSection(),
+    apps: () => `${migalha('Módulos')}<div class="page-top"><h1 class="page-h">Módulos</h1><p class="lead">${apps.length} painéis, ${total} gráficos. Abra um para ver o que cada gráfico mostra.</p></div>${appRows()}`,
+    metricas: () => migalha('Como ler') + metSection(),
+    novidades: () => migalha('Novidades') + novSection(),
     plano: () => migalha('Seu plano') + planSection()
   };
 
-  function item(w, id) {
+  function item(w, id, tag) {
     const k = kind(w.tipo), pg = (w.perguntas || []).filter(Boolean);
     return `<div class="item" data-open="false">
-      <button aria-expanded="false" aria-controls="${id}"><span class="ti">${ic(k)}</span><span><h3>${esc(w.titulo)}</h3><span class="one">${esc(w.mostra)}</span></span><span class="chev">${ic('chev')}</span></button>
+      <button aria-expanded="false" aria-controls="${id}"><span class="ti">${ic(k)}</span><span><h3>${esc(w.titulo)}${tagHtml(tag)}</h3><span class="one">${esc(w.mostra)}</span></span><span class="chev">${ic('chev')}</span></button>
       <div class="panel" id="${id}" hidden>
         <span class="tagtype">${ic(k, 14)}${esc(w.tipo)}</span>
         ${w.como_ler ? `<div><span class="label k">Como ler</span><p>${esc(w.como_ler)}</p></div>` : ''}
@@ -736,14 +747,14 @@ button.btn { border: 0; }
     const mets = MET.filter((m) => m.app === a.app);
     const g = (a.glossario || []).filter((x) => x && x.termo);
     const toc = [...a.dashboards.map((d, i) => [`d${i}`, d.nome, d.widgets.length]), mets.length && ['met', 'Métricas e cálculos', mets.length], (a.roteiros || []).length && ['rot', 'Roteiros de análise', a.roteiros.length], g.length && ['glo', 'Glossário', g.length]].filter(Boolean);
-    return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 14)}<a href="#apps" data-route="apps">Apps</a>${ic('right', 14)}<span aria-current="page">${esc(a.app)}</span></nav>
+    return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 14)}<a href="#apps" data-route="apps">Módulos</a>${ic('right', 14)}<span aria-current="page">${esc(a.app)}</span></nav>
     <div class="app-title"><div><h1>${esc(a.app)}</h1><p class="lead">${esc(a.resumo)}</p></div>
-      ${(a.regras || []).length ? `<aside class="rules"><h2>Regras que valem no app todo</h2><ul>${a.regras.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></aside>` : ''}</div>
+      ${(a.regras || []).length ? `<aside class="rules"><h2>Regras que valem no módulo todo</h2><ul>${a.regras.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></aside>` : ''}</div>
     <div class="layout">
       <nav class="toc" aria-label="Nesta página"><span class="label">Nesta página</span>${toc.map(([id, n, c]) => `<a href="#${a.slug}" data-go="${id}">${esc(n)}<span class="num">${c}</span></a>`).join('')}</nav>
       <div>
-        ${a.dashboards.map((d, i) => `<section class="sec" id="d${i}"><h2>${esc(d.nome)}</h2>${d.objetivo ? `<p class="sub">${esc(d.objetivo)}</p>` : ''}<div class="acc">${d.widgets.map((w, j) => item(w, `p${i}-${j}`)).join('')}</div></section>`).join('')}
-        ${mets.length ? `<section class="sec" id="met"><h2>Métricas e cálculos</h2><p class="sub">Como cada número principal deste app é calculado e onde ele aparece.</p>${metTable(mets)}</section>` : ''}
+        ${a.dashboards.map((d, i) => `<section class="sec" id="d${i}"><h2>${esc(d.nome)}</h2>${d.objetivo ? `<p class="sub">${esc(d.objetivo)}</p>` : ''}<div class="acc">${d.widgets.map((w, j) => item(w, `p${i}-${j}`, tagDe(a.app, d.nome, w.titulo))).join('')}</div></section>`).join('')}
+        ${mets.length ? `<section class="sec" id="met"><h2>Métricas e cálculos</h2><p class="sub">Como cada número principal deste módulo é calculado e onde ele aparece.</p>${metTable(mets)}</section>` : ''}
         ${(a.roteiros || []).length ? `<section class="sec" id="rot"><h2>Roteiros de análise</h2><p class="sub">Perguntas comuns e a ordem de gráficos que ajuda a respondê-las.</p><div class="steps">${a.roteiros.map((r) => `<div class="step"><h3>${esc(r.titulo)}</h3><ol>${(r.passos || []).map((p) => `<li>${esc(p)}</li>`).join('')}</ol></div>`).join('')}</div></section>` : ''}
         ${g.length ? `<section class="sec" id="glo"><h2>Glossário</h2><dl class="gloss">${g.map((x) => `<div><dt>${esc(x.termo)}</dt><dd>${esc(x.significado)}</dd></div>`).join('')}</dl></section>` : ''}
       </div>
@@ -765,7 +776,7 @@ button.btn { border: 0; }
     ws.forEach((r) => { const k = r.a.app + '|' + r.d.nome; (groups[k] = groups[k] || []).push(r); });
     return `<p role="status" style="margin-bottom:24px;color:var(--muted)"><b style="color:var(--fg)">${mets.length + ws.length + tuts.length}</b> resultados para “${esc(q)}”.</p>
       ${tuts.length ? `<section class="sec"><h2>Como fazer</h2><div class="cats">${tuts.map((t) => `<a class="cat" href="#tut-${t.id}" data-route="tut-${t.id}"><span class="ico">${ic(t.icone, 20)}</span><h3>${esc(t.titulo)}</h3><p>${esc(t.resumo)}</p><span class="meta">Abrir passo a passo</span></a>`).join('')}</div></section>` : ''}
-      ${mets.length ? `<section class="sec"><h2>Métricas</h2>${metTable(mets)}</section>` : ''}
+      ${mets.length ? `<section class="sec"><h2>Como ler</h2>${metTable(mets)}</section>` : ''}
       ${Object.entries(groups).map(([k, rs]) => { const [ap, dn] = k.split('|'); return `<section class="sec"><h2>${esc(ap)} › ${esc(dn)}</h2><div class="acc">${rs.map((r) => item(r.w, r.id)).join('')}</div></section>`; }).join('')}`;
   }
 
@@ -904,10 +915,10 @@ button.btn { border: 0; }
       const r = l.match(/"ref":"(.+?)\.Tipo de Agrupamento"/);
       if (r && app && !achados.has(r[1])) achados.set(r[1], app);
     });
-    if (!achados.size) throw new Error('Não achei cadastro de metas nos apps que você vê. Confira com o administrador do Horus se você tem acesso ao app de Faturamento ou Vendas.');
+    if (!achados.size) throw new Error('Não achei cadastro de metas nos módulos que você vê. Confira com o administrador do Horus se você tem acesso ao módulo de Faturamento ou Vendas.');
     const cads = [];
     for (const [tabela, a] of achados) {
-      PM.progresso = `Lendo o app ${a.nome}...`; redesenha();
+      PM.progresso = `Lendo o módulo ${a.nome}...`; redesenha();
       const { cols, rel } = lerApp(textoDe(await ferramenta('get_app', { appId: a.id })));
       const agrup = rel.filter(([um, n]) => tabelaDe(n) === tabela && !/^calend/i.test(semAcento(tabelaDe(um))))
         .map(([um, n]) => {
@@ -1125,6 +1136,10 @@ button.btn { border: 0; }
   document.addEventListener('click', (e) => {
     const pmb = e.target.closest('[data-pm]');
     if (pmb) { e.preventDefault(); if (!pmb.disabled) pmAcao(pmb.dataset.pm); return; }
+    const nr = e.target.closest('[data-nref]');
+    if (nr) { e.preventDefault(); irRef(JSON.parse(decodeURIComponent(nr.dataset.nref))); return; }
+    const nf = e.target.closest('[data-nv]');
+    if (nf) { nvFiltro = nf.dataset.nv; document.querySelectorAll('[data-nv]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.nv === nvFiltro)); $('#nv').innerHTML = nvLista(); return; }
     const r = e.target.closest('[data-route]');
     if (r) { e.preventDefault(); ir(r.dataset.route); return; }
     const go = e.target.closest('[data-go]');
@@ -1143,7 +1158,7 @@ button.btn { border: 0; }
   const sup = $('#sup');
   $('#sup-abrir').addEventListener('click', () => sup.showModal());
   sup.addEventListener('click', (e) => { const r = sup.getBoundingClientRect(), fora = e.target === sup && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom); if (fora || e.target.closest('[data-sup-fechar]')) sup.close(); });
-  $('#foot').textContent = `Atualizado em ${DATA.gerado}, a partir dos apps do plano Ultra. Os números dos painéis mudam com os filtros do topo.`;
+  $('#foot').textContent = `Atualizado em ${DATA.gerado}, a partir dos módulos do plano Ultra. Os números dos painéis mudam com os filtros do topo.`;
   pmRetorno();
   render();
 })();
