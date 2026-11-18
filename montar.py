@@ -4,6 +4,7 @@
   dados/metricas.json       mapa de métricas (cálculo, onde ver, atualização)
   dados/sincronizacao.json  agenda das cargas
   dados/tutoriais.json      "Como fazer" (os 5 processos)
+  dados/roadmap.json        itens do RoadMap
   dados/cena_tabelas.json   cena do motion das tabelas (gerada por motion/gerar_cenas.py)
   motion/motions.js         motor dos vídeos (Motion / motion.dev)
   assets/erp-*.jpg          capturas do ERP usadas no vídeo da seta
@@ -26,7 +27,8 @@ for i in ORDEM:
 dados = {'gerado': datetime.date.today().strftime('%d/%m/%Y'), 'apps': apps,
          'metricas': ler('dados', 'metricas.json'),
          'sincronizacao': ler('dados', 'sincronizacao.json'),
-         'tutoriais': ler('dados', 'tutoriais.json')}
+         'tutoriais': ler('dados', 'tutoriais.json'),
+         'roadmap': ler('dados', 'roadmap.json')}
 
 # Novidades: cada mudança aponta (ref) para um ponto da documentação. Aqui as refs são validadas,
 # para que nenhum link da página Novidades quebre.

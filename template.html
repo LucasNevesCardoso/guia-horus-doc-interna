@@ -155,15 +155,26 @@ main { padding-block: 32px 0; }
 .note { margin-top: 12px; padding-left: 12px; border-left: 2px solid var(--brand); color: var(--text); font-size: 13.5px; display: flex; gap: 8px; }
 .note svg { display: none; }
 
-/* plano: uma tabela */
-.tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line-2); }
-.tier { padding: 12px 16px 12px 0; display: grid; gap: 6px; align-content: start; border-bottom: 1px solid var(--line); }
-.tier + .tier { padding-left: 16px; border-left: 1px solid var(--line); }
-.tier.on { box-shadow: inset 0 2px 0 var(--brand); }
-.tier .label { display: flex; gap: 8px; align-items: center; }
-.tier .badge { color: var(--brand-strong); font-size: 12.5px; font-weight: 500; }
-.tier h3 { font-size: 14.5px; font-weight: 600; }
-.tier ul { margin: 0; padding-left: 16px; font-size: 13.5px; color: var(--muted); display: grid; gap: 2px; }
+/* planos: abas na home + card do plano */
+.planos { margin-top: 32px; }
+.ptabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 16px; overflow-x: auto; overflow-y: hidden; }
+.ptab { appearance: none; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 8px 14px; font: inherit; font-size: 14.5px; font-weight: 500; color: var(--muted); cursor: pointer; display: flex; gap: 8px; align-items: center; white-space: nowrap; }
+.ptab:hover { color: var(--fg); }
+.ptab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--brand); }
+.badge { color: var(--brand-strong); font-size: 12.5px; font-weight: 500; }
+.pcard { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 24px; align-items: end; padding: 20px; border: 1px solid var(--line); border-radius: var(--r); }
+.pcard h3 { font-size: 17px; font-weight: 600; margin: 2px 0 8px; }
+.pcard ul, .pinc ul { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: grid; gap: 3px; }
+.pcard .btn { text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
+@media (max-width: 560px) { .pcard { grid-template-columns: minmax(0, 1fr); } }
+.pinc { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.pinc > div { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); display: grid; gap: 6px; align-content: start; }
+.pvolta { display: inline-flex; gap: 6px; align-items: center; margin-top: 32px; }
+/* roadmap */
+.rm { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; padding: 0; list-style: none; margin: 0; }
+.rm li { padding: 16px; border: 1px solid var(--line); border-radius: var(--r); display: grid; gap: 6px; align-content: start; }
+.rm b { font-size: 15px; font-weight: 600; color: var(--fg); }
+.rm span { color: var(--muted); font-size: 13.5px; }
 
 /* ---------- páginas internas ---------- */
 .bread { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); margin-bottom: 12px; flex-wrap: wrap; }
@@ -444,7 +455,7 @@ button.btn { border: 0; }
       <a href="#como-fazer" data-route="como-fazer">Como fazer</a>
       <a href="#metricas" data-route="metricas">Como ler</a>
       <a href="#novidades" data-route="novidades">Novidades</a>
-      <a href="#plano" data-route="plano">Plano</a>
+      <a href="#roadmap" data-route="roadmap">RoadMap</a>
     </nav>
     <label class="search" for="q">
       <span style="position:absolute;left:-9999px">Buscar</span>
@@ -586,15 +597,52 @@ button.btn { border: 0; }
       <div id="mt">${metTable(list)}</div>
     </section>`;
   }
-  function planSection() {
-    return `<section class="block" id="plano" aria-labelledby="plan-t">
-      <div class="page-top"><h1 class="page-h" id="plan-t">Seu plano</h1><p class="lead">Cada plano inclui tudo do anterior.</p></div>
-      <div class="tiers">
-        <div class="tier"><span class="label">Pro</span><h3>BI</h3><ul><li>Painéis interativos ligados ao ERP</li><li>Relatórios prontos por área</li><li>3 usuários e 2 GB de dados</li></ul></div>
-        <div class="tier"><span class="label">Plus</span><h3>BI + IA</h3><ul><li>Chatbot Lumia no BI e no WhatsApp</li><li>Montagem de dashboards com IA</li><li>10.000 tokens de IA</li></ul></div>
-        <div class="tier on"><span class="label">Ultra <span class="badge">Seu plano</span></span><h3>BI + IA + Alertas</h3><ul><li>Alertas diários personalizados</li><li>Avisos por WhatsApp, e-mail e Telegram</li><li>Monitoramento de situações críticas, como títulos vencidos ou queda de faturamento</li></ul></div>
-      </div>
+  /* ---------- planos: cada plano inclui tudo do anterior ---------- */
+  const PLANOS = [
+    { id: 'pro', nome: 'Pro', titulo: 'BI', itens: ['Painéis interativos ligados ao ERP', 'Relatórios prontos por área', '3 usuários e 2 GB de dados'] },
+    { id: 'plus', nome: 'Plus', titulo: 'BI + IA', itens: ['Chatbot Lumia no BI e no WhatsApp', 'Montagem de dashboards com IA', '10.000 tokens de IA'] },
+    { id: 'ultra', nome: 'Ultra', titulo: 'BI + IA + Alertas', itens: ['Alertas diários personalizados', 'Avisos por WhatsApp, e-mail e Telegram', 'Monitoramento de situações críticas, como títulos vencidos ou queda de faturamento'] }
+  ];
+  const SEU_PLANO = 'ultra';
+  const TUT_PLANO = { lumia: 'plus' }; /* tutoriais fora desta lista são do Pro */
+  const nivel = (id) => PLANOS.findIndex((p) => p.id === id);
+  const planoDe = (rota) => PLANOS.find((p) => 'plano-' + p.id === rota);
+  let abaPlano = SEU_PLANO;
+  function planCard(p) {
+    const ant = PLANOS[nivel(p.id) - 1];
+    return `<div class="pcard" role="tabpanel" id="pp-${p.id}" aria-labelledby="pt-${p.id}">
+      <div><span class="label">Plano ${esc(p.nome)}${p.id === SEU_PLANO ? ' <span class="badge">Seu plano</span>' : ''}</span>
+        <h3>${esc(p.titulo)}</h3>
+        <ul>${ant ? `<li>Tudo do plano ${esc(ant.nome)}</li>` : ''}${p.itens.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>
+      <a class="btn" href="#plano-${p.id}" data-route="plano-${p.id}">Ver o plano ${esc(p.nome)} ${ic('right', 14)}</a>
+    </div>`;
+  }
+  function planTabs() {
+    const p = PLANOS.find((x) => x.id === abaPlano);
+    return `<section class="planos" aria-labelledby="pl-t">
+      <div class="block-head"><h2 id="pl-t">Planos</h2></div>
+      <div class="ptabs" role="tablist" aria-label="Planos">${PLANOS.map((x) => `<button class="ptab" type="button" role="tab" id="pt-${x.id}" aria-controls="pp-${x.id}" aria-selected="${x.id === abaPlano}" tabindex="${x.id === abaPlano ? 0 : -1}" data-aba="${x.id}">${esc(x.nome)}${x.id === SEU_PLANO ? ' <span class="badge">Seu plano</span>' : ''}</button>`).join('')}</div>
+      <div id="pcard">${planCard(p)}</div>
     </section>`;
+  }
+  function planView(p) {
+    const n = nivel(p.id), inclusos = PLANOS.slice(0, n + 1);
+    const tuts = TUT.filter((t) => nivel(TUT_PLANO[t.id] || 'pro') <= n);
+    return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 12)}<span aria-current="page">Plano ${esc(p.nome)}</span></nav>
+      <div class="page-top"><h1 class="page-h">Plano ${esc(p.nome)}${p.id === SEU_PLANO ? ' <span class="badge">Seu plano</span>' : ''}</h1><p class="lead">${esc(p.titulo)}.${n ? ' Cada plano inclui tudo do anterior.' : ''}</p></div>
+      <section class="sec"><h2>O que está incluso</h2><div class="pinc">${inclusos.map((x) => `<div><span class="label">${esc(x.nome)}</span><ul>${x.itens.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}</div></section>
+      <div class="duo">
+        <section aria-labelledby="pv-cf"><div class="block-head"><h2 id="pv-cf">Como fazer</h2></div><div class="rows">${tuts.map((t) => `<a class="row" href="#tut-${t.id}" data-route="tut-${t.id}">${ic(t.icone, 16)}<span class="row-t">${esc(t.titulo)}</span></a>`).join('')}</div></section>
+        <section aria-labelledby="pv-ap"><div class="block-head"><h2 id="pv-ap">Módulos</h2><a href="#apps" data-route="apps">${total} gráficos</a></div>${appRows()}</section>
+      </div>
+      <section class="sec"><h2>Métricas</h2><p class="sub">As métricas são as mesmas em todos os planos. <a href="#metricas" data-route="metricas">Ver como cada número é calculado</a>.</p></section>
+      <a class="btn pvolta" href="#inicio" data-route="inicio">Voltar para a home</a>`;
+  }
+  /* ---------- roadmap ---------- */
+  function roadSection() {
+    const rm = DATA.roadmap || [];
+    return `<div class="page-top"><h1 class="page-h">RoadMap</h1><p class="lead">O que está planejado para as próximas versões do Horus BI.</p></div>
+      <ul class="rm">${rm.map((r) => `<li><span class="label">${esc(r.status)}</span><b>${esc(r.titulo)}</b><span>${esc(r.resumo)}</span></li>`).join('')}</ul>`;
   }
   /* ---------- como fazer ---------- */
   const MV_TITULO = { erp: 'Vídeo: marcar um tipo de operação como Participa no ERP', tabelas: 'Vídeo: como as tabelas se ligam e viram relatório e alerta', lumia: 'Vídeo: pergunta vaga x pergunta precisa' };
@@ -670,9 +718,10 @@ button.btn { border: 0; }
       <section aria-labelledby="cf-t"><div class="block-head"><h2 id="cf-t">Como fazer</h2><a href="#como-fazer" data-route="como-fazer">Ver tudo</a></div>${tutCards()}</section>
       <section aria-labelledby="apps-t"><div class="block-head"><h2 id="apps-t">Módulos</h2><a href="#apps" data-route="apps">${total} gráficos</a></div>${appRows()}</section>
     </div>
+    ${planTabs()}
     <nav class="more" aria-label="Outras páginas">
-      <a href="#metricas" data-route="metricas"><b>Como ler</b><span>Como cada número é calculado</span></a>
-      <a href="#plano" data-route="plano"><b>Seu plano</b><span>O que está incluso</span></a>
+      <a href="#metricas" data-route="metricas"><b>Como ler</b><span>Como cada número é calculado, igual em todos os planos</span></a>
+      <a href="#roadmap" data-route="roadmap"><b>RoadMap</b><span>O que vem nas próximas versões</span></a>
     </nav>`;
   }
   /* ---------- novidades ---------- */
@@ -728,8 +777,10 @@ button.btn { border: 0; }
     apps: () => `${migalha('Módulos')}<div class="page-top"><h1 class="page-h">Módulos</h1><p class="lead">${apps.length} painéis, ${total} gráficos. Abra um para ver o que cada gráfico mostra.</p></div>${appRows()}`,
     metricas: () => migalha('Como ler') + metSection(),
     novidades: () => migalha('Novidades') + novSection(),
-    plano: () => migalha('Seu plano') + planSection()
+    roadmap: () => migalha('RoadMap') + roadSection()
   };
+  PLANOS.forEach((p) => { PAGINAS['plano-' + p.id] = () => planView(p); });
+  PAGINAS.plano = () => planView(PLANOS.find((p) => p.id === SEU_PLANO)); /* links antigos para #plano */
 
   function item(w, id, tag) {
     const k = kind(w.tipo), pg = (w.perguntas || []).filter(Boolean);
@@ -1138,6 +1189,8 @@ button.btn { border: 0; }
     if (pmb) { e.preventDefault(); if (!pmb.disabled) pmAcao(pmb.dataset.pm); return; }
     const nr = e.target.closest('[data-nref]');
     if (nr) { e.preventDefault(); irRef(JSON.parse(decodeURIComponent(nr.dataset.nref))); return; }
+    const ab = e.target.closest('[data-aba]');
+    if (ab) { abaPlano = ab.dataset.aba; document.querySelectorAll('[data-aba]').forEach((b) => { const on = b.dataset.aba === abaPlano; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; }); $('#pcard').innerHTML = planCard(PLANOS.find((p) => p.id === abaPlano)); return; }
     const nf = e.target.closest('[data-nv]');
     if (nf) { nvFiltro = nf.dataset.nv; document.querySelectorAll('[data-nv]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.nv === nvFiltro)); $('#nv').innerHTML = nvLista(); return; }
     const r = e.target.closest('[data-route]');
@@ -1154,6 +1207,13 @@ button.btn { border: 0; }
   let t;
   $('#q').addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => render(), 200); });
   $('#q').addEventListener('keydown', (e) => { if (e.key === 'Escape') { $('#q').value = ''; render(); } });
+  document.addEventListener('keydown', (e) => {
+    const ab = e.target.closest && e.target.closest('[data-aba]');
+    if (!ab || !['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+    const i = (nivel(ab.dataset.aba) + (e.key === 'ArrowRight' ? 1 : PLANOS.length - 1)) % PLANOS.length;
+    const alvo = document.querySelector(`[data-aba="${PLANOS[i].id}"]`);
+    alvo.click(); alvo.focus(); e.preventDefault();
+  });
   window.addEventListener('hashchange', () => { const s = location.hash.replace('#', '') || 'inicio'; if (s !== atual) ir(s); });
   const sup = $('#sup');
   $('#sup-abrir').addEventListener('click', () => sup.showModal());
