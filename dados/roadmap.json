@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pcp-global",
+    "titulo": "PCP Global",
+    "resumo": "Visão global do Planejamento e Controle da Produção (PCP) no Horus BI.",
+    "status": "Em roadmap"
+  },
+  {
+    "id": "dre-global",
+    "titulo": "DRE Global",
+    "resumo": "Visão global da Demonstração do Resultado do Exercício (DRE) no Horus BI.",
+    "status": "Em roadmap"
+  },
+  {
+    "id": "reforma-tributaria",
+    "titulo": "Reforma Tributária",
+    "resumo": "Acompanhamento no Horus BI dos impactos da Reforma Tributária.",
+    "status": "Em roadmap"
+  },
+  {
+    "id": "orcamento-anual",
+    "titulo": "Orçamento Anual",
+    "resumo": "Orçamento anual no Horus BI.",
+    "status": "Em roadmap"
+  },
+  {
+    "id": "importacao-dados-automatizada",
+    "titulo": "Importação de dados automatizada para consulta",
+    "resumo": "Importação automatizada, para consulta no Horus BI, de dados provenientes de outros sistemas.",
+    "status": "Em roadmap"
+  }
+]
