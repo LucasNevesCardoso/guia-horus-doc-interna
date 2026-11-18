@@ -600,11 +600,11 @@ button.btn { border: 0; }
   /* ---------- planos: cada plano inclui tudo do anterior ---------- */
   const PLANOS = [
     { id: 'pro', nome: 'Pro', titulo: 'BI', itens: ['Painéis interativos ligados ao ERP', 'Relatórios prontos por área', '3 usuários e 2 GB de dados'] },
-    { id: 'plus', nome: 'Plus', titulo: 'BI + IA', itens: ['Chatbot Lumia no BI e no WhatsApp', 'Montagem de dashboards com IA', '10.000 tokens de IA'] },
+    { id: 'plus', nome: 'Plus', titulo: 'BI + IA', itens: ['Chatbot Lumia no BI e no WhatsApp', '10.000 tokens de IA'] },
     { id: 'ultra', nome: 'Ultra', titulo: 'BI + IA + Alertas', itens: ['Alertas diários personalizados', 'Avisos por WhatsApp, e-mail e Telegram', 'Monitoramento de situações críticas, como títulos vencidos ou queda de faturamento'] }
   ];
   const SEU_PLANO = 'ultra';
-  const TUT_PLANO = { lumia: 'plus' }; /* tutoriais fora desta lista são do Pro */
+  const TUT_PLANO = { lumia: 'plus', alertas: 'ultra' }; /* tutoriais fora desta lista são do Pro */
   const nivel = (id) => PLANOS.findIndex((p) => p.id === id);
   const planoDe = (rota) => PLANOS.find((p) => 'plano-' + p.id === rota);
   let abaPlano = SEU_PLANO;

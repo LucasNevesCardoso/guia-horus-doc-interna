@@ -79,9 +79,9 @@
   ]
  },
  {
-  "id": "relatorios-alertas",
-  "titulo": "Criar relatórios e alertas, configurar e publicar",
-  "resumo": "O relatório é montado no Explorer, em cima das tabelas ligadas do módulo. O mesmo relatório vira alerta pelo sino, com horário, condição e canal.",
+  "id": "relatorios",
+  "titulo": "Criar, salvar e publicar um relatório",
+  "resumo": "O relatório é montado no Explorer, em cima das tabelas ligadas do módulo. Depois de salvo, ele pode ser publicado para o time, exportado ou compartilhado.",
   "icone": "report",
   "motion": "tabelas",
   "blocos": [
@@ -125,9 +125,30 @@
      "Para exportar, clique no ícone de Excel ou de PDF na barra do topo. A tela mostra até 500 linhas; a exportação leva todas.",
      "Para enviar a alguém, use o ícone de compartilhar: o link leva colunas, filtros e ordenação."
     ]
-   },
+   }
+  ],
+  "fontes": [
+   "https://docs.horusbi.com.br/dataviz/02-apps/explorer",
+   "https://docs.horusbi.com.br/dataviz/02-apps/data-modeling"
+  ],
+  "videos": [
    {
-    "titulo": "Criar um alerta (plano Ultra)",
+    "url": "https://claude.ai/artifact/5vN6VBCQLfoEUyuXL5ZYtu",
+    "titulo": "Criar um relatório",
+    "duracao": "48 s",
+    "resumo": "Abrir o Explorer, digitar as colunas, salvar, publicar e exportar, nas telas reais do Horus.",
+    "arquivo": "videos/criar-um-relatorio.mp4"
+   }
+  ]
+ },
+ {
+  "id": "alertas",
+  "titulo": "Criar um alerta (plano Ultra)",
+  "resumo": "O alerta é criado no menu Alertas, com horário ou condição, destinatários e canal (e-mail, WhatsApp ou Telegram).",
+  "icone": "shield",
+  "blocos": [
+   {
+    "titulo": "Criar um alerta",
     "tipo": "passos",
     "itens": [
      "No menu lateral, clique no megafone (Alertas) e depois em Criar alerta, no canto superior direito.",
@@ -152,21 +173,12 @@
    }
   ],
   "fontes": [
-   "https://docs.horusbi.com.br/dataviz/02-apps/explorer",
-   "https://docs.horusbi.com.br/dataviz/02-apps/data-modeling",
    "https://docs.horusbi.com.br/dataviz/04-features/alerts",
    "https://docs.horusbi.com.br/dataviz/04-features/alerts/conditions",
    "https://docs.horusbi.com.br/dataviz/04-features/alerts/channels",
    "https://docs.horusbi.com.br/dataviz/04-features/alerts/permissions"
   ],
   "videos": [
-   {
-    "url": "https://claude.ai/artifact/5vN6VBCQLfoEUyuXL5ZYtu",
-    "titulo": "Criar um relatório",
-    "duracao": "48 s",
-    "resumo": "Abrir o Explorer, digitar as colunas, salvar, publicar e exportar, nas telas reais do Horus.",
-    "arquivo": "videos/criar-um-relatorio.mp4"
-   },
    {
     "url": "https://claude.ai/artifact/JsaiCVXdf9ZMV13YEJ8iDg",
     "titulo": "Criar um alerta",

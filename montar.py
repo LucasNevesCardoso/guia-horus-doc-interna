@@ -3,7 +3,7 @@
   dados/doc_<app>.json      explicação de cada gráfico (por app)
   dados/metricas.json       mapa de métricas (cálculo, onde ver, atualização)
   dados/sincronizacao.json  agenda das cargas
-  dados/tutoriais.json      "Como fazer" (os 5 processos)
+  dados/tutoriais.json      "Como fazer" (os processos passo a passo)
   dados/roadmap.json        itens do RoadMap
   dados/cena_tabelas.json   cena do motion das tabelas (gerada por motion/gerar_cenas.py)
   motion/motions.js         motor dos vídeos (Motion / motion.dev)
