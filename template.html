@@ -28,6 +28,8 @@
   --r: 8px;
   --r-sm: 6px;
   --shadow: none;
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ring: 0 0 0 3px rgba(249, 115, 22, .28);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -41,12 +43,15 @@
   --brand-strong: #fb923c; --brand-tint: rgba(249, 115, 22, .12); --link: #fb923c; --ok: #4ade80; --ok-tint: rgba(74, 222, 128, .1); color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; scrollbar-color: var(--line-2) var(--bg); }
+::selection { background: rgba(249, 115, 22, .3); color: var(--fg); }
+input, textarea { caret-color: var(--brand); }
 body { margin: 0; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font: 400 15px/1.6 var(--font); -webkit-font-smoothing: antialiased; touch-action: manipulation; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
 .wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-h1, h2, h3, h4 { color: var(--fg); margin: 0; font-weight: 600; line-height: 1.25; }
-p { margin: 0; }
+h1, h2, h3, h4 { color: var(--fg); margin: 0; font-weight: 600; line-height: 1.25; text-wrap: balance; }
+h1 { letter-spacing: -.02em; line-height: 1.15; }
+p { margin: 0; text-wrap: pretty; }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -62,18 +67,21 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .logo { display: flex; align-items: center; gap: 8px; color: var(--fg); font-weight: 600; font-size: 15px; white-space: nowrap; }
 .logo:hover { text-decoration: none; }
 .logo svg { color: var(--brand); flex: none; }
-.logo small { font-weight: 400; color: var(--muted); font-size: 14px; padding-left: 8px; border-left: 1px solid var(--line); }
+.plano-lbl { font-weight: 400; color: var(--muted); font-size: 14px; padding-left: 8px; margin-left: -12px; border-left: 1px solid var(--line); white-space: nowrap; }
+body[data-rota="landing"] .menu, body[data-rota="landing"] .search, body[data-rota="landing"] .plano-lbl { display: none; }
 .menu { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; align-self: stretch; }
 .menu::-webkit-scrollbar { display: none; }
 .menu a { display: flex; align-items: center; color: var(--muted); padding: 0 12px; font-size: 14px; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; }
 .menu a:hover { color: var(--fg); text-decoration: none; }
 .menu a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--brand); }
+.menu a:focus-visible { outline-offset: -4px; border-radius: var(--r-sm); }
 .search { position: relative; margin-left: auto; width: 280px; flex: none; }
-.search input { width: 100%; height: 36px; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--bg); color: var(--fg); font: 400 14px var(--font); padding: 0 10px 0 34px; transition: border-color .15s; }
+.search input { width: 100%; height: 36px; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--bg); color: var(--fg); font: 400 14px var(--font); padding: 0 10px 0 34px; transition: border-color .15s, box-shadow .15s; }
+.search input:hover { border-color: var(--muted); }
 .search input::placeholder { color: var(--muted); }
-.search input:focus { outline: none; border-color: var(--brand); }
+.search input:focus { outline: none; border-color: var(--brand); box-shadow: var(--ring); }
 .search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
-.pill { border: 1px solid var(--line-2); background: var(--bg); border-radius: var(--r); padding: 0 10px; min-height: 32px; font-size: 13.5px; font-weight: 500; color: var(--text); transition: border-color .15s, color .15s; }
+.pill { border: 1px solid var(--line-2); background: var(--bg); border-radius: var(--r); padding: 0 12px; min-height: 34px; font-size: 13.5px; font-weight: 500; color: var(--text); transition: border-color .15s, color .15s, background .15s, transform .16s var(--ease-out); }
 .pill:hover { border-color: var(--fg); color: var(--fg); }
 .pill[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
 .sugest { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
@@ -91,7 +99,7 @@ main { padding-block: 32px 0; }
 .page-top { margin-bottom: 24px; }
 .page-top .lead { color: var(--muted); margin-top: 4px; }
 .more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
-.more a { display: grid; gap: 2px; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--r); text-decoration: none; transition: border-color .15s, background .15s; }
+.more a { display: grid; gap: 2px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); text-decoration: none; transition: border-color .15s, background .15s, transform .16s var(--ease-out); }
 .more a:hover { border-color: var(--brand); background: var(--brand-tint); }
 .more b { color: var(--fg); font-weight: 600; font-size: 15px; }
 .more span { color: var(--muted); font-size: 13.5px; }
@@ -125,12 +133,15 @@ main { padding-block: 32px 0; }
 
 /* listas de linhas (substituem os cards) */
 .rows { border-top: 1px solid var(--line-2); }
-.row { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 44px; padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--text); }
+.row { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 48px; padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--text); }
+.row-t, .row svg { transition: color .15s; }
+.row:hover svg { color: var(--brand); }
+.row:focus-visible { outline-offset: -2px; border-radius: var(--r-sm); }
 .row:hover { text-decoration: none; color: var(--fg); }
 .row:hover .row-t { color: var(--brand-strong); }
 .row svg { color: var(--muted); }
 .row-t { color: var(--fg); font-weight: 500; font-size: 14.5px; }
-.row-m { font-size: 12.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.row-m { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .row.hot .row-t { color: var(--brand-strong); }
 .row.hot svg { color: var(--brand); }
 
@@ -152,29 +163,61 @@ main { padding-block: 32px 0; }
 .freq.f-meta i { background: var(--ok); }
 .freq.f-diaria i { background: var(--muted); }
 
-.note { margin-top: 12px; padding-left: 12px; border-left: 2px solid var(--brand); color: var(--text); font-size: 13.5px; display: flex; gap: 8px; }
+.note { margin-top: 12px; padding: 10px 14px; border-radius: var(--r); background: var(--brand-tint); color: var(--text); font-size: 13.5px; display: flex; gap: 8px; }
 .note svg { display: none; }
 
-/* planos: abas na home + card do plano */
-.planos { margin-top: 32px; }
-.ptabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 16px; overflow-x: auto; overflow-y: hidden; }
-.ptab { appearance: none; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 8px 14px; font: inherit; font-size: 14.5px; font-weight: 500; color: var(--muted); cursor: pointer; display: flex; gap: 8px; align-items: center; white-space: nowrap; }
-.ptab:hover { color: var(--fg); }
-.ptab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--brand); }
+/* home: escolha do plano */
 .badge { color: var(--brand-strong); font-size: 12.5px; font-weight: 500; }
-.pcard { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 24px; align-items: end; padding: 20px; border: 1px solid var(--line); border-radius: var(--r); }
+.land { padding: 48px 0 24px; }
+.land-top { text-align: center; margin-bottom: 32px; }
+.land-top .lead { max-width: 58ch; margin: 8px auto 0; }
+.land-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; perspective: 1000px; }
+.lcard { transform-style: preserve-3d; will-change: transform; }
+.lgo svg { transition: none; }
+@media (max-width: 860px) { .land-cards { grid-template-columns: minmax(0, 1fr); } }
+.lcard { position: relative; display: grid; gap: 8px; align-content: start; grid-template-rows: auto auto 1fr auto; padding: 24px; border: 1px solid var(--brand); border-radius: var(--r); background: var(--brand); color: #fff; text-decoration: none; }
+.lcard { --sombra: 0 14px 30px rgba(0,0,0,.38), 0 3px 8px rgba(0,0,0,.28); box-shadow: var(--sombra); }
+.lcard:hover { text-decoration: none; }
+.lcard:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
+.land .lcard .label, .land .lcard .badge, .land .lcard ul { color: rgba(255,255,255,.92); }
+.land .lcard .badge { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(0,0,0,.2); color: #fff; font-size: 11.5px; font-weight: 600; vertical-align: 1px; }
+.land .lcard .label { font-size: 13px; font-weight: 600; }
+.land-top .page-h { font-size: clamp(30px, 4vw, 42px); }
+.lcard.on { outline: 2px solid rgba(255,255,255,.55); outline-offset: -4px; }
+.lcard h2 { font-size: 22px; font-weight: 700; color: #fff; }
+.lcard ul, .pcard ul { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: grid; gap: 4px; align-content: start; }
+.lgo { display: inline-flex; gap: 6px; align-items: center; margin-top: 12px; color: #fff; font-weight: 700; font-size: 14.5px; }
+.land-nota { text-align: center; color: var(--muted); font-size: 13.5px; margin-top: 24px; }
+/* início do plano: resumo do plano escolhido */
+.pcard { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 24px; align-items: end; padding: 20px; margin-top: 24px; border: 1px solid var(--line); border-radius: var(--r); }
 .pcard h3 { font-size: 17px; font-weight: 600; margin: 2px 0 8px; }
-.pcard ul, .pinc ul { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: grid; gap: 3px; }
-.pcard .btn { text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
+.pcard .btn { text-decoration: none; }
 @media (max-width: 560px) { .pcard { grid-template-columns: minmax(0, 1fr); } }
-.pinc { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-.pinc > div { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); display: grid; gap: 6px; align-content: start; }
-.pvolta { display: inline-flex; gap: 6px; align-items: center; margin-top: 32px; }
-/* roadmap */
-.rm { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; padding: 0; list-style: none; margin: 0; }
-.rm li { padding: 16px; border: 1px solid var(--line); border-radius: var(--r); display: grid; gap: 6px; align-content: start; }
-.rm b { font-size: 15px; font-weight: 600; color: var(--fg); }
-.rm span { color: var(--muted); font-size: 13.5px; }
+/* busca: cards de "Como fazer" nos resultados */
+.cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.cat { display: grid; gap: 6px; align-content: start; padding: 16px; border: 1px solid var(--line); border-radius: var(--r); color: var(--text); text-decoration: none; transition: border-color .15s, background .15s; }
+.cat:hover { border-color: var(--brand); background: var(--brand-tint); text-decoration: none; }
+.cat .ico { color: var(--brand); }
+.cat h3 { font-size: 15px; font-weight: 600; color: var(--fg); }
+.cat p { margin: 0; font-size: 13.5px; color: var(--muted); }
+/* roadmap: faixa de destaque + colunas por status */
+.rm-head { text-align: center; margin: 16px 0 24px; }
+.rm-head h1 { font-size: clamp(24px, 3vw, 30px); font-weight: 600; }
+.rm-head p { color: var(--muted); max-width: 56ch; margin: 8px auto 0; font-size: 15px; }
+.rm-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .rm-cols { grid-template-columns: minmax(0, 1fr); } }
+.rm-col { background: var(--soft); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 12px; }
+.rm-col-h { display: flex; align-items: center; gap: 10px; }
+.rm-col-h b { font-size: 15px; font-weight: 600; color: var(--fg); flex: 1; }
+.rm-ico { width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; color: #fff; flex: none; }
+.rm-desenvolvimento .rm-ico { background: #22a447; }
+.rm-planejada .rm-ico { background: var(--brand); }
+.rm-estudo .rm-ico { background: #5f6673; }
+.rm-n { font-variant-numeric: tabular-nums; min-width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font-size: 12.5px; font-weight: 600; color: var(--muted); background: var(--surface); border: 1px solid var(--line); }
+.rm-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 14px 16px; display: grid; gap: 6px; }
+.rm-card b { font-size: 15px; font-weight: 600; color: var(--fg); }
+.rm-card span { color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.rm-vazio { color: var(--muted); font-size: 13.5px; padding: 4px 2px; }
 
 /* ---------- páginas internas ---------- */
 .bread { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); margin-bottom: 12px; flex-wrap: wrap; }
@@ -192,6 +235,7 @@ main { padding-block: 32px 0; }
 .toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px); display: grid; font-size: 13.5px; }
 .toc .label { margin-bottom: 6px; }
 .toc a { color: var(--muted); padding: 5px 0 5px 12px; border-left: 1px solid var(--line); display: flex; justify-content: space-between; gap: 8px; }
+.toc a { transition: color .15s, border-color .15s; }
 .toc a:hover { color: var(--fg); border-left-color: var(--brand); text-decoration: none; }
 .toc a span { font-family: var(--mono); font-size: 12px; }
 
@@ -203,7 +247,9 @@ main { padding-block: 32px 0; }
 .acc { border-top: 1px solid var(--line-2); }
 .item { border-bottom: 1px solid var(--line); }
 .item > button { width: 100%; text-align: left; background: none; border: 0; padding: 10px 0; display: grid; grid-template-columns: 20px minmax(0, 1fr) 16px; gap: 12px; align-items: center; min-height: 48px; }
+.item h3 { transition: color .15s; }
 .item > button:hover h3 { color: var(--brand-strong); }
+.item > button:focus-visible { outline-offset: -2px; border-radius: var(--r-sm); }
 .item .ti { color: var(--muted); display: grid; place-items: center; }
 .item h3 { font-size: 14.5px; font-weight: 500; }
 .item .one { font-size: 13.5px; color: var(--muted); display: block; }
@@ -212,7 +258,8 @@ main { padding-block: 32px 0; }
 .panel { padding: 0 0 16px 32px; display: grid; gap: 10px; font-size: 14px; }
 .panel .k { display: block; margin-bottom: 2px; }
 .panel ul { margin: 0; padding-left: 16px; display: grid; gap: 2px; }
-.panel .tip { border-left: 2px solid var(--brand); padding-left: 12px; color: var(--fg); }
+.panel .tip { padding: 10px 14px; border-radius: var(--r); background: var(--brand-tint); color: var(--fg); }
+.panel .tip b { color: var(--brand-strong); font-weight: 600; }
 .tagtype { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; color: var(--muted); font-family: var(--mono); }
 
 .steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
@@ -248,7 +295,9 @@ dl.gloss dd { margin: 0; color: var(--muted); font-size: 14px; }
 .help p { color: var(--muted); }
 .help .btn { background: transparent; color: var(--link); padding: 0; min-height: 0; font-weight: 500; }
 .help .btn:hover { background: transparent; color: var(--link); text-decoration: underline; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: var(--r); background: var(--fg); color: var(--bg); font-weight: 500; font-size: 14px; transition: background .15s; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: var(--r); background: var(--fg); color: var(--bg); font-weight: 500; font-size: 14px; transition: background .15s, color .15s, transform .16s var(--ease-out); }
+.btn:active:not([disabled]), .pill:active, .chip:active:not([disabled]), .mv-ctl button:active, .sup-x:active { transform: scale(.97); }
+.more a:active { transform: scale(.99); }
 .btn:hover { background: var(--brand-strong); color: #fff; text-decoration: none; }
 .btn.go { background: var(--brand); color: #000; }
 .btn.go:hover { background: var(--brand-hot); color: #000; }
@@ -257,9 +306,11 @@ footer { position: sticky; bottom: 0; z-index: 15; background: var(--surface); b
 footer .wrap { padding-block: 10px; }
 
 /* ---------- como fazer ---------- */
-.callout { display: flex; gap: 10px; border-left: 2px solid var(--brand); padding: 2px 0 2px 12px; color: var(--fg); margin-bottom: 24px; font-size: 14px; }
+.callout { display: flex; gap: 10px; padding: 12px 16px; border-radius: var(--r); background: var(--brand-tint); color: var(--fg); margin-bottom: 12px; font-size: 14px; line-height: 1.55; }
+p.callout { display: block; }
+.callout + :not(.callout) { margin-top: 28px; }
 .callout svg { display: none; }
-.callout b { font-weight: 500; }
+.callout b { font-weight: 600; display: block; margin-bottom: 2px; }
 .callout p { color: var(--text); }
 .tut-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .tut-list li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 8px; font-size: 14.5px; }
@@ -374,10 +425,10 @@ footer .wrap { padding-block: 10px; }
 .pm-campo { display: grid; gap: 6px; font-size: 13px; color: var(--muted); font-weight: 500; }
 .pm-campo.full { grid-column: 1 / -1; }
 .pm-campo select, .pm-campo input { min-height: 38px; width: 100%; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--bg); color: var(--fg); font: 400 14px var(--font); padding: 0 10px; }
-.pm-campo select:focus, .pm-campo input:focus { outline: none; border-color: var(--brand); }
+.pm-campo select:focus, .pm-campo input:focus { outline: none; border-color: var(--brand); box-shadow: var(--ring); }
 .pm-campo small { font-weight: 400; }
 .chips { display: flex; flex-wrap: wrap; border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; width: fit-content; max-width: 100%; }
-.chip { border: 0; border-right: 1px solid var(--line-2); background: var(--bg); color: var(--text); min-height: 36px; padding: 0 12px; font-size: 13.5px; font-weight: 500; }
+.chip { border: 0; border-right: 1px solid var(--line-2); background: var(--bg); color: var(--text); min-height: 36px; padding: 0 12px; font-size: 13.5px; font-weight: 500; transition: background .15s, color .15s, transform .16s var(--ease-out); }
 .chip:last-child { border-right: 0; }
 .chip:hover:not([disabled]) { color: var(--fg); background: var(--soft); }
 .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
@@ -394,7 +445,7 @@ button.btn { border: 0; }
 .pm-quem { display: flex; gap: 16px; align-items: center; font-size: 13px; color: var(--muted); }
 .pm-quem span { display: inline-flex; align-items: center; gap: 8px; }
 .pm-quem i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
-.pm-ok { padding-left: 12px; border-left: 2px solid var(--ok); color: var(--fg); font-size: 13.5px; }
+.pm-ok { padding: 10px 14px; border-radius: var(--r); background: var(--ok-tint); color: var(--fg); font-size: 13.5px; }
 .pm-ok svg { display: none; }
 .pm-andando { display: inline-flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--muted); }
 .pm-andando i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--line-2); border-top-color: var(--brand); animation: pm-gira .8s linear infinite; flex: none; }
@@ -437,7 +488,8 @@ button.btn { border: 0; }
   .mrow { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .panel { padding-left: 0; }
   dl.gloss div, .cmp-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
-  .logo small { display: none; }
+  .plano-lbl { font-size: 13px; }
+  .pill { min-height: 40px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } .pm-andando i { animation: none; } }
 </style>
@@ -445,10 +497,11 @@ button.btn { border: 0; }
 <a class="skip" href="#view">Pular para o conteúdo</a>
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#inicio" data-route="inicio">
+    <a class="logo" href="#home" data-route="home" title="Voltar para a escolha do plano">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4.5 6.3v8.6L12 19.2l7.5-4.3V6.3zm0 2.3 5.5 3.2v6.4L12 17.1 6.5 13.9V7.5z"/><circle cx="12" cy="10.7" r="2.4"/></svg>
-      Horus BI <small>Plano Ultra</small>
+      Horus BI
     </a>
+    <span class="plano-lbl" id="plano-lbl">Plano Ultra</span>
     <nav class="menu" aria-label="Seções">
       <a href="#inicio" data-route="inicio">Início</a>
       <a href="#apps" data-route="apps">Módulos</a>
@@ -597,52 +650,116 @@ button.btn { border: 0; }
       <div id="mt">${metTable(list)}</div>
     </section>`;
   }
-  /* ---------- planos: cada plano inclui tudo do anterior ---------- */
+  /* ---------- planos: cada plano inclui tudo do anterior ----------
+     A home (#home) é a primeira tela: o usuário escolhe o plano. O plano escolhido muda o rótulo
+     do cabeçalho e filtra o que é exclusivo de planos acima (tutoriais, busca, cards). */
   const PLANOS = [
     { id: 'pro', nome: 'Pro', titulo: 'BI', itens: ['Painéis interativos ligados ao ERP', 'Relatórios prontos por área', '3 usuários e 2 GB de dados'] },
     { id: 'plus', nome: 'Plus', titulo: 'BI + IA', itens: ['Chatbot Lumia no BI e no WhatsApp', '10.000 tokens de IA'] },
     { id: 'ultra', nome: 'Ultra', titulo: 'BI + IA + Alertas', itens: ['Alertas diários personalizados', 'Avisos por WhatsApp, e-mail e Telegram', 'Monitoramento de situações críticas, como títulos vencidos ou queda de faturamento'] }
   ];
-  const SEU_PLANO = 'ultra';
   const TUT_PLANO = { lumia: 'plus', alertas: 'ultra' }; /* tutoriais fora desta lista são do Pro */
+  const PLANO_CHAVE = 'guia_plano';
   const nivel = (id) => PLANOS.findIndex((p) => p.id === id);
-  const planoDe = (rota) => PLANOS.find((p) => 'plano-' + p.id === rota);
-  let abaPlano = SEU_PLANO;
-  function planCard(p) {
-    const ant = PLANOS[nivel(p.id) - 1];
-    return `<div class="pcard" role="tabpanel" id="pp-${p.id}" aria-labelledby="pt-${p.id}">
-      <div><span class="label">Plano ${esc(p.nome)}${p.id === SEU_PLANO ? ' <span class="badge">Seu plano</span>' : ''}</span>
-        <h3>${esc(p.titulo)}</h3>
-        <ul>${ant ? `<li>Tudo do plano ${esc(ant.nome)}</li>` : ''}${p.itens.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>
-      <a class="btn" href="#plano-${p.id}" data-route="plano-${p.id}">Ver o plano ${esc(p.nome)} ${ic('right', 14)}</a>
+  const planoObj = (id) => PLANOS.find((p) => p.id === id);
+  let plano = (() => { try { const v = localStorage.getItem(PLANO_CHAVE); return planoObj(v) ? v : null; } catch (_) { return null; } })();
+  const planoAtual = () => planoObj(plano) || PLANOS[PLANOS.length - 1];
+  const planoMin = (t) => TUT_PLANO[t.id] || 'pro';
+  const temTut = (t) => nivel(planoMin(t)) <= nivel(planoAtual().id);
+  const TUTP = () => TUT.filter(temTut);
+  function escolherPlano(id) {
+    if (!planoObj(id)) return;
+    plano = id;
+    try { localStorage.setItem(PLANO_CHAVE, id); } catch (_) {}
+    marcarPlano();
+  }
+  function marcarPlano() {
+    const p = planoAtual();
+    $('#plano-lbl').textContent = 'Plano ' + p.nome;
+    document.title = 'Guia Horus BI · Plano ' + p.nome;
+    $('#foot').textContent = `Atualizado em ${DATA.gerado}. Você está vendo a documentação do plano ${p.nome}. Os números dos painéis mudam com os filtros do topo.`;
+  }
+  const incluso = (p) => { const ant = PLANOS[nivel(p.id) - 1]; return `<ul>${ant ? `<li>Tudo do plano ${esc(ant.nome)}</li>` : ''}${p.itens.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`; };
+  function landView() {
+    return `<div class="land">
+      <div class="land-top"><h1 class="page-h">Guia Horus BI</h1><p class="lead">Escolha o seu plano para ver a documentação: módulos, métricas e o passo a passo do que está incluso.</p></div>
+      <div class="land-cards">${PLANOS.map((p) => `<a class="lcard${p.id === plano ? ' on' : ''}" href="#inicio" data-plano="${p.id}">
+        <span class="label">Plano ${esc(p.nome)}${p.id === plano ? ' <span class="badge">Último visto</span>' : ''}</span>
+        <h2>${esc(p.titulo)}</h2>${incluso(p)}
+        <span class="lgo">Ver o plano ${esc(p.nome)} ${ic('right', 14)}</span></a>`).join('')}</div>
+      <p class="land-nota">As métricas e os módulos são os mesmos em todos os planos. Cada plano inclui tudo do anterior.</p>
     </div>`;
   }
-  function planTabs() {
-    const p = PLANOS.find((x) => x.id === abaPlano);
-    return `<section class="planos" aria-labelledby="pl-t">
-      <div class="block-head"><h2 id="pl-t">Planos</h2></div>
-      <div class="ptabs" role="tablist" aria-label="Planos">${PLANOS.map((x) => `<button class="ptab" type="button" role="tab" id="pt-${x.id}" aria-controls="pp-${x.id}" aria-selected="${x.id === abaPlano}" tabindex="${x.id === abaPlano ? 0 : -1}" data-aba="${x.id}">${esc(x.nome)}${x.id === SEU_PLANO ? ' <span class="badge">Seu plano</span>' : ''}</button>`).join('')}</div>
-      <div id="pcard">${planCard(p)}</div>
+  /* motions da home (Motion / motion.dev): entrada em sequência, inclinação e mola no hover/foco,
+     pulso no selo do último plano visto e saída animada ao escolher. Sem Motion ou com
+     "reduzir movimento", os cards aparecem parados e o clique navega direto. */
+  const MO = () => (window.Motion && !matchMedia('(prefers-reduced-motion: reduce)').matches) ? window.Motion : null;
+  const MOLA = { type: 'spring', stiffness: 260, damping: 20 };
+  function landMotion() {
+    const M = MO(); if (!M) return;
+    const top = document.querySelectorAll('.land-top > *'), cards = [...document.querySelectorAll('.lcard')], nota = $('.land-nota');
+    M.animate(top, { opacity: [0, 1], y: [12, 0] }, { duration: 0.5, delay: M.stagger(0.08), ease: [0.22, 1, 0.36, 1] });
+    /* mortal na entrada: cada card dá uma volta completa no eixo X ao carregar a página */
+    M.animate(cards, { opacity: [0, 1, 1], rotateX: [360, 0], y: [40, 0] }, { delay: M.stagger(0.14, { startDelay: 0.15 }), duration: 0.9, ease: [0.22, 1, 0.36, 1] });
+    cards.forEach((c) => M.animate(c.querySelectorAll('li'), { opacity: [0, 1], x: [-8, 0] }, { delay: M.stagger(0.05, { startDelay: 0.45 }), duration: 0.35 }));
+    if (nota) M.animate(nota, { opacity: [0, 1] }, { delay: 0.7, duration: 0.5 });
+    const selo = $('.lcard.on .badge');
+    if (selo) M.animate(selo, { scale: [1, 1.18, 1], opacity: [0.6, 1] }, { delay: 0.8, duration: 0.6, repeat: 1 });
+    cards.forEach((c) => {
+      const seta = c.querySelector('.lgo svg');
+      const outros = cards.filter((x) => x !== c);
+      /* destaque: o card vem para frente (sai da tela) e os outros recuam */
+      const frente = () => {
+        c.style.zIndex = 2;
+        M.animate(c, { scale: 1.12, y: -18, boxShadow: '0 36px 70px rgba(0,0,0,.5), 0 10px 20px rgba(0,0,0,.35)' }, MOLA);
+        M.animate(outros, { scale: 0.96, opacity: 0.55 }, { duration: 0.25 });
+        if (seta) M.animate(seta, { x: 5 }, MOLA);
+      };
+      const volta = () => {
+        c.style.zIndex = '';
+        M.animate(c, { scale: 1, y: 0, boxShadow: '0 14px 30px rgba(0,0,0,.38), 0 3px 8px rgba(0,0,0,.28)' }, MOLA);
+        M.animate(outros, { scale: 1, opacity: 1 }, { duration: 0.25 });
+        if (seta) M.animate(seta, { x: 0 }, MOLA);
+      };
+      c.addEventListener('pointerenter', frente);
+      c.addEventListener('pointerleave', volta);
+      c.addEventListener('focus', frente);
+      c.addEventListener('blur', volta);
+    });
+  }
+  function landSair(card, depois) {
+    const M = MO(); if (!M) return depois();
+    const outros = [...document.querySelectorAll('.lcard')].filter((c) => c !== card);
+    M.animate(outros, { opacity: 0, y: 12, scale: 0.97 }, { duration: 0.2 });
+    M.animate(card, { scale: [1.02, 1.05], opacity: [1, 0] }, { duration: 0.32, ease: [0.4, 0, 0.2, 1] }).then(depois, depois);
+  }
+  function planResumo() {
+    const p = planoAtual();
+    return `<section class="pcard" aria-labelledby="pr-t">
+      <div><span class="label">Você está vendo</span><h3 id="pr-t">Plano ${esc(p.nome)} · ${esc(p.titulo)}</h3>${incluso(p)}</div>
+      <a class="btn" href="#home" data-route="home">Trocar de plano</a>
     </section>`;
   }
-  function planView(p) {
-    const n = nivel(p.id), inclusos = PLANOS.slice(0, n + 1);
-    const tuts = TUT.filter((t) => nivel(TUT_PLANO[t.id] || 'pro') <= n);
-    return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 12)}<span aria-current="page">Plano ${esc(p.nome)}</span></nav>
-      <div class="page-top"><h1 class="page-h">Plano ${esc(p.nome)}${p.id === SEU_PLANO ? ' <span class="badge">Seu plano</span>' : ''}</h1><p class="lead">${esc(p.titulo)}.${n ? ' Cada plano inclui tudo do anterior.' : ''}</p></div>
-      <section class="sec"><h2>O que está incluso</h2><div class="pinc">${inclusos.map((x) => `<div><span class="label">${esc(x.nome)}</span><ul>${x.itens.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}</div></section>
-      <div class="duo">
-        <section aria-labelledby="pv-cf"><div class="block-head"><h2 id="pv-cf">Como fazer</h2></div><div class="rows">${tuts.map((t) => `<a class="row" href="#tut-${t.id}" data-route="tut-${t.id}">${ic(t.icone, 16)}<span class="row-t">${esc(t.titulo)}</span></a>`).join('')}</div></section>
-        <section aria-labelledby="pv-ap"><div class="block-head"><h2 id="pv-ap">Módulos</h2><a href="#apps" data-route="apps">${total} gráficos</a></div>${appRows()}</section>
-      </div>
-      <section class="sec"><h2>Métricas</h2><p class="sub">As métricas são as mesmas em todos os planos. <a href="#metricas" data-route="metricas">Ver como cada número é calculado</a>.</p></section>
-      <a class="btn pvolta" href="#inicio" data-route="inicio">Voltar para a home</a>`;
+  function lockView(t) {
+    const p = planoObj(planoMin(t));
+    return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 12)}<a href="#como-fazer" data-route="como-fazer">Como fazer</a>${ic('right', 12)}<span aria-current="page">${esc(t.titulo)}</span></nav>
+      <div class="empty"><h2>Disponível a partir do plano ${esc(p.nome)}</h2><p>“${esc(t.titulo)}” não faz parte do plano ${esc(planoAtual().nome)}.</p>
+      <div class="sugest"><a class="btn" href="#home" data-route="home">Trocar de plano</a> <a class="btn" href="#como-fazer" data-route="como-fazer">Ver o que está no meu plano</a></div></div>`;
   }
   /* ---------- roadmap ---------- */
+  const RM_SVG = (d) => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const RM_COLS = [
+    { id: 'desenvolvimento', nome: 'Em desenvolvimento', ico: RM_SVG('<path d="M8 5v14l11-7z" fill="currentColor"/>') },
+    { id: 'planejada', nome: 'Planejadas', ico: RM_SVG('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>') },
+    { id: 'estudo', nome: 'Em estudo', ico: RM_SVG('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>') }
+  ];
   function roadSection() {
     const rm = DATA.roadmap || [];
-    return `<div class="page-top"><h1 class="page-h">RoadMap</h1><p class="lead">O que está planejado para as próximas versões do Horus BI.</p></div>
-      <ul class="rm">${rm.map((r) => `<li><span class="label">${esc(r.status)}</span><b>${esc(r.titulo)}</b><span>${esc(r.resumo)}</span></li>`).join('')}</ul>`;
+    return `<div class="rm-head"><h1>Nosso Roadmap de Desenvolvimento</h1><p>Veja o status atual de cada funcionalidade e entenda o que estamos planejando evoluir no Horus BI.</p></div>
+      <div class="rm-cols">${RM_COLS.map((c) => { const it = rm.filter((r) => r.status === c.id); return `<section class="rm-col rm-${c.id}" aria-label="${c.nome}">
+        <div class="rm-col-h"><span class="rm-ico">${c.ico}</span><b>${c.nome}</b><span class="rm-n">${it.length}</span></div>
+        ${it.length ? it.map((r) => `<article class="rm-card"><b>${esc(r.titulo)}</b><span>${esc(r.resumo)}</span></article>`).join('') : '<p class="rm-vazio">Nenhum item no momento.</p>'}
+      </section>`; }).join('')}</div>`;
   }
   /* ---------- como fazer ---------- */
   const MV_TITULO = { erp: 'Vídeo: marcar um tipo de operação como Participa no ERP', tabelas: 'Vídeo: como as tabelas se ligam e viram relatório e alerta', lumia: 'Vídeo: pergunta vaga x pergunta precisa' };
@@ -670,7 +787,7 @@ button.btn { border: 0; }
     const tipo = (t) => (t.videos || []).length > 1 ? `${t.videos.length} vídeos` : (t.videos || []).length || t.motion ? 'vídeo' : 'texto';
     return `<div class="rows">
       <a class="row hot" href="#${PM_ROTA}" data-route="${PM_ROTA}">${ic('sheet', 16)}<span class="row-t">Gerar planilha de metas</span><span class="row-m">xlsx</span></a>
-      ${TUT.map((t) => `<a class="row" href="#tut-${t.id}" data-route="tut-${t.id}">${ic(t.icone, 16)}<span class="row-t">${esc(t.titulo)}</span><span class="row-m">${tipo(t)}</span></a>`).join('')}</div>`;
+      ${TUTP().map((t) => `<a class="row" href="#tut-${t.id}" data-route="tut-${t.id}">${ic(t.icone, 16)}<span class="row-t">${esc(t.titulo)}</span><span class="row-m">${tipo(t)}</span></a>`).join('')}</div>`;
   }
   function appRows() {
     return `<div class="rows">${apps.map((a) => `<a class="row" href="#${a.slug}" data-route="${a.slug}" title="${esc(a.resumo)}">${ic(APP_ICON[a.app], 16)}<span class="row-t">${esc(a.app)}</span><span class="row-m">${a.count} gráficos</span></a>`).join('')}</div>`;
@@ -686,7 +803,7 @@ button.btn { border: 0; }
     return `<ul class="tut-list ${b.tipo === 'passos' ? 'num' : 'dot'}">${b.itens.map((x) => `<li><span>${esc(x)}</span></li>`).join('')}</ul>`;
   }
   function tutView(t) {
-    const i = TUT.indexOf(t), ant = TUT[i - 1], prox = TUT[i + 1];
+    const L = TUTP(), i = L.indexOf(t), ant = L[i - 1], prox = L[i + 1];
     return `<nav class="bread" aria-label="Você está em"><a href="#inicio" data-route="inicio">Início</a>${ic('right', 14)}<a href="#como-fazer" data-route="como-fazer">Como fazer</a>${ic('right', 14)}<span aria-current="page">${esc(t.titulo)}</span></nav>
     <div class="layout">
       <nav class="toc" aria-label="Nesta página"><span class="label">Nesta página</span>${t.blocos.map((b, j) => `<a href="#tut-${t.id}" data-go="b${j}">${esc(b.titulo)}</a>`).join('')}<a href="#tut-${t.id}" data-go="fontes">Fontes na documentação</a></nav>
@@ -714,11 +831,11 @@ button.btn { border: 0; }
 
   function home() {
     return `${pulse()}
+    ${planResumo()}
     <div class="duo">
       <section aria-labelledby="cf-t"><div class="block-head"><h2 id="cf-t">Como fazer</h2><a href="#como-fazer" data-route="como-fazer">Ver tudo</a></div>${tutCards()}</section>
       <section aria-labelledby="apps-t"><div class="block-head"><h2 id="apps-t">Módulos</h2><a href="#apps" data-route="apps">${total} gráficos</a></div>${appRows()}</section>
     </div>
-    ${planTabs()}
     <nav class="more" aria-label="Outras páginas">
       <a href="#metricas" data-route="metricas"><b>Como ler</b><span>Como cada número é calculado, igual em todos os planos</span></a>
       <a href="#roadmap" data-route="roadmap"><b>RoadMap</b><span>O que vem nas próximas versões</span></a>
@@ -779,8 +896,6 @@ button.btn { border: 0; }
     novidades: () => migalha('Novidades') + novSection(),
     roadmap: () => migalha('RoadMap') + roadSection()
   };
-  PLANOS.forEach((p) => { PAGINAS['plano-' + p.id] = () => planView(p); });
-  PAGINAS.plano = () => planView(PLANOS.find((p) => p.id === SEU_PLANO)); /* links antigos para #plano */
 
   function item(w, id, tag) {
     const k = kind(w.tipo), pg = (w.perguntas || []).filter(Boolean);
@@ -819,7 +934,7 @@ button.btn { border: 0; }
     const mets = MET.filter((m) => hit([m.metrica, m.formula, m.detalhe, m.app, m.onde.join(' ')].join(' ')));
     const ws = [];
     apps.forEach((a) => a.dashboards.forEach((d, i) => d.widgets.forEach((w, j) => { if (hit([w.titulo, w.mostra, w.como_ler, (w.perguntas || []).join(' '), d.nome, a.app].join(' '))) ws.push({ a, d, w, id: `s${a.slug}-${i}-${j}` }); })));
-    const tuts = TUT.filter((t) => hit([t.titulo, t.resumo, ...t.blocos.map((b) => b.titulo + ' ' + b.itens.flat().join(' '))].join(' ')));
+    const tuts = TUTP().filter((t) => hit([t.titulo, t.resumo, ...t.blocos.map((b) => b.titulo + ' ' + b.itens.flat().join(' '))].join(' ')));
     if (!mets.length && !ws.length && !tuts.length) {
       return `<div class="empty"><h2>Nada encontrado para “${esc(q)}”</h2><p>Tente um termo mais curto ou um destes:</p><div class="sugest">${SUGEST.map((s) => `<button class="pill" data-q="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>`;
     }
@@ -1161,36 +1276,58 @@ button.btn { border: 0; }
   });
 
   /* ---------- rotas ---------- */
-  let atual = location.hash.replace('#', '') || 'inicio';
+  /* rotas de plano: #home é a escolha; #plano-<id> escolhe e abre o início; #plano (antigo) leva à escolha */
+  function rota(s) {
+    s = s || 'home';
+    if (s === 'plano') return 'home';
+    if (s.startsWith('plano-') && planoObj(s.slice(6))) { escolherPlano(s.slice(6)); return 'inicio'; }
+    if (s !== 'home' && s !== PM_ROTA && !plano) return 'home'; /* primeira visita: escolher o plano antes */
+    return s;
+  }
+  let atual = rota(location.hash.replace('#', ''));
   function render(focar) {
     const q = $('#q').value.trim();
     const a = apps.find((x) => x.slug === atual);
     const t = atual.startsWith('tut-') ? TUT.find((x) => 'tut-' + x.id === atual) : null;
+    const land = !q && atual === 'home';
     const hub = atual === 'como-fazer', pm = atual === PM_ROTA, pg = !q && PAGINAS[atual];
     document.querySelectorAll('.menu a').forEach((el) => {
       const r = el.dataset.route;
       const on = !q && (r === atual || (r === 'apps' && a) || (r === 'como-fazer' && (t || pm)));
       on ? el.setAttribute('aria-current', 'page') : el.removeAttribute('aria-current');
     });
-    document.body.dataset.rota = !q && !a && !t && !hub && !pm && !pg ? 'home' : 'pagina';
-    $('#view').innerHTML = q ? searchView(q) : a ? appView(a) : t ? tutView(t) : hub ? hubView() : pm ? pmView() : pg ? pg() : home();
+    document.body.dataset.rota = land ? 'landing' : !q && !a && !t && !hub && !pm && !pg ? 'home' : 'pagina';
+    marcarPlano();
+    if (land) { $('#foot').textContent = `Atualizado em ${DATA.gerado}.`; document.title = 'Guia Horus BI'; }
+    $('#view').innerHTML = land ? landView() : q ? searchView(q) : a ? appView(a) : t ? (temTut(t) ? tutView(t) : lockView(t)) : hub ? hubView() : pm ? pmView() : pg ? pg() : home();
     iniciarMotions();
+    if (land) landMotion();
     if (focar) $('#view').focus({ preventScroll: true });
   }
+  /* troca de tela com motion: a tela atual sai rápido (some e sobe) e a nova entra (aparece e sobe).
+     Saindo da home, os cards já fizeram a própria saída, então só a entrada roda. */
+  let trocaId = 0;
   function ir(s) {
-    atual = s || 'inicio';
-    $('#q').value = '';
-    try { history.replaceState(null, '', '#' + atual); } catch (_) {}
-    window.scrollTo({ top: 0 });
-    render(true);
+    const alvo = rota(s || 'inicio'), M = MO(), v = $('#view'), id = ++trocaId;
+    const mostra = () => {
+      if (id !== trocaId) return; /* outro clique chegou durante a saída */
+      atual = alvo;
+      $('#q').value = '';
+      try { history.replaceState(null, '', '#' + atual); } catch (_) {}
+      window.scrollTo({ top: 0 });
+      render(true);
+      if (M) M.animate(v, { opacity: [0, 1], y: [16, 0] }, { duration: 0.35, ease: [0.22, 1, 0.36, 1] });
+    };
+    if (M && document.body.dataset.rota !== 'landing' && v.childElementCount) M.animate(v, { opacity: 0, y: -8 }, { duration: 0.14, ease: 'easeIn' }).then(mostra, mostra);
+    else mostra();
   }
   document.addEventListener('click', (e) => {
     const pmb = e.target.closest('[data-pm]');
     if (pmb) { e.preventDefault(); if (!pmb.disabled) pmAcao(pmb.dataset.pm); return; }
     const nr = e.target.closest('[data-nref]');
     if (nr) { e.preventDefault(); irRef(JSON.parse(decodeURIComponent(nr.dataset.nref))); return; }
-    const ab = e.target.closest('[data-aba]');
-    if (ab) { abaPlano = ab.dataset.aba; document.querySelectorAll('[data-aba]').forEach((b) => { const on = b.dataset.aba === abaPlano; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; }); $('#pcard').innerHTML = planCard(PLANOS.find((p) => p.id === abaPlano)); return; }
+    const pl = e.target.closest('[data-plano]');
+    if (pl) { e.preventDefault(); if (pl.dataset.indo) return; pl.dataset.indo = '1'; escolherPlano(pl.dataset.plano); landSair(pl, () => ir('inicio')); return; }
     const nf = e.target.closest('[data-nv]');
     if (nf) { nvFiltro = nf.dataset.nv; document.querySelectorAll('[data-nv]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.nv === nvFiltro)); $('#nv').innerHTML = nvLista(); return; }
     const r = e.target.closest('[data-route]');
@@ -1207,18 +1344,10 @@ button.btn { border: 0; }
   let t;
   $('#q').addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => render(), 200); });
   $('#q').addEventListener('keydown', (e) => { if (e.key === 'Escape') { $('#q').value = ''; render(); } });
-  document.addEventListener('keydown', (e) => {
-    const ab = e.target.closest && e.target.closest('[data-aba]');
-    if (!ab || !['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
-    const i = (nivel(ab.dataset.aba) + (e.key === 'ArrowRight' ? 1 : PLANOS.length - 1)) % PLANOS.length;
-    const alvo = document.querySelector(`[data-aba="${PLANOS[i].id}"]`);
-    alvo.click(); alvo.focus(); e.preventDefault();
-  });
-  window.addEventListener('hashchange', () => { const s = location.hash.replace('#', '') || 'inicio'; if (s !== atual) ir(s); });
+  window.addEventListener('hashchange', () => { const s = location.hash.replace('#', '') || 'home'; if (s !== atual) ir(s); });
   const sup = $('#sup');
   $('#sup-abrir').addEventListener('click', () => sup.showModal());
   sup.addEventListener('click', (e) => { const r = sup.getBoundingClientRect(), fora = e.target === sup && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom); if (fora || e.target.closest('[data-sup-fechar]')) sup.close(); });
-  $('#foot').textContent = `Atualizado em ${DATA.gerado}, a partir dos módulos do plano Ultra. Os números dos painéis mudam com os filtros do topo.`;
   pmRetorno();
   render();
 })();
